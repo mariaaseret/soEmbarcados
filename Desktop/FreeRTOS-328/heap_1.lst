@@ -1,0 +1,128 @@
+   1               		.file	"heap_1.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	vPortFree
+  18               	vPortFree:
+  19               	.LFB3:
+  20               	.LM1:
+  21               	.LVL0:
+  22               	/* prologue: function */
+  23               	/* frame size = 0 */
+  24               	/* epilogue start */
+  25               	.LM2:
+  26 0000 0895      		ret
+  27               	.LFE3:
+  29               	.global	vPortInitialiseBlocks
+  31               	vPortInitialiseBlocks:
+  32               	.LFB4:
+  33               	.LM3:
+  34               	/* prologue: function */
+  35               	/* frame size = 0 */
+  36               	.LM4:
+  37 0002 1092 0000 		sts (xNextFreeByte)+1,__zero_reg__
+  38 0006 1092 0000 		sts xNextFreeByte,__zero_reg__
+  39               	/* epilogue start */
+  40               	.LM5:
+  41 000a 0895      		ret
+  42               	.LFE4:
+  44               	.global	xPortGetFreeHeapSize
+  46               	xPortGetFreeHeapSize:
+  47               	.LFB5:
+  48               	.LM6:
+  49               	/* prologue: function */
+  50               	/* frame size = 0 */
+  51               	.LM7:
+  52 000c 2CED      		ldi r18,lo8(1500)
+  53 000e 35E0      		ldi r19,hi8(1500)
+  54 0010 8091 0000 		lds r24,xNextFreeByte
+  55 0014 9091 0000 		lds r25,(xNextFreeByte)+1
+  56 0018 281B      		sub r18,r24
+  57 001a 390B      		sbc r19,r25
+  58               	.LM8:
+  59 001c C901      		movw r24,r18
+  60               	/* epilogue start */
+  61 001e 0895      		ret
+  62               	.LFE5:
+  64               	.global	pvPortMalloc
+  66               	pvPortMalloc:
+  67               	.LFB2:
+  68               	.LM9:
+  69               	.LVL1:
+  70 0020 0F93      		push r16
+  71 0022 1F93      		push r17
+  72 0024 CF93      		push r28
+  73 0026 DF93      		push r29
+  74               	/* prologue: function */
+  75               	/* frame size = 0 */
+  76 0028 8C01      		movw r16,r24
+  77               	.LM10:
+  78 002a 0E94 0000 		call vTaskSuspendAll
+  79               	.LVL2:
+  80               	.LM11:
+  81 002e 8091 0000 		lds r24,xNextFreeByte
+  82 0032 9091 0000 		lds r25,(xNextFreeByte)+1
+  83 0036 9801      		movw r18,r16
+  84 0038 280F      		add r18,r24
+  85 003a 391F      		adc r19,r25
+  86 003c 45E0      		ldi r20,hi8(1500)
+  87 003e 2C3D      		cpi r18,lo8(1500)
+  88 0040 3407      		cpc r19,r20
+  89 0042 00F4      		brsh .L8
+  90 0044 8217      		cp r24,r18
+  91 0046 9307      		cpc r25,r19
+  92 0048 00F4      		brsh .L8
+  93               	.LM12:
+  94 004a EC01      		movw r28,r24
+  95               	.LVL3:
+  96 004c C050      		subi r28,lo8(-(xHeap))
+  97 004e D040      		sbci r29,hi8(-(xHeap))
+  98               	.LM13:
+  99 0050 3093 0000 		sts (xNextFreeByte)+1,r19
+ 100 0054 2093 0000 		sts xNextFreeByte,r18
+ 101 0058 00C0      		rjmp .L9
+ 102               	.LVL4:
+ 103               	.L8:
+ 104 005a C0E0      		ldi r28,lo8(0)
+ 105 005c D0E0      		ldi r29,hi8(0)
+ 106               	.LVL5:
+ 107               	.L9:
+ 108               	.LM14:
+ 109 005e 0E94 0000 		call xTaskResumeAll
+ 110               	.LM15:
+ 111 0062 CE01      		movw r24,r28
+ 112               	.LVL6:
+ 113               	/* epilogue start */
+ 114 0064 DF91      		pop r29
+ 115 0066 CF91      		pop r28
+ 116 0068 1F91      		pop r17
+ 117 006a 0F91      		pop r16
+ 118               	.LVL7:
+ 119 006c 0895      		ret
+ 120               	.LFE2:
+ 122               		.lcomm xNextFreeByte,2
+ 123               		.lcomm xHeap,1500
+ 172               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 heap_1.c
+C:\Users\gabri\AppData\Local\Temp/ccFBxhPF.s:2      *ABS*:0000003f __SREG__
+C:\Users\gabri\AppData\Local\Temp/ccFBxhPF.s:3      *ABS*:0000003e __SP_H__
+C:\Users\gabri\AppData\Local\Temp/ccFBxhPF.s:4      *ABS*:0000003d __SP_L__
+C:\Users\gabri\AppData\Local\Temp/ccFBxhPF.s:5      *ABS*:00000034 __CCP__
+C:\Users\gabri\AppData\Local\Temp/ccFBxhPF.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\gabri\AppData\Local\Temp/ccFBxhPF.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\gabri\AppData\Local\Temp/ccFBxhPF.s:18     .text:00000000 vPortFree
+C:\Users\gabri\AppData\Local\Temp/ccFBxhPF.s:31     .text:00000002 vPortInitialiseBlocks
+                             .bss:00000000 xNextFreeByte
+C:\Users\gabri\AppData\Local\Temp/ccFBxhPF.s:46     .text:0000000c xPortGetFreeHeapSize
+C:\Users\gabri\AppData\Local\Temp/ccFBxhPF.s:66     .text:00000020 pvPortMalloc
+C:\Users\gabri\AppData\Local\Temp/ccFBxhPF.s:122    .bss:00000002 xHeap
+
+UNDEFINED SYMBOLS
+vTaskSuspendAll
+xTaskResumeAll
+__do_clear_bss

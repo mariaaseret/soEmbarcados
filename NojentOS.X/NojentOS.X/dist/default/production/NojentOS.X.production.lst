@@ -1,0 +1,3185 @@
+
+
+Microchip Technology PIC18 LITE Macro Assembler V1.41 build -162212810 
+                                                                                               Mon Oct 30 15:20:37 2017
+
+Microchip Technology Omniscient Code Generator v1.41 (Free mode) build 201701250102
+     1                           	processor	18LF4520
+     2                           	fnconf	rparam,??,?,0
+     3                           	opt	pw 120
+     4                           	opt	lm
+     5                           	psect	cinit,global,reloc=2,class=CODE,delta=1
+     6                           	psect	bssCOMRAM,global,class=COMRAM,space=1,delta=1,noexec
+     7                           	psect	bssBIGRAM,global,class=BIGRAM,space=1,delta=1,lowdata,noexec
+     8                           	psect	cstackBANK0,global,class=BANK0,space=1,delta=1,noexec
+     9                           	psect	cstackCOMRAM,global,class=COMRAM,space=1,delta=1,noexec
+    10                           	psect	text0,global,reloc=2,class=CODE,delta=1
+    11                           	psect	text1,global,reloc=2,class=CODE,delta=1
+    12                           	psect	text2,global,reloc=2,class=CODE,delta=1
+    13                           	psect	text3,global,reloc=2,class=CODE,delta=1,group=1
+    14                           	psect	text4,global,reloc=2,class=CODE,delta=1
+    15                           	psect	text5,global,reloc=2,class=CODE,delta=1
+    16                           	psect	text6,global,reloc=2,class=CODE,delta=1
+    17                           	psect	text7,global,reloc=2,class=CODE,delta=1
+    18                           	psect	text8,global,reloc=2,class=CODE,delta=1
+    19                           	psect	text9,global,reloc=2,class=CODE,delta=1
+    20                           	psect	text10,global,reloc=2,class=CODE,delta=1
+    21                           	psect	intcode,global,reloc=2,class=CODE,delta=1
+    22                           	psect	text12,global,reloc=2,class=CODE,delta=1
+    23                           	psect	text13,global,reloc=2,class=CODE,delta=1
+    24                           	psect	text14,global,reloc=2,class=CODE,delta=1
+    25                           	psect	text15,global,reloc=2,class=CODE,delta=1
+    26                           	psect	intsave_regs,global,class=BIGRAM,space=1,delta=1,noexec
+    27                           	psect	text16,global,reloc=2,class=CODE,delta=1
+    28                           	psect	rparam,global,class=COMRAM,space=1,delta=1,noexec
+    29                           	psect	temp,global,ovrld,common,class=COMRAM,space=1,delta=1
+    30  0000                     
+    31                           ; Version 1.41
+    32                           ; Generated 25/01/2017 GMT
+    33                           ; 
+    34                           ; Copyright © 2017, Microchip Technology Inc. and its subsidiaries ("Microchip")
+    35                           ; All rights reserved.
+    36                           ; 
+    37                           ; This software is developed by Microchip Technology Inc. and its subsidiaries ("Microch
+      +                          ip").
+    38                           ; 
+    39                           ; Redistribution and use in source and binary forms, with or without modification, are
+    40                           ; permitted provided that the following conditions are met:
+    41                           ; 
+    42                           ;     1. Redistributions of source code must retain the above copyright notice, this lis
+      +                          t of
+    43                           ;        conditions and the following disclaimer.
+    44                           ; 
+    45                           ;     2. Redistributions in binary form must reproduce the above copyright notice, this 
+      +                          list
+    46                           ;        of conditions and the following disclaimer in the documentation and/or other
+    47                           ;        materials provided with the distribution.
+    48                           ; 
+    49                           ;     3. Microchip's name may not be used to endorse or promote products derived from th
+      +                          is
+    50                           ;        software without specific prior written permission.
+    51                           ; 
+    52                           ; THIS SOFTWARE IS PROVIDED BY MICROCHIP "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+    53                           ; INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS F
+      +                          OR
+    54                           ; PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL MICROCHIP BE LIABLE FOR ANY DIRECT, INDIREC
+      +                          T,
+    55                           ; INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO
+    56                           ; PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA OR PROFITS; OR BUSINESS
+    57                           ; INTERRUPTION) HOWSOEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, ST
+      +                          RICT
+    58                           ; LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE U
+      +                          SE OF
+    59                           ; THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+    60                           ; 
+    61                           ; 
+    62                           ; Code-generator required, PIC18LF4520 Definitions
+    63                           ; 
+    64                           ; SFR Addresses
+    65  0000                     _TMR0	set	4054
+    66  0000                     _T0CONbits	set	4053
+    67  0000                     _LATDbits	set	3980
+    68  0000                     _PORTDbits	set	3971
+    69  0000                     _TRISDbits	set	3989
+    70  0000                     _STKPTR	set	4092
+    71  0000                     _TOSH	set	4094
+    72  0000                     _TOSL	set	4093
+    73  0000                     _TOSU	set	4095
+    74  0000                     _INTCONbits	set	4082
+    75  0000                     _TMR0ON	set	32431
+    76                           
+    77                           ; #config settings
+    78  0000                     
+    79                           	psect	cinit
+    80  0009E6                     __pcinit:
+    81                           	opt stack 0
+    82  0009E6                     start_initialization:
+    83                           	opt stack 0
+    84  0009E6                     __initialization:
+    85                           	opt stack 0
+    86                           
+    87                           ; Clear objects allocated to BIGRAM (456 bytes)
+    88  0009E6  EE04  F038         	lfsr	0,__pbssBIGRAM
+    89  0009EA  EE11 F0C8          	lfsr	1,456
+    90  0009EE                     clear_0:
+    91  0009EE  6AEE               	clrf	postinc0,c
+    92  0009F0  50E5               	movf	postdec1,w,c
+    93  0009F2  50E1               	movf	fsr1l,w,c
+    94  0009F4  E1FC               	bnz	clear_0
+    95  0009F6  50E2               	movf	fsr1h,w,c
+    96  0009F8  E1FA               	bnz	clear_0
+    97                           
+    98                           ; Clear objects allocated to COMRAM (31 bytes)
+    99  0009FA  EE00  F035         	lfsr	0,__pbssCOMRAM
+   100  0009FE  0E1F               	movlw	31
+   101  000A00                     clear_1:
+   102  000A00  6AEE               	clrf	postinc0,c
+   103  000A02  06E8               	decf	wreg,f,c
+   104  000A04  E1FD               	bnz	clear_1
+   105  000A06                     end_of_initialization:
+   106                           	opt stack 0
+   107  000A06                     __end_of__initialization:
+   108                           	opt stack 0
+   109  000A06  9054               	bcf	int$flags,0,c	;clear compiler interrupt flag (level 1)
+   110  000A08  9254               	bcf	int$flags,1,c	;clear compiler interrupt flag (level 2)
+   111  000A0A  0100               	movlb	0
+   112  000A0C  EF37  F004         	goto	_main	;jump to C main() function
+   113                           postinc0	equ	0xFEE
+   114                           wreg	equ	0xFE8
+   115                           postdec1	equ	0xFE5
+   116                           fsr1h	equ	0xFE2
+   117                           fsr1l	equ	0xFE1
+   118                           
+   119                           	psect	bssCOMRAM
+   120  000035                     __pbssCOMRAM:
+   121                           	opt stack 0
+   122  000035                     _tSTATUS:
+   123                           	opt stack 0
+   124  000035                     	ds	1
+   125  000036                     _tBSR:
+   126                           	opt stack 0
+   127  000036                     	ds	1
+   128  000037                     _tWORK:
+   129                           	opt stack 0
+   130  000037                     	ds	1
+   131  000038                     _Q_DELAY:
+   132                           	opt stack 0
+   133  000038                     	ds	28
+   134                           postinc0	equ	0xFEE
+   135                           wreg	equ	0xFE8
+   136                           postdec1	equ	0xFE5
+   137                           fsr1h	equ	0xFE2
+   138                           fsr1l	equ	0xFE1
+   139                           
+   140                           	psect	bssBIGRAM
+   141  000438                     __pbssBIGRAM:
+   142                           	opt stack 0
+   143  000438                     _F_APTOS:
+   144                           	opt stack 0
+   145  000438                     	ds	456
+   146                           postinc0	equ	0xFEE
+   147                           wreg	equ	0xFE8
+   148                           postdec1	equ	0xFE5
+   149                           fsr1h	equ	0xFE2
+   150                           fsr1l	equ	0xFE1
+   151                           
+   152                           	psect	cstackBANK0
+   153  000000                     __pcstackBANK0:
+   154                           	opt stack 0
+   155  000000                     postinc0	equ	0xFEE
+   156                           wreg	equ	0xFE8
+   157                           postdec1	equ	0xFE5
+   158                           fsr1h	equ	0xFE2
+   159                           fsr1l	equ	0xFE1
+   160                           
+   161                           ; 1 bytes @ 0x0
+   162                           
+   163                           	psect	cstackCOMRAM
+   164  000001                     __pcstackCOMRAM:
+   165                           	opt stack 0
+   166  000001                     ??_pisca_led_red:
+   167  000001                     ?_nojoTaskIdle:
+   168                           	opt stack 0
+   169  000001                     ?_pisca_led_red:
+   170                           	opt stack 0
+   171  000001                     ?_pisca_led_yellow:
+   172                           	opt stack 0
+   173  000001                     ?_pisca_led_green:
+   174                           	opt stack 0
+   175  000001                     ?i2___wmul:
+   176                           	opt stack 0
+   177  000001                     i2___wmul@multiplier:
+   178                           	opt stack 0
+   179                           
+   180                           ; 2 bytes @ 0x0
+   181  000001                     	ds	1
+   182  000002                     ??_pisca_led_yellow:
+   183                           
+   184                           ; 1 bytes @ 0x1
+   185  000002                     	ds	1
+   186  000003                     ??_pisca_led_green:
+   187  000003                     i2___wmul@multiplicand:
+   188                           	opt stack 0
+   189                           
+   190                           ; 2 bytes @ 0x2
+   191  000003                     	ds	1
+   192  000004                     ?___wmul:
+   193                           	opt stack 0
+   194  000004                     delay_queue_create@delay_queue_handler:
+   195                           	opt stack 0
+   196  000004                     ___wmul@multiplier:
+   197                           	opt stack 0
+   198                           
+   199                           ; 2 bytes @ 0x3
+   200  000004                     	ds	1
+   201  000005                     i2___wmul@product:
+   202                           	opt stack 0
+   203                           
+   204                           ; 2 bytes @ 0x4
+   205  000005                     	ds	1
+   206  000006                     ??_delay_queue_create:
+   207  000006                     ___wmul@multiplicand:
+   208                           	opt stack 0
+   209                           
+   210                           ; 2 bytes @ 0x5
+   211  000006                     	ds	1
+   212  000007                     ?_priority_scheduler:
+   213                           	opt stack 0
+   214                           
+   215                           ; 4 bytes @ 0x6
+   216  000007                     	ds	1
+   217  000008                     delay_queue_create@i:
+   218                           	opt stack 0
+   219  000008                     ___wmul@product:
+   220                           	opt stack 0
+   221                           
+   222                           ; 2 bytes @ 0x7
+   223  000008                     	ds	2
+   224  00000A                     nojoTaskCreate@id:
+   225                           	opt stack 0
+   226                           
+   227                           ; 4 bytes @ 0x9
+   228  00000A                     	ds	1
+   229  00000B                     
+   230                           ; 1 bytes @ 0xA
+   231  00000B                     	ds	3
+   232  00000E                     nojoTaskCreate@prior:
+   233                           	opt stack 0
+   234                           
+   235                           ; 4 bytes @ 0xD
+   236  00000E                     	ds	4
+   237  000012                     nojoTaskCreate@task_PTR:
+   238                           	opt stack 0
+   239                           
+   240                           ; 2 bytes @ 0x11
+   241  000012                     	ds	1
+   242  000013                     priority_scheduler@pos_next_task:
+   243                           	opt stack 0
+   244                           
+   245                           ; 4 bytes @ 0x12
+   246  000013                     	ds	1
+   247  000014                     ??_nojoTaskCreate:
+   248                           
+   249                           ; 1 bytes @ 0x13
+   250  000014                     	ds	3
+   251  000017                     priority_scheduler@i:
+   252                           	opt stack 0
+   253                           
+   254                           ; 4 bytes @ 0x16
+   255  000017                     	ds	1
+   256  000018                     
+   257                           ; 1 bytes @ 0x17
+   258  000018                     	ds	3
+   259  00001B                     ??_nojoDispatcher:
+   260                           
+   261                           ; 1 bytes @ 0x1A
+   262  00001B                     	ds	7
+   263  000022                     nojoDispatcher@state:
+   264                           	opt stack 0
+   265                           
+   266                           ; 1 bytes @ 0x21
+   267  000022                     	ds	1
+   268  000023                     nojoDispatcher@task_pos:
+   269                           	opt stack 0
+   270                           
+   271                           ; 4 bytes @ 0x22
+   272  000023                     	ds	4
+   273  000027                     ??_timer_ISR:
+   274                           
+   275                           ; 1 bytes @ 0x26
+   276  000027                     	ds	14
+   277                           postinc0	equ	0xFEE
+   278                           wreg	equ	0xFE8
+   279                           postdec1	equ	0xFE5
+   280                           fsr1h	equ	0xFE2
+   281                           fsr1l	equ	0xFE1
+   282                           
+   283 ;;
+   284 ;;Main: autosize = 0, tempsize = 0, incstack = 0, save=0
+   285 ;;
+   286 ;; *************** function _main *****************
+   287 ;; Defined at:
+   288 ;;		line 6 in file "../main.c"
+   289 ;; Parameters:    Size  Location     Type
+   290 ;;		None
+   291 ;; Auto vars:     Size  Location     Type
+   292 ;;		None
+   293 ;; Return value:  Size  Location     Type
+   294 ;;                  2  110[None  ] int 
+   295 ;; Registers used:
+   296 ;;		wreg, fsr2l, fsr2h, status,2, status,0, prodl, prodh, cstack
+   297 ;; Tracked objects:
+   298 ;;		On entry : 0/0
+   299 ;;		On exit  : 0/0
+   300 ;;		Unchanged: 0/0
+   301 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+   302 ;;      Params:         0       0       0       0       0       0       0
+   303 ;;      Locals:         0       0       0       0       0       0       0
+   304 ;;      Temps:          0       0       0       0       0       0       0
+   305 ;;      Totals:         0       0       0       0       0       0       0
+   306 ;;Total ram usage:        0 bytes
+   307 ;; Hardware stack levels required when called:    7
+   308 ;; This function calls:
+   309 ;;		_nojoScheduler
+   310 ;;		_nojoStart
+   311 ;;		_nojoTaskCreate
+   312 ;;		_setupTimer
+   313 ;; This function is called by:
+   314 ;;		Startup code after reset
+   315 ;; This function uses a non-reentrant model
+   316 ;;
+   317                           
+   318                           	psect	text0
+   319  00086E                     __ptext0:
+   320                           	opt stack 0
+   321  00086E                     _main:
+   322                           	opt stack 24
+   323                           
+   324                           ;main.c: 9: nojoStart();
+   325                           
+   326                           ;incstack = 0
+   327  00086E  EC81  F004         	call	_nojoStart	;wreg free
+   328                           
+   329                           ;main.c: 10: setupTimer();
+   330  000872  EC67  F005         	call	_setupTimer	;wreg free
+   331                           
+   332                           ;main.c: 13: nojoTaskCreate(1, 10, pisca_led_red);
+   333  000876  0E01               	movlw	1
+   334  000878  6E0A               	movwf	nojoTaskCreate@id,c
+   335  00087A  0E00               	movlw	0
+   336  00087C  6E0B               	movwf	nojoTaskCreate@id+1,c
+   337  00087E  0E00               	movlw	0
+   338  000880  6E0C               	movwf	nojoTaskCreate@id+2,c
+   339  000882  0E00               	movlw	0
+   340  000884  6E0D               	movwf	nojoTaskCreate@id+3,c
+   341  000886  0E0A               	movlw	10
+   342  000888  6E0E               	movwf	nojoTaskCreate@prior,c
+   343  00088A  0E00               	movlw	0
+   344  00088C  6E0F               	movwf	nojoTaskCreate@prior+1,c
+   345  00088E  0E00               	movlw	0
+   346  000890  6E10               	movwf	nojoTaskCreate@prior+2,c
+   347  000892  0E00               	movlw	0
+   348  000894  6E11               	movwf	nojoTaskCreate@prior+3,c
+   349  000896  0EAA               	movlw	low _pisca_led_red
+   350  000898  6E12               	movwf	nojoTaskCreate@task_PTR,c
+   351  00089A  0E0A               	movlw	high _pisca_led_red
+   352  00089C  6E13               	movwf	nojoTaskCreate@task_PTR+1,c
+   353  00089E  ECD9  F002         	call	_nojoTaskCreate	;wreg free
+   354                           
+   355                           ;main.c: 14: nojoTaskCreate(2, 5, pisca_led_yellow);
+   356  0008A2  0E02               	movlw	2
+   357  0008A4  6E0A               	movwf	nojoTaskCreate@id,c
+   358  0008A6  0E00               	movlw	0
+   359  0008A8  6E0B               	movwf	nojoTaskCreate@id+1,c
+   360  0008AA  0E00               	movlw	0
+   361  0008AC  6E0C               	movwf	nojoTaskCreate@id+2,c
+   362  0008AE  0E00               	movlw	0
+   363  0008B0  6E0D               	movwf	nojoTaskCreate@id+3,c
+   364  0008B2  0E05               	movlw	5
+   365  0008B4  6E0E               	movwf	nojoTaskCreate@prior,c
+   366  0008B6  0E00               	movlw	0
+   367  0008B8  6E0F               	movwf	nojoTaskCreate@prior+1,c
+   368  0008BA  0E00               	movlw	0
+   369  0008BC  6E10               	movwf	nojoTaskCreate@prior+2,c
+   370  0008BE  0E00               	movlw	0
+   371  0008C0  6E11               	movwf	nojoTaskCreate@prior+3,c
+   372  0008C2  0E5E               	movlw	low _pisca_led_yellow
+   373  0008C4  6E12               	movwf	nojoTaskCreate@task_PTR,c
+   374  0008C6  0E0A               	movlw	high _pisca_led_yellow
+   375  0008C8  6E13               	movwf	nojoTaskCreate@task_PTR+1,c
+   376  0008CA  ECD9  F002         	call	_nojoTaskCreate	;wreg free
+   377                           
+   378                           ;main.c: 15: nojoTaskCreate(3, 7, pisca_led_green);
+   379  0008CE  0E03               	movlw	3
+   380  0008D0  6E0A               	movwf	nojoTaskCreate@id,c
+   381  0008D2  0E00               	movlw	0
+   382  0008D4  6E0B               	movwf	nojoTaskCreate@id+1,c
+   383  0008D6  0E00               	movlw	0
+   384  0008D8  6E0C               	movwf	nojoTaskCreate@id+2,c
+   385  0008DA  0E00               	movlw	0
+   386  0008DC  6E0D               	movwf	nojoTaskCreate@id+3,c
+   387  0008DE  0E07               	movlw	7
+   388  0008E0  6E0E               	movwf	nojoTaskCreate@prior,c
+   389  0008E2  0E00               	movlw	0
+   390  0008E4  6E0F               	movwf	nojoTaskCreate@prior+1,c
+   391  0008E6  0E00               	movlw	0
+   392  0008E8  6E10               	movwf	nojoTaskCreate@prior+2,c
+   393  0008EA  0E00               	movlw	0
+   394  0008EC  6E11               	movwf	nojoTaskCreate@prior+3,c
+   395  0008EE  0E10               	movlw	low _pisca_led_green
+   396  0008F0  6E12               	movwf	nojoTaskCreate@task_PTR,c
+   397  0008F2  0E0A               	movlw	high _pisca_led_green
+   398  0008F4  6E13               	movwf	nojoTaskCreate@task_PTR+1,c
+   399  0008F6  ECD9  F002         	call	_nojoTaskCreate	;wreg free
+   400                           
+   401                           ;main.c: 17: nojoScheduler();
+   402  0008FA  EC7A  F005         	call	_nojoScheduler	;wreg free
+   403  0008FE                     l1345:
+   404                           
+   405                           ;main.c: 20: {
+   406                           ;main.c: 21: __nop();
+   407  0008FE  F000               	nop	
+   408  000900  D7FE               	goto	l1345
+   409  000902                     __end_of_main:
+   410                           	opt stack 0
+   411                           postinc0	equ	0xFEE
+   412                           wreg	equ	0xFE8
+   413                           postdec1	equ	0xFE5
+   414                           fsr1h	equ	0xFE2
+   415                           fsr1l	equ	0xFE1
+   416                           
+   417 ;; *************** function _setupTimer *****************
+   418 ;; Defined at:
+   419 ;;		line 4 in file "../timer.c"
+   420 ;; Parameters:    Size  Location     Type
+   421 ;;		None
+   422 ;; Auto vars:     Size  Location     Type
+   423 ;;		None
+   424 ;; Return value:  Size  Location     Type
+   425 ;;                  1    wreg      void 
+   426 ;; Registers used:
+   427 ;;		wreg, status,2
+   428 ;; Tracked objects:
+   429 ;;		On entry : 0/0
+   430 ;;		On exit  : 0/0
+   431 ;;		Unchanged: 0/0
+   432 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+   433 ;;      Params:         0       0       0       0       0       0       0
+   434 ;;      Locals:         0       0       0       0       0       0       0
+   435 ;;      Temps:          0       0       0       0       0       0       0
+   436 ;;      Totals:         0       0       0       0       0       0       0
+   437 ;;Total ram usage:        0 bytes
+   438 ;; Hardware stack levels used:    1
+   439 ;; Hardware stack levels required when called:    5
+   440 ;; This function calls:
+   441 ;;		Nothing
+   442 ;; This function is called by:
+   443 ;;		_main
+   444 ;; This function uses a non-reentrant model
+   445 ;;
+   446                           
+   447                           	psect	text1
+   448  000ACE                     __ptext1:
+   449                           	opt stack 0
+   450  000ACE                     _setupTimer:
+   451                           	opt stack 25
+   452                           
+   453                           ;timer.c: 7: T0CONbits.T0CS = 0;
+   454                           
+   455                           ;incstack = 0
+   456  000ACE  9AD5               	bcf	4053,5,c	;volatile
+   457                           
+   458                           ;timer.c: 8: T0CONbits.T08BIT = 0;
+   459  000AD0  9CD5               	bcf	4053,6,c	;volatile
+   460                           
+   461                           ;timer.c: 9: T0CONbits.PSA = 0;
+   462  000AD2  96D5               	bcf	4053,3,c	;volatile
+   463                           
+   464                           ;timer.c: 10: T0CONbits.T0PS = 0b010;
+   465  000AD4  50D5               	movf	4053,w,c	;volatile
+   466  000AD6  0BF8               	andlw	-8
+   467  000AD8  0902               	iorlw	2
+   468  000ADA  6ED5               	movwf	4053,c	;volatile
+   469                           
+   470                           ;timer.c: 11: INTCONbits.TMR0IE = 1;
+   471  000ADC  8AF2               	bsf	intcon,5,c	;volatile
+   472                           
+   473                           ;timer.c: 12: INTCONbits.TMR0IF = 0;
+   474  000ADE  94F2               	bcf	intcon,2,c	;volatile
+   475                           
+   476                           ;timer.c: 13: INTCONbits.PEIE = 1;
+   477  000AE0  8CF2               	bsf	intcon,6,c	;volatile
+   478  000AE2  0012               	return		;funcret
+   479  000AE4                     __end_of_setupTimer:
+   480                           	opt stack 0
+   481                           intcon	equ	0xFF2
+   482                           postinc0	equ	0xFEE
+   483                           wreg	equ	0xFE8
+   484                           postdec1	equ	0xFE5
+   485                           fsr1h	equ	0xFE2
+   486                           fsr1l	equ	0xFE1
+   487                           
+   488 ;; *************** function _nojoTaskCreate *****************
+   489 ;; Defined at:
+   490 ;;		line 25 in file "../kernel.c"
+   491 ;; Parameters:    Size  Location     Type
+   492 ;;  id              4    9[COMRAM] unsigned long 
+   493 ;;  prior           4   13[COMRAM] unsigned long 
+   494 ;;  task_PTR        2   17[COMRAM] PTR FTN()PTR void 
+   495 ;;		 -> pisca_led_green(2), pisca_led_yellow(2), pisca_led_red(2), 
+   496 ;; Auto vars:     Size  Location     Type
+   497 ;;		None
+   498 ;; Return value:  Size  Location     Type
+   499 ;;                  1    wreg      void 
+   500 ;; Registers used:
+   501 ;;		wreg, fsr2l, fsr2h, status,2, status,0, prodl, prodh, cstack
+   502 ;; Tracked objects:
+   503 ;;		On entry : 0/0
+   504 ;;		On exit  : 0/0
+   505 ;;		Unchanged: 0/0
+   506 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+   507 ;;      Params:        10       0       0       0       0       0       0
+   508 ;;      Locals:         0       0       0       0       0       0       0
+   509 ;;      Temps:          4       0       0       0       0       0       0
+   510 ;;      Totals:        14       0       0       0       0       0       0
+   511 ;;Total ram usage:       14 bytes
+   512 ;; Hardware stack levels used:    1
+   513 ;; Hardware stack levels required when called:    6
+   514 ;; This function calls:
+   515 ;;		___wmul
+   516 ;; This function is called by:
+   517 ;;		_main
+   518 ;; This function uses a non-reentrant model
+   519 ;;
+   520                           
+   521                           	psect	text2
+   522  0005B2                     __ptext2:
+   523                           	opt stack 0
+   524  0005B2                     _nojoTaskCreate:
+   525                           	opt stack 24
+   526                           
+   527                           ;kernel.c: 27: F_APTOS.FILA_APTOS[F_APTOS.tasks_installed].task_ID = id;
+   528                           
+   529                           ;incstack = 0
+   530  0005B2  C5F8  F004         	movff	_F_APTOS+448,___wmul@multiplier
+   531  0005B6  C5F9  F005         	movff	_F_APTOS+449,___wmul@multiplier+1
+   532  0005BA  0E00               	movlw	0
+   533  0005BC  6E07               	movwf	___wmul@multiplicand+1,c
+   534  0005BE  0E70               	movlw	112
+   535  0005C0  6E06               	movwf	___wmul@multiplicand,c
+   536  0005C2  EC1C  F005         	call	___wmul	;wreg free
+   537  0005C6  0E38               	movlw	low _F_APTOS
+   538  0005C8  2404               	addwf	?___wmul,w,c
+   539  0005CA  6ED9               	movwf	fsr2l,c
+   540  0005CC  0E04               	movlw	high _F_APTOS
+   541  0005CE  2005               	addwfc	?___wmul+1,w,c
+   542  0005D0  6EDA               	movwf	fsr2h,c
+   543  0005D2  C00A  FFDE         	movff	nojoTaskCreate@id,postinc2
+   544  0005D6  C00B  FFDE         	movff	nojoTaskCreate@id+1,postinc2
+   545  0005DA  C00C  FFDE         	movff	nojoTaskCreate@id+2,postinc2
+   546  0005DE  C00D  FFDE         	movff	nojoTaskCreate@id+3,postinc2
+   547                           
+   548                           ;kernel.c: 28: F_APTOS.FILA_APTOS[F_APTOS.tasks_installed].task_PRIOR = prior;
+   549  0005E2  C5F8  F004         	movff	_F_APTOS+448,___wmul@multiplier
+   550  0005E6  C5F9  F005         	movff	_F_APTOS+449,___wmul@multiplier+1
+   551  0005EA  0E00               	movlw	0
+   552  0005EC  6E07               	movwf	___wmul@multiplicand+1,c
+   553  0005EE  0E70               	movlw	112
+   554  0005F0  6E06               	movwf	___wmul@multiplicand,c
+   555  0005F2  EC1C  F005         	call	___wmul	;wreg free
+   556  0005F6  0E04               	movlw	4
+   557  0005F8  2604               	addwf	?___wmul,f,c
+   558  0005FA  0E00               	movlw	0
+   559  0005FC  2205               	addwfc	?___wmul+1,f,c
+   560  0005FE  0E38               	movlw	low _F_APTOS
+   561  000600  2404               	addwf	?___wmul,w,c
+   562  000602  6ED9               	movwf	fsr2l,c
+   563  000604  0E04               	movlw	high _F_APTOS
+   564  000606  2005               	addwfc	?___wmul+1,w,c
+   565  000608  6EDA               	movwf	fsr2h,c
+   566  00060A  C00E  FFDE         	movff	nojoTaskCreate@prior,postinc2
+   567  00060E  C00F  FFDE         	movff	nojoTaskCreate@prior+1,postinc2
+   568  000612  C010  FFDE         	movff	nojoTaskCreate@prior+2,postinc2
+   569  000616  C011  FFDE         	movff	nojoTaskCreate@prior+3,postinc2
+   570                           
+   571                           ;kernel.c: 29: F_APTOS.FILA_APTOS[F_APTOS.tasks_installed].task_STATE = READY;
+   572  00061A  C5F8  F004         	movff	_F_APTOS+448,___wmul@multiplier
+   573  00061E  C5F9  F005         	movff	_F_APTOS+449,___wmul@multiplier+1
+   574  000622  0E00               	movlw	0
+   575  000624  6E07               	movwf	___wmul@multiplicand+1,c
+   576  000626  0E70               	movlw	112
+   577  000628  6E06               	movwf	___wmul@multiplicand,c
+   578  00062A  EC1C  F005         	call	___wmul	;wreg free
+   579  00062E  0E08               	movlw	8
+   580  000630  2604               	addwf	?___wmul,f,c
+   581  000632  0E00               	movlw	0
+   582  000634  2205               	addwfc	?___wmul+1,f,c
+   583  000636  0E38               	movlw	low _F_APTOS
+   584  000638  2404               	addwf	?___wmul,w,c
+   585  00063A  6ED9               	movwf	fsr2l,c
+   586  00063C  0E04               	movlw	high _F_APTOS
+   587  00063E  2005               	addwfc	?___wmul+1,w,c
+   588  000640  6EDA               	movwf	fsr2h,c
+   589  000642  0E00               	movlw	0
+   590  000644  6EDF               	movwf	indf2,c
+   591                           
+   592                           ;kernel.c: 30: F_APTOS.FILA_APTOS[F_APTOS.tasks_installed].task_PTR = task_PTR;
+   593  000646  C5F8  F004         	movff	_F_APTOS+448,___wmul@multiplier
+   594  00064A  C5F9  F005         	movff	_F_APTOS+449,___wmul@multiplier+1
+   595  00064E  0E00               	movlw	0
+   596  000650  6E07               	movwf	___wmul@multiplicand+1,c
+   597  000652  0E70               	movlw	112
+   598  000654  6E06               	movwf	___wmul@multiplicand,c
+   599  000656  EC1C  F005         	call	___wmul	;wreg free
+   600  00065A  0E09               	movlw	9
+   601  00065C  2604               	addwf	?___wmul,f,c
+   602  00065E  0E00               	movlw	0
+   603  000660  2205               	addwfc	?___wmul+1,f,c
+   604  000662  0E38               	movlw	low _F_APTOS
+   605  000664  2404               	addwf	?___wmul,w,c
+   606  000666  6ED9               	movwf	fsr2l,c
+   607  000668  0E04               	movlw	high _F_APTOS
+   608  00066A  2005               	addwfc	?___wmul+1,w,c
+   609  00066C  6EDA               	movwf	fsr2h,c
+   610  00066E  C012  FFDE         	movff	nojoTaskCreate@task_PTR,postinc2
+   611  000672  C013  FFDD         	movff	nojoTaskCreate@task_PTR+1,postdec2
+   612                           
+   613                           ;kernel.c: 31: F_APTOS.FILA_APTOS[F_APTOS.tasks_installed].task_CTX.ctx_STACK.task_stack
+      +                          [0].TOSL = (uint32_t) task_PTR;
+   614  000676  C5F8  F004         	movff	_F_APTOS+448,___wmul@multiplier
+   615  00067A  C5F9  F005         	movff	_F_APTOS+449,___wmul@multiplier+1
+   616  00067E  0E00               	movlw	0
+   617  000680  6E07               	movwf	___wmul@multiplicand+1,c
+   618  000682  0E70               	movlw	112
+   619  000684  6E06               	movwf	___wmul@multiplicand,c
+   620  000686  EC1C  F005         	call	___wmul	;wreg free
+   621  00068A  0E12               	movlw	18
+   622  00068C  2604               	addwf	?___wmul,f,c
+   623  00068E  0E00               	movlw	0
+   624  000690  2205               	addwfc	?___wmul+1,f,c
+   625  000692  0E38               	movlw	low _F_APTOS
+   626  000694  2404               	addwf	?___wmul,w,c
+   627  000696  6ED9               	movwf	fsr2l,c
+   628  000698  0E04               	movlw	high _F_APTOS
+   629  00069A  2005               	addwfc	?___wmul+1,w,c
+   630  00069C  6EDA               	movwf	fsr2h,c
+   631  00069E  C012  FFDF         	movff	nojoTaskCreate@task_PTR,indf2
+   632                           
+   633                           ;kernel.c: 32: F_APTOS.FILA_APTOS[F_APTOS.tasks_installed].task_CTX.ctx_STACK.task_stack
+      +                          [0].TOSH = (uint32_t) task_PTR >> 8;
+   634  0006A2  C5F8  F004         	movff	_F_APTOS+448,___wmul@multiplier
+   635  0006A6  C5F9  F005         	movff	_F_APTOS+449,___wmul@multiplier+1
+   636  0006AA  0E00               	movlw	0
+   637  0006AC  6E07               	movwf	___wmul@multiplicand+1,c
+   638  0006AE  0E70               	movlw	112
+   639  0006B0  6E06               	movwf	___wmul@multiplicand,c
+   640  0006B2  EC1C  F005         	call	___wmul	;wreg free
+   641  0006B6  0E13               	movlw	19
+   642  0006B8  2604               	addwf	?___wmul,f,c
+   643  0006BA  0E00               	movlw	0
+   644  0006BC  2205               	addwfc	?___wmul+1,f,c
+   645  0006BE  0E38               	movlw	low _F_APTOS
+   646  0006C0  2404               	addwf	?___wmul,w,c
+   647  0006C2  6ED9               	movwf	fsr2l,c
+   648  0006C4  0E04               	movlw	high _F_APTOS
+   649  0006C6  2005               	addwfc	?___wmul+1,w,c
+   650  0006C8  6EDA               	movwf	fsr2h,c
+   651  0006CA  5012               	movf	nojoTaskCreate@task_PTR,w,c
+   652  0006CC  6E14               	movwf	??_nojoTaskCreate& (0+255),c
+   653  0006CE  5013               	movf	nojoTaskCreate@task_PTR+1,w,c
+   654  0006D0  6E15               	movwf	(??_nojoTaskCreate+1)& (0+255),c
+   655  0006D2  6A16               	clrf	(??_nojoTaskCreate+2)& (0+255),c
+   656  0006D4  6A17               	clrf	(??_nojoTaskCreate+3)& (0+255),c
+   657  0006D6  C015  F014         	movff	??_nojoTaskCreate+1,??_nojoTaskCreate
+   658  0006DA  C016  F015         	movff	??_nojoTaskCreate+2,??_nojoTaskCreate+1
+   659  0006DE  C017  F016         	movff	??_nojoTaskCreate+3,??_nojoTaskCreate+2
+   660  0006E2  6A17               	clrf	??_nojoTaskCreate+3,c
+   661  0006E4  5014               	movf	??_nojoTaskCreate,w,c
+   662  0006E6  6EDF               	movwf	indf2,c
+   663                           
+   664                           ;kernel.c: 33: F_APTOS.FILA_APTOS[F_APTOS.tasks_installed].task_CTX.ctx_STACK.task_stack
+      +                          [0].TOSU = (uint32_t) task_PTR >> 16;
+   665  0006E8  5012               	movf	nojoTaskCreate@task_PTR,w,c
+   666  0006EA  6E14               	movwf	??_nojoTaskCreate& (0+255),c
+   667  0006EC  5013               	movf	nojoTaskCreate@task_PTR+1,w,c
+   668  0006EE  6E15               	movwf	(??_nojoTaskCreate+1)& (0+255),c
+   669  0006F0  6A16               	clrf	(??_nojoTaskCreate+2)& (0+255),c
+   670  0006F2  6A17               	clrf	(??_nojoTaskCreate+3)& (0+255),c
+   671  0006F4  0E11               	movlw	17
+   672  0006F6  D005               	goto	u280
+   673  0006F8                     u285:
+   674  0006F8  90D8               	bcf	status,0,c
+   675  0006FA  3217               	rrcf	??_nojoTaskCreate+3,f,c
+   676  0006FC  3216               	rrcf	??_nojoTaskCreate+2,f,c
+   677  0006FE  3215               	rrcf	??_nojoTaskCreate+1,f,c
+   678  000700  3214               	rrcf	??_nojoTaskCreate,f,c
+   679  000702                     u280:
+   680  000702  2EE8               	decfsz	wreg,f,c
+   681  000704  D7F9               	goto	u285
+   682  000706  C5F8  F004         	movff	_F_APTOS+448,___wmul@multiplier
+   683  00070A  C5F9  F005         	movff	_F_APTOS+449,___wmul@multiplier+1
+   684  00070E  0E00               	movlw	0
+   685  000710  6E07               	movwf	___wmul@multiplicand+1,c
+   686  000712  0E70               	movlw	112
+   687  000714  6E06               	movwf	___wmul@multiplicand,c
+   688  000716  EC1C  F005         	call	___wmul	;wreg free
+   689  00071A  0E14               	movlw	20
+   690  00071C  2604               	addwf	?___wmul,f,c
+   691  00071E  0E00               	movlw	0
+   692  000720  2205               	addwfc	?___wmul+1,f,c
+   693  000722  0E38               	movlw	low _F_APTOS
+   694  000724  2404               	addwf	?___wmul,w,c
+   695  000726  6ED9               	movwf	fsr2l,c
+   696  000728  0E04               	movlw	high _F_APTOS
+   697  00072A  2005               	addwfc	?___wmul+1,w,c
+   698  00072C  6EDA               	movwf	fsr2h,c
+   699  00072E  50DF               	movf	223,w,c
+   700  000730  1814               	xorwf	??_nojoTaskCreate,w,c
+   701  000732  0BE0               	andlw	-32
+   702  000734  1814               	xorwf	??_nojoTaskCreate,w,c
+   703  000736  6EDF               	movwf	223,c
+   704                           
+   705                           ;kernel.c: 34: F_APTOS.FILA_APTOS[F_APTOS.tasks_installed].task_CTX.ctx_STACK.stack_size
+      +                           = 1;
+   706  000738  C5F8  F004         	movff	_F_APTOS+448,___wmul@multiplier
+   707  00073C  C5F9  F005         	movff	_F_APTOS+449,___wmul@multiplier+1
+   708  000740  0E00               	movlw	0
+   709  000742  6E07               	movwf	___wmul@multiplicand+1,c
+   710  000744  0E70               	movlw	112
+   711  000746  6E06               	movwf	___wmul@multiplicand,c
+   712  000748  EC1C  F005         	call	___wmul	;wreg free
+   713  00074C  0E6F               	movlw	111
+   714  00074E  2604               	addwf	?___wmul,f,c
+   715  000750  0E00               	movlw	0
+   716  000752  2205               	addwfc	?___wmul+1,f,c
+   717  000754  0E38               	movlw	low _F_APTOS
+   718  000756  2404               	addwf	?___wmul,w,c
+   719  000758  6ED9               	movwf	fsr2l,c
+   720  00075A  0E04               	movlw	high _F_APTOS
+   721  00075C  2005               	addwfc	?___wmul+1,w,c
+   722  00075E  6EDA               	movwf	fsr2h,c
+   723  000760  0E01               	movlw	1
+   724  000762  6EDF               	movwf	indf2,c
+   725                           
+   726                           ;kernel.c: 35: F_APTOS.tasks_installed++;
+   727  000764  EE25  F0F8         	lfsr	2,_F_APTOS+448
+   728  000768  2ADE               	incf	postinc2,f,c
+   729  00076A  0E00               	movlw	0
+   730  00076C  22DE               	addwfc	postinc2,f,c
+   731  00076E  22DE               	addwfc	postinc2,f,c
+   732  000770  22DE               	addwfc	postinc2,f,c
+   733  000772  0012               	return		;funcret
+   734  000774                     __end_of_nojoTaskCreate:
+   735                           	opt stack 0
+   736                           intcon	equ	0xFF2
+   737                           postinc0	equ	0xFEE
+   738                           wreg	equ	0xFE8
+   739                           postdec1	equ	0xFE5
+   740                           fsr1h	equ	0xFE2
+   741                           fsr1l	equ	0xFE1
+   742                           indf2	equ	0xFDF
+   743                           postinc2	equ	0xFDE
+   744                           postdec2	equ	0xFDD
+   745                           fsr2h	equ	0xFDA
+   746                           fsr2l	equ	0xFD9
+   747                           status	equ	0xFD8
+   748                           
+   749 ;; *************** function ___wmul *****************
+   750 ;; Defined at:
+   751 ;;		line 15 in file "C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\Umul16.c"
+   752 ;; Parameters:    Size  Location     Type
+   753 ;;  multiplier      2    3[COMRAM] unsigned int 
+   754 ;;  multiplicand    2    5[COMRAM] unsigned int 
+   755 ;; Auto vars:     Size  Location     Type
+   756 ;;  product         2    7[COMRAM] unsigned int 
+   757 ;; Return value:  Size  Location     Type
+   758 ;;                  2    3[COMRAM] unsigned int 
+   759 ;; Registers used:
+   760 ;;		wreg, status,2, status,0, prodl, prodh
+   761 ;; Tracked objects:
+   762 ;;		On entry : 0/0
+   763 ;;		On exit  : 0/0
+   764 ;;		Unchanged: 0/0
+   765 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+   766 ;;      Params:         4       0       0       0       0       0       0
+   767 ;;      Locals:         2       0       0       0       0       0       0
+   768 ;;      Temps:          0       0       0       0       0       0       0
+   769 ;;      Totals:         6       0       0       0       0       0       0
+   770 ;;Total ram usage:        6 bytes
+   771 ;; Hardware stack levels used:    1
+   772 ;; Hardware stack levels required when called:    5
+   773 ;; This function calls:
+   774 ;;		Nothing
+   775 ;; This function is called by:
+   776 ;;		_nojoTaskCreate
+   777 ;;		_delay_queue_remove
+   778 ;;		_RR_scheduler
+   779 ;;		_sem_wait
+   780 ;;		_sem_post
+   781 ;; This function uses a non-reentrant model
+   782 ;;
+   783                           
+   784                           	psect	text3
+   785  000A38                     __ptext3:
+   786                           	opt stack 0
+   787  000A38                     ___wmul:
+   788                           	opt stack 24
+   789                           
+   790                           ;incstack = 0
+   791  000A38  5004               	movf	___wmul@multiplier,w,c
+   792  000A3A  0206               	mulwf	___wmul@multiplicand,c
+   793  000A3C  CFF3 F008          	movff	prodl,___wmul@product
+   794  000A40  CFF4 F009          	movff	prodh,___wmul@product+1
+   795  000A44  5004               	movf	___wmul@multiplier,w,c
+   796  000A46  0207               	mulwf	___wmul@multiplicand+1,c
+   797  000A48  50F3               	movf	prodl,w,c
+   798  000A4A  2609               	addwf	___wmul@product+1,f,c
+   799  000A4C  5005               	movf	___wmul@multiplier+1,w,c
+   800  000A4E  0206               	mulwf	___wmul@multiplicand,c
+   801  000A50  50F3               	movf	prodl,w,c
+   802  000A52  2609               	addwf	___wmul@product+1,f,c
+   803  000A54  C008  F004         	movff	___wmul@product,?___wmul
+   804  000A58  C009  F005         	movff	___wmul@product+1,?___wmul+1
+   805  000A5C  0012               	return	
+   806  000A5E                     __end_of___wmul:
+   807                           	opt stack 0
+   808                           prodh	equ	0xFF4
+   809                           prodl	equ	0xFF3
+   810                           intcon	equ	0xFF2
+   811                           postinc0	equ	0xFEE
+   812                           wreg	equ	0xFE8
+   813                           postdec1	equ	0xFE5
+   814                           fsr1h	equ	0xFE2
+   815                           fsr1l	equ	0xFE1
+   816                           indf2	equ	0xFDF
+   817                           postinc2	equ	0xFDE
+   818                           postdec2	equ	0xFDD
+   819                           fsr2h	equ	0xFDA
+   820                           fsr2l	equ	0xFD9
+   821                           status	equ	0xFD8
+   822                           
+   823 ;; *************** function _nojoStart *****************
+   824 ;; Defined at:
+   825 ;;		line 8 in file "../kernel.c"
+   826 ;; Parameters:    Size  Location     Type
+   827 ;;		None
+   828 ;; Auto vars:     Size  Location     Type
+   829 ;;		None
+   830 ;; Return value:  Size  Location     Type
+   831 ;;                  1    wreg      void 
+   832 ;; Registers used:
+   833 ;;		wreg, fsr2l, fsr2h, status,2, status,0, cstack
+   834 ;; Tracked objects:
+   835 ;;		On entry : 0/0
+   836 ;;		On exit  : 0/0
+   837 ;;		Unchanged: 0/0
+   838 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+   839 ;;      Params:         0       0       0       0       0       0       0
+   840 ;;      Locals:         0       0       0       0       0       0       0
+   841 ;;      Temps:          0       0       0       0       0       0       0
+   842 ;;      Totals:         0       0       0       0       0       0       0
+   843 ;;Total ram usage:        0 bytes
+   844 ;; Hardware stack levels used:    1
+   845 ;; Hardware stack levels required when called:    6
+   846 ;; This function calls:
+   847 ;;		_delay_queue_create
+   848 ;; This function is called by:
+   849 ;;		_main
+   850 ;; This function uses a non-reentrant model
+   851 ;;
+   852                           
+   853                           	psect	text4
+   854  000902                     __ptext4:
+   855                           	opt stack 0
+   856  000902                     _nojoStart:
+   857                           	opt stack 24
+   858                           
+   859                           ;kernel.c: 13: F_APTOS.FILA_APTOS[0].task_ID = 0;
+   860                           
+   861                           ;incstack = 0
+   862  000902  0E00               	movlw	0
+   863  000904  CFE8 F438          	movff	wreg,_F_APTOS
+   864  000908  0E00               	movlw	0
+   865  00090A  CFE8 F439          	movff	wreg,_F_APTOS+1
+   866  00090E  0E00               	movlw	0
+   867  000910  CFE8 F43A          	movff	wreg,_F_APTOS+2
+   868  000914  0E00               	movlw	0
+   869  000916  CFE8 F43B          	movff	wreg,_F_APTOS+3
+   870                           
+   871                           ;kernel.c: 14: F_APTOS.FILA_APTOS[0].task_PRIOR = 0;
+   872  00091A  0E00               	movlw	0
+   873  00091C  CFE8 F43C          	movff	wreg,_F_APTOS+4
+   874  000920  0E00               	movlw	0
+   875  000922  CFE8 F43D          	movff	wreg,_F_APTOS+5
+   876  000926  0E00               	movlw	0
+   877  000928  CFE8 F43E          	movff	wreg,_F_APTOS+6
+   878  00092C  0E00               	movlw	0
+   879  00092E  CFE8 F43F          	movff	wreg,_F_APTOS+7
+   880                           
+   881                           ;kernel.c: 15: F_APTOS.FILA_APTOS[0].task_STATE = READY;
+   882  000932  0E00               	movlw	0
+   883  000934  CFE8 F440          	movff	wreg,_F_APTOS+8
+   884                           
+   885                           ;kernel.c: 16: F_APTOS.FILA_APTOS[0].task_PTR = nojoTaskIdle;
+   886  000938  0EE4               	movlw	low _nojoTaskIdle
+   887  00093A  CFE8 F441          	movff	wreg,_F_APTOS+9
+   888  00093E  0E0A               	movlw	high _nojoTaskIdle
+   889  000940  CFE8 F442          	movff	wreg,_F_APTOS+10
+   890                           
+   891                           ;kernel.c: 17: F_APTOS.tasks_installed = 1;
+   892  000944  0E01               	movlw	1
+   893  000946  CFE8 F5F8          	movff	wreg,_F_APTOS+448
+   894  00094A  0E00               	movlw	0
+   895  00094C  CFE8 F5F9          	movff	wreg,_F_APTOS+449
+   896  000950  0E00               	movlw	0
+   897  000952  CFE8 F5FA          	movff	wreg,_F_APTOS+450
+   898  000956  0E00               	movlw	0
+   899  000958  CFE8 F5FB          	movff	wreg,_F_APTOS+451
+   900                           
+   901                           ;kernel.c: 18: F_APTOS.task_running = 0;
+   902  00095C  0E00               	movlw	0
+   903  00095E  CFE8 F5FC          	movff	wreg,_F_APTOS+452
+   904  000962  0E00               	movlw	0
+   905  000964  CFE8 F5FD          	movff	wreg,_F_APTOS+453
+   906  000968  0E00               	movlw	0
+   907  00096A  CFE8 F5FE          	movff	wreg,_F_APTOS+454
+   908  00096E  0E00               	movlw	0
+   909  000970  CFE8 F5FF          	movff	wreg,_F_APTOS+455
+   910                           
+   911                           ;kernel.c: 19: delay_queue_create(&Q_DELAY);
+   912  000974  0E38               	movlw	low _Q_DELAY
+   913  000976  6E04               	movwf	delay_queue_create@delay_queue_handler,c
+   914  000978  0E00               	movlw	high _Q_DELAY
+   915  00097A  6E05               	movwf	delay_queue_create@delay_queue_handler+1,c
+   916  00097C  ECC2  F004         	call	_delay_queue_create	;wreg free
+   917                           
+   918                           ;kernel.c: 22: INTCONbits.GIE = 1;
+   919  000980  8EF2               	bsf	intcon,7,c	;volatile
+   920  000982  0012               	return		;funcret
+   921  000984                     __end_of_nojoStart:
+   922                           	opt stack 0
+   923                           prodh	equ	0xFF4
+   924                           prodl	equ	0xFF3
+   925                           intcon	equ	0xFF2
+   926                           postinc0	equ	0xFEE
+   927                           wreg	equ	0xFE8
+   928                           postdec1	equ	0xFE5
+   929                           fsr1h	equ	0xFE2
+   930                           fsr1l	equ	0xFE1
+   931                           indf2	equ	0xFDF
+   932                           postinc2	equ	0xFDE
+   933                           postdec2	equ	0xFDD
+   934                           fsr2h	equ	0xFDA
+   935                           fsr2l	equ	0xFD9
+   936                           status	equ	0xFD8
+   937                           
+   938 ;; *************** function _delay_queue_create *****************
+   939 ;; Defined at:
+   940 ;;		line 8 in file "../delay.c"
+   941 ;; Parameters:    Size  Location     Type
+   942 ;;  delay_queue_    2    3[COMRAM] PTR struct queue_delay
+   943 ;;		 -> Q_DELAY(28), 
+   944 ;; Auto vars:     Size  Location     Type
+   945 ;;  i               2    7[COMRAM] int 
+   946 ;; Return value:  Size  Location     Type
+   947 ;;                  1    wreg      void 
+   948 ;; Registers used:
+   949 ;;		wreg, fsr2l, fsr2h, status,2, status,0
+   950 ;; Tracked objects:
+   951 ;;		On entry : 0/0
+   952 ;;		On exit  : 0/0
+   953 ;;		Unchanged: 0/0
+   954 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+   955 ;;      Params:         2       0       0       0       0       0       0
+   956 ;;      Locals:         2       0       0       0       0       0       0
+   957 ;;      Temps:          2       0       0       0       0       0       0
+   958 ;;      Totals:         6       0       0       0       0       0       0
+   959 ;;Total ram usage:        6 bytes
+   960 ;; Hardware stack levels used:    1
+   961 ;; Hardware stack levels required when called:    5
+   962 ;; This function calls:
+   963 ;;		Nothing
+   964 ;; This function is called by:
+   965 ;;		_nojoStart
+   966 ;; This function uses a non-reentrant model
+   967 ;;
+   968                           
+   969                           	psect	text5
+   970  000984                     __ptext5:
+   971                           	opt stack 0
+   972  000984                     _delay_queue_create:
+   973                           	opt stack 24
+   974                           
+   975                           ;delay.c: 9: int i;
+   976                           ;delay.c: 10: delay_queue_handler->delay_queue_size = 0;
+   977                           
+   978                           ;incstack = 0
+   979  000984  EE20 F018          	lfsr	2,24
+   980  000988  5004               	movf	delay_queue_create@delay_queue_handler,w,c
+   981  00098A  26D9               	addwf	fsr2l,f,c
+   982  00098C  5005               	movf	delay_queue_create@delay_queue_handler+1,w,c
+   983  00098E  22DA               	addwfc	fsr2h,f,c
+   984  000990  6ADE               	clrf	postinc2,c
+   985  000992  6ADE               	clrf	postinc2,c
+   986  000994  6ADE               	clrf	postinc2,c
+   987  000996  6ADD               	clrf	postdec2,c
+   988                           
+   989                           ;delay.c: 11: for(i=0;i<3;i++)
+   990  000998  0E00               	movlw	0
+   991  00099A  6E09               	movwf	delay_queue_create@i+1,c
+   992  00099C  0E00               	movlw	0
+   993  00099E  6E08               	movwf	delay_queue_create@i,c
+   994  0009A0                     l1079:
+   995  0009A0  BE09               	btfsc	delay_queue_create@i+1,7,c
+   996  0009A2  D006               	goto	l1083
+   997  0009A4  5009               	movf	delay_queue_create@i+1,w,c
+   998  0009A6  E11E               	bnz	l17
+   999  0009A8  0E03               	movlw	3
+  1000  0009AA  5C08               	subwf	delay_queue_create@i,w,c
+  1001  0009AC  B0D8               	btfsc	status,0,c
+  1002  0009AE  0012               	return	
+  1003  0009B0                     l1083:
+  1004                           
+  1005                           ;delay.c: 12: delay_queue_handler->delay_QUEUE[i].task_pos_ready_queue = 0;
+  1006  0009B0  C008  F006         	movff	delay_queue_create@i,??_delay_queue_create
+  1007  0009B4  C009  F007         	movff	delay_queue_create@i+1,??_delay_queue_create+1
+  1008  0009B8  90D8               	bcf	status,0,c
+  1009  0009BA  3606               	rlcf	??_delay_queue_create,f,c
+  1010  0009BC  3607               	rlcf	??_delay_queue_create+1,f,c
+  1011  0009BE  90D8               	bcf	status,0,c
+  1012  0009C0  3606               	rlcf	??_delay_queue_create,f,c
+  1013  0009C2  3607               	rlcf	??_delay_queue_create+1,f,c
+  1014  0009C4  90D8               	bcf	status,0,c
+  1015  0009C6  3606               	rlcf	??_delay_queue_create,f,c
+  1016  0009C8  3607               	rlcf	??_delay_queue_create+1,f,c
+  1017  0009CA  5006               	movf	??_delay_queue_create,w,c
+  1018  0009CC  2404               	addwf	delay_queue_create@delay_queue_handler,w,c
+  1019  0009CE  6ED9               	movwf	fsr2l,c
+  1020  0009D0  5007               	movf	??_delay_queue_create+1,w,c
+  1021  0009D2  2005               	addwfc	delay_queue_create@delay_queue_handler+1,w,c
+  1022  0009D4  6EDA               	movwf	fsr2h,c
+  1023  0009D6  6ADE               	clrf	postinc2,c
+  1024  0009D8  6ADE               	clrf	postinc2,c
+  1025  0009DA  6ADE               	clrf	postinc2,c
+  1026  0009DC  6ADD               	clrf	postdec2,c
+  1027  0009DE  4A08               	infsnz	delay_queue_create@i,f,c
+  1028  0009E0  2A09               	incf	delay_queue_create@i+1,f,c
+  1029  0009E2  D7DE               	goto	l1079
+  1030  0009E4                     l17:
+  1031  0009E4  0012               	return		;funcret
+  1032  0009E6                     __end_of_delay_queue_create:
+  1033                           	opt stack 0
+  1034                           prodh	equ	0xFF4
+  1035                           prodl	equ	0xFF3
+  1036                           intcon	equ	0xFF2
+  1037                           postinc0	equ	0xFEE
+  1038                           wreg	equ	0xFE8
+  1039                           postdec1	equ	0xFE5
+  1040                           fsr1h	equ	0xFE2
+  1041                           fsr1l	equ	0xFE1
+  1042                           indf2	equ	0xFDF
+  1043                           postinc2	equ	0xFDE
+  1044                           postdec2	equ	0xFDD
+  1045                           fsr2h	equ	0xFDA
+  1046                           fsr2l	equ	0xFD9
+  1047                           status	equ	0xFD8
+  1048                           
+  1049 ;; *************** function _nojoScheduler *****************
+  1050 ;; Defined at:
+  1051 ;;		line 17 in file "../timer.c"
+  1052 ;; Parameters:    Size  Location     Type
+  1053 ;;		None
+  1054 ;; Auto vars:     Size  Location     Type
+  1055 ;;		None
+  1056 ;; Return value:  Size  Location     Type
+  1057 ;;                  1    wreg      void 
+  1058 ;; Registers used:
+  1059 ;;		wreg, status,2
+  1060 ;; Tracked objects:
+  1061 ;;		On entry : 0/0
+  1062 ;;		On exit  : 0/0
+  1063 ;;		Unchanged: 0/0
+  1064 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+  1065 ;;      Params:         0       0       0       0       0       0       0
+  1066 ;;      Locals:         0       0       0       0       0       0       0
+  1067 ;;      Temps:          0       0       0       0       0       0       0
+  1068 ;;      Totals:         0       0       0       0       0       0       0
+  1069 ;;Total ram usage:        0 bytes
+  1070 ;; Hardware stack levels used:    1
+  1071 ;; Hardware stack levels required when called:    5
+  1072 ;; This function calls:
+  1073 ;;		Nothing
+  1074 ;; This function is called by:
+  1075 ;;		_main
+  1076 ;;		_delay_queue_insert
+  1077 ;; This function uses a non-reentrant model
+  1078 ;;
+  1079                           
+  1080                           	psect	text6
+  1081  000AF4                     __ptext6:
+  1082                           	opt stack 0
+  1083  000AF4                     _nojoScheduler:
+  1084                           	opt stack 25
+  1085                           
+  1086                           ;timer.c: 19: TMR0 = 64911;
+  1087                           
+  1088                           ;incstack = 0
+  1089  000AF4  0EFD               	movlw	253
+  1090  000AF6  6ED7               	movwf	4055,c	;volatile
+  1091  000AF8  0E8F               	movlw	143
+  1092  000AFA  6ED6               	movwf	4054,c	;volatile
+  1093                           
+  1094                           ;timer.c: 22: T0CONbits.TMR0ON = 1;
+  1095  000AFC  8ED5               	bsf	4053,7,c	;volatile
+  1096  000AFE  0012               	return		;funcret
+  1097  000B00                     __end_of_nojoScheduler:
+  1098                           	opt stack 0
+  1099                           prodh	equ	0xFF4
+  1100                           prodl	equ	0xFF3
+  1101                           intcon	equ	0xFF2
+  1102                           postinc0	equ	0xFEE
+  1103                           wreg	equ	0xFE8
+  1104                           postdec1	equ	0xFE5
+  1105                           fsr1h	equ	0xFE2
+  1106                           fsr1l	equ	0xFE1
+  1107                           indf2	equ	0xFDF
+  1108                           postinc2	equ	0xFDE
+  1109                           postdec2	equ	0xFDD
+  1110                           fsr2h	equ	0xFDA
+  1111                           fsr2l	equ	0xFD9
+  1112                           status	equ	0xFD8
+  1113                           
+  1114 ;; *************** function _nojoTaskIdle *****************
+  1115 ;; Defined at:
+  1116 ;;		line 63 in file "../kernel.c"
+  1117 ;; Parameters:    Size  Location     Type
+  1118 ;;		None
+  1119 ;; Auto vars:     Size  Location     Type
+  1120 ;;		None
+  1121 ;; Return value:  Size  Location     Type
+  1122 ;;                  2   30[None  ] PTR void 
+  1123 ;; Registers used:
+  1124 ;;		wreg, status,2, status,0
+  1125 ;; Tracked objects:
+  1126 ;;		On entry : 0/0
+  1127 ;;		On exit  : 0/0
+  1128 ;;		Unchanged: 0/0
+  1129 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+  1130 ;;      Params:         0       0       0       0       0       0       0
+  1131 ;;      Locals:         0       0       0       0       0       0       0
+  1132 ;;      Temps:          0       0       0       0       0       0       0
+  1133 ;;      Totals:         0       0       0       0       0       0       0
+  1134 ;;Total ram usage:        0 bytes
+  1135 ;; Hardware stack levels used:    1
+  1136 ;; Hardware stack levels required when called:    4
+  1137 ;; This function calls:
+  1138 ;;		Nothing
+  1139 ;; This function is called by:
+  1140 ;;		_nojoStart
+  1141 ;; This function uses a non-reentrant model
+  1142 ;;
+  1143                           
+  1144                           	psect	text7
+  1145  000AE4                     __ptext7:
+  1146                           	opt stack 0
+  1147  000AE4                     _nojoTaskIdle:
+  1148                           	opt stack 24
+  1149                           
+  1150                           ;kernel.c: 64: __nop();
+  1151                           
+  1152                           ;incstack = 0
+  1153  000AE4  F000               	nop	
+  1154                           
+  1155                           ;kernel.c: 65: __nop();
+  1156  000AE6  F000               	nop	
+  1157                           
+  1158                           ;kernel.c: 66: __nop();
+  1159  000AE8  F000               	nop	
+  1160                           
+  1161                           ;kernel.c: 68: return (0);
+  1162  000AEA  0E00               	movlw	0
+  1163  000AEC  6E01               	movwf	?_nojoTaskIdle,c
+  1164  000AEE  0E00               	movlw	0
+  1165  000AF0  6E02               	movwf	?_nojoTaskIdle+1,c
+  1166  000AF2  0012               	return	
+  1167  000AF4                     __end_of_nojoTaskIdle:
+  1168                           	opt stack 0
+  1169                           prodh	equ	0xFF4
+  1170                           prodl	equ	0xFF3
+  1171                           intcon	equ	0xFF2
+  1172                           postinc0	equ	0xFEE
+  1173                           wreg	equ	0xFE8
+  1174                           postdec1	equ	0xFE5
+  1175                           fsr1h	equ	0xFE2
+  1176                           fsr1l	equ	0xFE1
+  1177                           indf2	equ	0xFDF
+  1178                           postinc2	equ	0xFDE
+  1179                           postdec2	equ	0xFDD
+  1180                           fsr2h	equ	0xFDA
+  1181                           fsr2l	equ	0xFD9
+  1182                           status	equ	0xFD8
+  1183                           
+  1184 ;; *************** function _pisca_led_red *****************
+  1185 ;; Defined at:
+  1186 ;;		line 3 in file "../tasks.c"
+  1187 ;; Parameters:    Size  Location     Type
+  1188 ;;		None
+  1189 ;; Auto vars:     Size  Location     Type
+  1190 ;;		None
+  1191 ;; Return value:  Size  Location     Type
+  1192 ;;                  2   94[None  ] PTR void 
+  1193 ;; Registers used:
+  1194 ;;		wreg, status,2, status,0
+  1195 ;; Tracked objects:
+  1196 ;;		On entry : 0/0
+  1197 ;;		On exit  : 0/0
+  1198 ;;		Unchanged: 0/0
+  1199 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+  1200 ;;      Params:         0       0       0       0       0       0       0
+  1201 ;;      Locals:         0       0       0       0       0       0       0
+  1202 ;;      Temps:          1       0       0       0       0       0       0
+  1203 ;;      Totals:         1       0       0       0       0       0       0
+  1204 ;;Total ram usage:        1 bytes
+  1205 ;; Hardware stack levels used:    1
+  1206 ;; Hardware stack levels required when called:    4
+  1207 ;; This function calls:
+  1208 ;;		Nothing
+  1209 ;; This function is called by:
+  1210 ;;		_main
+  1211 ;; This function uses a non-reentrant model
+  1212 ;;
+  1213                           
+  1214                           	psect	text8
+  1215  000AAA                     __ptext8:
+  1216                           	opt stack 0
+  1217  000AAA                     _pisca_led_red:
+  1218                           	opt stack 24
+  1219                           
+  1220                           ;tasks.c: 5: TRISDbits.RD0 = 0;
+  1221                           
+  1222                           ;incstack = 0
+  1223  000AAA  9095               	bcf	3989,0,c	;volatile
+  1224                           
+  1225                           ;tasks.c: 6: PORTDbits.RD0 = 0;
+  1226  000AAC  9083               	bcf	3971,0,c	;volatile
+  1227  000AAE                     l1039:
+  1228                           
+  1229                           ;tasks.c: 9: {
+  1230                           ;tasks.c: 10: PORTDbits.RD0 = ~LATDbits.LD0;
+  1231  000AAE  A08C               	btfss	3980,0,c	;volatile
+  1232  000AB0  D002               	goto	u18_20
+  1233  000AB2  0E01               	movlw	1
+  1234  000AB4  D001               	goto	u18_26
+  1235  000AB6                     u18_20:
+  1236  000AB6  0E00               	movlw	0
+  1237  000AB8                     u18_26:
+  1238  000AB8  0AFF               	xorlw	255
+  1239  000ABA  6E01               	movwf	??_pisca_led_red& (0+255),c
+  1240  000ABC  5083               	movf	3971,w,c	;volatile
+  1241  000ABE  1801               	xorwf	??_pisca_led_red,w,c
+  1242  000AC0  0BFE               	andlw	-2
+  1243  000AC2  1801               	xorwf	??_pisca_led_red,w,c
+  1244  000AC4  6E83               	movwf	3971,c	;volatile
+  1245  000AC6  F000               	nop		;# 
+  1246  000AC8  F000               	nop		;# 
+  1247  000ACA  F000               	nop		;# 
+  1248  000ACC  D7F0               	goto	l1039
+  1249  000ACE                     __end_of_pisca_led_red:
+  1250                           	opt stack 0
+  1251                           prodh	equ	0xFF4
+  1252                           prodl	equ	0xFF3
+  1253                           intcon	equ	0xFF2
+  1254                           postinc0	equ	0xFEE
+  1255                           wreg	equ	0xFE8
+  1256                           postdec1	equ	0xFE5
+  1257                           fsr1h	equ	0xFE2
+  1258                           fsr1l	equ	0xFE1
+  1259                           indf2	equ	0xFDF
+  1260                           postinc2	equ	0xFDE
+  1261                           postdec2	equ	0xFDD
+  1262                           fsr2h	equ	0xFDA
+  1263                           fsr2l	equ	0xFD9
+  1264                           status	equ	0xFD8
+  1265                           
+  1266 ;; *************** function _pisca_led_yellow *****************
+  1267 ;; Defined at:
+  1268 ;;		line 19 in file "../tasks.c"
+  1269 ;; Parameters:    Size  Location     Type
+  1270 ;;		None
+  1271 ;; Auto vars:     Size  Location     Type
+  1272 ;;		None
+  1273 ;; Return value:  Size  Location     Type
+  1274 ;;                  2   96[None  ] PTR void 
+  1275 ;; Registers used:
+  1276 ;;		wreg, status,2, status,0
+  1277 ;; Tracked objects:
+  1278 ;;		On entry : 0/0
+  1279 ;;		On exit  : 0/0
+  1280 ;;		Unchanged: 0/0
+  1281 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+  1282 ;;      Params:         0       0       0       0       0       0       0
+  1283 ;;      Locals:         0       0       0       0       0       0       0
+  1284 ;;      Temps:          1       0       0       0       0       0       0
+  1285 ;;      Totals:         1       0       0       0       0       0       0
+  1286 ;;Total ram usage:        1 bytes
+  1287 ;; Hardware stack levels used:    1
+  1288 ;; Hardware stack levels required when called:    4
+  1289 ;; This function calls:
+  1290 ;;		Nothing
+  1291 ;; This function is called by:
+  1292 ;;		_main
+  1293 ;; This function uses a non-reentrant model
+  1294 ;;
+  1295                           
+  1296                           	psect	text9
+  1297  000A5E                     __ptext9:
+  1298                           	opt stack 0
+  1299  000A5E                     _pisca_led_yellow:
+  1300                           	opt stack 24
+  1301                           
+  1302                           ;tasks.c: 21: TRISDbits.RD1 = 0;
+  1303                           
+  1304                           ;incstack = 0
+  1305  000A5E  9295               	bcf	3989,1,c	;volatile
+  1306                           
+  1307                           ;tasks.c: 22: PORTDbits.RD1 = 0;
+  1308  000A60  9283               	bcf	3971,1,c	;volatile
+  1309  000A62                     l1047:
+  1310                           
+  1311                           ;tasks.c: 25: {
+  1312                           ;tasks.c: 26: PORTDbits.RD1 = ~LATDbits.LD1;
+  1313  000A62  A28C               	btfss	3980,1,c	;volatile
+  1314  000A64  D002               	goto	u19_20
+  1315  000A66  0E01               	movlw	1
+  1316  000A68  D001               	goto	u19_26
+  1317  000A6A                     u19_20:
+  1318  000A6A  0E00               	movlw	0
+  1319  000A6C                     u19_26:
+  1320  000A6C  0AFF               	xorlw	255
+  1321  000A6E  6E02               	movwf	??_pisca_led_yellow& (0+255),c
+  1322  000A70  4602               	rlncf	??_pisca_led_yellow,f,c
+  1323  000A72  5083               	movf	3971,w,c	;volatile
+  1324  000A74  1802               	xorwf	??_pisca_led_yellow,w,c
+  1325  000A76  0BFD               	andlw	-3
+  1326  000A78  1802               	xorwf	??_pisca_led_yellow,w,c
+  1327  000A7A  6E83               	movwf	3971,c	;volatile
+  1328  000A7C  F000               	nop		;# 
+  1329  000A7E  F000               	nop		;# 
+  1330  000A80  F000               	nop		;# 
+  1331  000A82  D7EF               	goto	l1047
+  1332  000A84                     __end_of_pisca_led_yellow:
+  1333                           	opt stack 0
+  1334                           prodh	equ	0xFF4
+  1335                           prodl	equ	0xFF3
+  1336                           intcon	equ	0xFF2
+  1337                           postinc0	equ	0xFEE
+  1338                           wreg	equ	0xFE8
+  1339                           postdec1	equ	0xFE5
+  1340                           fsr1h	equ	0xFE2
+  1341                           fsr1l	equ	0xFE1
+  1342                           indf2	equ	0xFDF
+  1343                           postinc2	equ	0xFDE
+  1344                           postdec2	equ	0xFDD
+  1345                           fsr2h	equ	0xFDA
+  1346                           fsr2l	equ	0xFD9
+  1347                           status	equ	0xFD8
+  1348                           
+  1349 ;; *************** function _pisca_led_green *****************
+  1350 ;; Defined at:
+  1351 ;;		line 35 in file "../tasks.c"
+  1352 ;; Parameters:    Size  Location     Type
+  1353 ;;		None
+  1354 ;; Auto vars:     Size  Location     Type
+  1355 ;;		None
+  1356 ;; Return value:  Size  Location     Type
+  1357 ;;                  2   98[None  ] PTR void 
+  1358 ;; Registers used:
+  1359 ;;		wreg, status,2, status,0
+  1360 ;; Tracked objects:
+  1361 ;;		On entry : 0/0
+  1362 ;;		On exit  : 0/0
+  1363 ;;		Unchanged: 0/0
+  1364 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+  1365 ;;      Params:         0       0       0       0       0       0       0
+  1366 ;;      Locals:         0       0       0       0       0       0       0
+  1367 ;;      Temps:          1       0       0       0       0       0       0
+  1368 ;;      Totals:         1       0       0       0       0       0       0
+  1369 ;;Total ram usage:        1 bytes
+  1370 ;; Hardware stack levels used:    1
+  1371 ;; Hardware stack levels required when called:    4
+  1372 ;; This function calls:
+  1373 ;;		Nothing
+  1374 ;; This function is called by:
+  1375 ;;		_main
+  1376 ;; This function uses a non-reentrant model
+  1377 ;;
+  1378                           
+  1379                           	psect	text10
+  1380  000A10                     __ptext10:
+  1381                           	opt stack 0
+  1382  000A10                     _pisca_led_green:
+  1383                           	opt stack 24
+  1384                           
+  1385                           ;tasks.c: 37: TRISDbits.RD2 = 0;
+  1386                           
+  1387                           ;incstack = 0
+  1388  000A10  9495               	bcf	3989,2,c	;volatile
+  1389                           
+  1390                           ;tasks.c: 38: PORTDbits.RD2 = 0;
+  1391  000A12  9483               	bcf	3971,2,c	;volatile
+  1392  000A14                     l1055:
+  1393                           
+  1394                           ;tasks.c: 41: {
+  1395                           ;tasks.c: 42: PORTDbits.RD2 = ~LATDbits.LD2;
+  1396  000A14  A48C               	btfss	3980,2,c	;volatile
+  1397  000A16  D002               	goto	u20_20
+  1398  000A18  0E01               	movlw	1
+  1399  000A1A  D001               	goto	u20_26
+  1400  000A1C                     u20_20:
+  1401  000A1C  0E00               	movlw	0
+  1402  000A1E                     u20_26:
+  1403  000A1E  0AFF               	xorlw	255
+  1404  000A20  6E03               	movwf	??_pisca_led_green& (0+255),c
+  1405  000A22  4603               	rlncf	??_pisca_led_green,f,c
+  1406  000A24  4603               	rlncf	??_pisca_led_green,f,c
+  1407  000A26  5083               	movf	3971,w,c	;volatile
+  1408  000A28  1803               	xorwf	??_pisca_led_green,w,c
+  1409  000A2A  0BFB               	andlw	-5
+  1410  000A2C  1803               	xorwf	??_pisca_led_green,w,c
+  1411  000A2E  6E83               	movwf	3971,c	;volatile
+  1412  000A30  F000               	nop		;# 
+  1413  000A32  F000               	nop		;# 
+  1414  000A34  F000               	nop		;# 
+  1415  000A36  D7EE               	goto	l1055
+  1416  000A38                     __end_of_pisca_led_green:
+  1417                           	opt stack 0
+  1418                           prodh	equ	0xFF4
+  1419                           prodl	equ	0xFF3
+  1420                           intcon	equ	0xFF2
+  1421                           postinc0	equ	0xFEE
+  1422                           wreg	equ	0xFE8
+  1423                           postdec1	equ	0xFE5
+  1424                           fsr1h	equ	0xFE2
+  1425                           fsr1l	equ	0xFE1
+  1426                           indf2	equ	0xFDF
+  1427                           postinc2	equ	0xFDE
+  1428                           postdec2	equ	0xFDD
+  1429                           fsr2h	equ	0xFDA
+  1430                           fsr2l	equ	0xFD9
+  1431                           status	equ	0xFD8
+  1432                           
+  1433 ;; *************** function _timer_ISR *****************
+  1434 ;; Defined at:
+  1435 ;;		line 33 in file "../timer.c"
+  1436 ;; Parameters:    Size  Location     Type
+  1437 ;;		None
+  1438 ;; Auto vars:     Size  Location     Type
+  1439 ;;		None
+  1440 ;; Return value:  Size  Location     Type
+  1441 ;;                  1    wreg      void 
+  1442 ;; Registers used:
+  1443 ;;		wreg, fsr1l, fsr1h, fsr2l, fsr2h, status,2, status,0, prodl, prodh, cstack
+  1444 ;; Tracked objects:
+  1445 ;;		On entry : 0/0
+  1446 ;;		On exit  : 0/0
+  1447 ;;		Unchanged: 0/0
+  1448 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+  1449 ;;      Params:         0       0       0       0       0       0       0
+  1450 ;;      Locals:         0       0       0       0       0       0       0
+  1451 ;;      Temps:         14       0       0       0       0       0       0
+  1452 ;;      Totals:        14       0       0       0       0       0       0
+  1453 ;;Total ram usage:       14 bytes
+  1454 ;; Hardware stack levels used:    1
+  1455 ;; Hardware stack levels required when called:    3
+  1456 ;; This function calls:
+  1457 ;;		_nojoDispatcher
+  1458 ;;		_resetTimer
+  1459 ;; This function is called by:
+  1460 ;;		Interrupt level 2
+  1461 ;; This function uses a non-reentrant model
+  1462 ;;
+  1463                           
+  1464                           	psect	intcode
+  1465  000008                     __pintcode:
+  1466                           	opt stack 0
+  1467  000008                     _timer_ISR:
+  1468                           	opt stack 24
+  1469                           
+  1470                           ;incstack = 0
+  1471  000008  8254               	bsf	btemp,1,c	;set compiler interrupt flag (level 2)
+  1472  00000A  CFFA F027          	movff	pclath,??_timer_ISR
+  1473  00000E  CFFB F028          	movff	pclatu,??_timer_ISR+1
+  1474  000012  CFE9 F029          	movff	fsr0l,??_timer_ISR+2
+  1475  000016  CFEA F02A          	movff	fsr0h,??_timer_ISR+3
+  1476  00001A  CFE1 F02B          	movff	fsr1l,??_timer_ISR+4
+  1477  00001E  CFE2 F02C          	movff	fsr1h,??_timer_ISR+5
+  1478  000022  CFD9 F02D          	movff	fsr2l,??_timer_ISR+6
+  1479  000026  CFDA F02E          	movff	fsr2h,??_timer_ISR+7
+  1480  00002A  CFF3 F02F          	movff	prodl,??_timer_ISR+8
+  1481  00002E  CFF4 F030          	movff	prodh,??_timer_ISR+9
+  1482  000032  CFF6 F031          	movff	tblptrl,??_timer_ISR+10
+  1483  000036  CFF7 F032          	movff	tblptrh,??_timer_ISR+11
+  1484  00003A  CFF8 F033          	movff	tblptru,??_timer_ISR+12
+  1485  00003E  CFF5 F034          	movff	tablat,??_timer_ISR+13
+  1486                           
+  1487                           ;timer.c: 35: if(INTCONbits.T0IE && INTCONbits.T0IF){
+  1488  000042  BAF2               	btfsc	intcon,5,c	;volatile
+  1489  000044  A4F2               	btfss	intcon,2,c	;volatile
+  1490  000046  D005               	goto	i2l229
+  1491                           
+  1492                           ;timer.c: 36: resetTimer();
+  1493  000048  EC80  F005         	call	_resetTimer	;wreg free
+  1494                           
+  1495                           ;timer.c: 37: nojoDispatcher(READY);
+  1496  00004C  0E00               	movlw	0
+  1497  00004E  EC49  F000         	call	_nojoDispatcher
+  1498  000052                     i2l229:
+  1499  000052  C034  FFF5         	movff	??_timer_ISR+13,tablat
+  1500  000056  C033  FFF8         	movff	??_timer_ISR+12,tblptru
+  1501  00005A  C032  FFF7         	movff	??_timer_ISR+11,tblptrh
+  1502  00005E  C031  FFF6         	movff	??_timer_ISR+10,tblptrl
+  1503  000062  C030  FFF4         	movff	??_timer_ISR+9,prodh
+  1504  000066  C02F  FFF3         	movff	??_timer_ISR+8,prodl
+  1505  00006A  C02E  FFDA         	movff	??_timer_ISR+7,fsr2h
+  1506  00006E  C02D  FFD9         	movff	??_timer_ISR+6,fsr2l
+  1507  000072  C02C  FFE2         	movff	??_timer_ISR+5,fsr1h
+  1508  000076  C02B  FFE1         	movff	??_timer_ISR+4,fsr1l
+  1509  00007A  C02A  FFEA         	movff	??_timer_ISR+3,fsr0h
+  1510  00007E  C029  FFE9         	movff	??_timer_ISR+2,fsr0l
+  1511  000082  C028  FFFB         	movff	??_timer_ISR+1,pclatu
+  1512  000086  C027  FFFA         	movff	??_timer_ISR,pclath
+  1513  00008A  9254               	bcf	btemp,1,c	;clear compiler interrupt flag (level 2)
+  1514  00008C  0011               	retfie		f
+  1515  00008E                     __end_of_timer_ISR:
+  1516                           	opt stack 0
+  1517                           pclatu	equ	0xFFB
+  1518                           pclath	equ	0xFFA
+  1519                           tblptru	equ	0xFF8
+  1520                           tblptrh	equ	0xFF7
+  1521                           tblptrl	equ	0xFF6
+  1522                           tablat	equ	0xFF5
+  1523                           prodh	equ	0xFF4
+  1524                           prodl	equ	0xFF3
+  1525                           intcon	equ	0xFF2
+  1526                           postinc0	equ	0xFEE
+  1527                           fsr0h	equ	0xFEA
+  1528                           fsr0l	equ	0xFE9
+  1529                           wreg	equ	0xFE8
+  1530                           postdec1	equ	0xFE5
+  1531                           fsr1h	equ	0xFE2
+  1532                           fsr1l	equ	0xFE1
+  1533                           indf2	equ	0xFDF
+  1534                           postinc2	equ	0xFDE
+  1535                           postdec2	equ	0xFDD
+  1536                           fsr2h	equ	0xFDA
+  1537                           fsr2l	equ	0xFD9
+  1538                           status	equ	0xFD8
+  1539                           
+  1540 ;; *************** function _resetTimer *****************
+  1541 ;; Defined at:
+  1542 ;;		line 25 in file "../timer.c"
+  1543 ;; Parameters:    Size  Location     Type
+  1544 ;;		None
+  1545 ;; Auto vars:     Size  Location     Type
+  1546 ;;		None
+  1547 ;; Return value:  Size  Location     Type
+  1548 ;;                  1    wreg      void 
+  1549 ;; Registers used:
+  1550 ;;		wreg, status,2
+  1551 ;; Tracked objects:
+  1552 ;;		On entry : 0/0
+  1553 ;;		On exit  : 0/0
+  1554 ;;		Unchanged: 0/0
+  1555 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+  1556 ;;      Params:         0       0       0       0       0       0       0
+  1557 ;;      Locals:         0       0       0       0       0       0       0
+  1558 ;;      Temps:          0       0       0       0       0       0       0
+  1559 ;;      Totals:         0       0       0       0       0       0       0
+  1560 ;;Total ram usage:        0 bytes
+  1561 ;; Hardware stack levels used:    1
+  1562 ;; This function calls:
+  1563 ;;		Nothing
+  1564 ;; This function is called by:
+  1565 ;;		_timer_ISR
+  1566 ;; This function uses a non-reentrant model
+  1567 ;;
+  1568                           
+  1569                           	psect	text12
+  1570  000B00                     __ptext12:
+  1571                           	opt stack 0
+  1572  000B00                     _resetTimer:
+  1573                           	opt stack 26
+  1574                           
+  1575                           ;timer.c: 27: INTCONbits.TMR0IF = 0;
+  1576                           
+  1577                           ;incstack = 0
+  1578  000B00  94F2               	bcf	intcon,2,c	;volatile
+  1579                           
+  1580                           ;timer.c: 28: TMR0 = 64911;
+  1581  000B02  0EFD               	movlw	253
+  1582  000B04  6ED7               	movwf	4055,c	;volatile
+  1583  000B06  0E8F               	movlw	143
+  1584  000B08  6ED6               	movwf	4054,c	;volatile
+  1585  000B0A  0012               	return		;funcret
+  1586  000B0C                     __end_of_resetTimer:
+  1587                           	opt stack 0
+  1588                           pclatu	equ	0xFFB
+  1589                           pclath	equ	0xFFA
+  1590                           tblptru	equ	0xFF8
+  1591                           tblptrh	equ	0xFF7
+  1592                           tblptrl	equ	0xFF6
+  1593                           tablat	equ	0xFF5
+  1594                           prodh	equ	0xFF4
+  1595                           prodl	equ	0xFF3
+  1596                           intcon	equ	0xFF2
+  1597                           postinc0	equ	0xFEE
+  1598                           fsr0h	equ	0xFEA
+  1599                           fsr0l	equ	0xFE9
+  1600                           wreg	equ	0xFE8
+  1601                           postdec1	equ	0xFE5
+  1602                           fsr1h	equ	0xFE2
+  1603                           fsr1l	equ	0xFE1
+  1604                           indf2	equ	0xFDF
+  1605                           postinc2	equ	0xFDE
+  1606                           postdec2	equ	0xFDD
+  1607                           fsr2h	equ	0xFDA
+  1608                           fsr2l	equ	0xFD9
+  1609                           status	equ	0xFD8
+  1610                           
+  1611 ;; *************** function _nojoDispatcher *****************
+  1612 ;; Defined at:
+  1613 ;;		line 38 in file "../kernel.c"
+  1614 ;; Parameters:    Size  Location     Type
+  1615 ;;  state           1    wreg     enum E3131
+  1616 ;; Auto vars:     Size  Location     Type
+  1617 ;;  state           1   33[COMRAM] enum E3131
+  1618 ;;  task_pos        4   34[COMRAM] unsigned long 
+  1619 ;; Return value:  Size  Location     Type
+  1620 ;;                  1    wreg      void 
+  1621 ;; Registers used:
+  1622 ;;		wreg, fsr1l, fsr1h, fsr2l, fsr2h, status,2, status,0, prodl, prodh, cstack
+  1623 ;; Tracked objects:
+  1624 ;;		On entry : 0/0
+  1625 ;;		On exit  : 0/0
+  1626 ;;		Unchanged: 0/0
+  1627 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+  1628 ;;      Params:         0       0       0       0       0       0       0
+  1629 ;;      Locals:         5       0       0       0       0       0       0
+  1630 ;;      Temps:          7       0       0       0       0       0       0
+  1631 ;;      Totals:        12       0       0       0       0       0       0
+  1632 ;;Total ram usage:       12 bytes
+  1633 ;; Hardware stack levels used:    1
+  1634 ;; Hardware stack levels required when called:    2
+  1635 ;; This function calls:
+  1636 ;;		_priority_scheduler
+  1637 ;;		i2___wmul
+  1638 ;; This function is called by:
+  1639 ;;		_timer_ISR
+  1640 ;;		_nojoDelay
+  1641 ;; This function uses a non-reentrant model
+  1642 ;;
+  1643                           
+  1644                           	psect	text13
+  1645  000092                     __ptext13:
+  1646                           	opt stack 0
+  1647  000092                     _nojoDispatcher:
+  1648                           	opt stack 24
+  1649                           
+  1650                           ;incstack = 0
+  1651                           ;nojoDispatcher@state stored from wreg
+  1652  000092  6E22               	movwf	nojoDispatcher@state,c
+  1653                           
+  1654                           ;kernel.c: 40: INTCONbits.GIE = 0;
+  1655  000094  9EF2               	bcf	intcon,7,c	;volatile
+  1656                           
+  1657                           ;kernel.c: 41: POS_READY_QUEUE task_pos;
+  1658                           ;kernel.c: 44: do{ asm("MOVWF _tWORK"); asm("MOVFF BSR, _tBSR"); asm("MOVFF STATUS, _tST
+      +                          ATUS"); F_APTOS.FILA_APTOS[F_APTOS.task_running].task_CTX.ctx_WORK = tWORK; F_APTOS.FILA
+      +                          _APTOS[F_APTOS.task_running].task_CTX.ctx_BSR = tBSR; F_APTOS.FILA_APTOS[F_APTOS.task_ru
+      +                          n
+  1659  000096  6F37               	movwf	_tWORK,b	;# 
+  1660  000098  CFE0 F036          	movff	bsr,_tBSR	;# 
+  1661  00009C  CFD8 F035          	movff	status,_tSTATUS	;# 
+  1662  0000A0  C5FC  F001         	movff	_F_APTOS+452,i2___wmul@multiplier
+  1663  0000A4  C5FD  F002         	movff	_F_APTOS+453,i2___wmul@multiplier+1
+  1664  0000A8  0E00               	movlw	0
+  1665  0000AA  6E04               	movwf	i2___wmul@multiplicand+1,c
+  1666  0000AC  0E70               	movlw	112
+  1667  0000AE  6E03               	movwf	i2___wmul@multiplicand,c
+  1668  0000B0  EC42  F005         	call	i2___wmul	;wreg free
+  1669  0000B4  0E0B               	movlw	11
+  1670  0000B6  2601               	addwf	?i2___wmul,f,c
+  1671  0000B8  0E00               	movlw	0
+  1672  0000BA  2202               	addwfc	?i2___wmul+1,f,c
+  1673  0000BC  0E38               	movlw	low _F_APTOS
+  1674  0000BE  2401               	addwf	?i2___wmul,w,c
+  1675  0000C0  6ED9               	movwf	fsr2l,c
+  1676  0000C2  0E04               	movlw	high _F_APTOS
+  1677  0000C4  2002               	addwfc	?i2___wmul+1,w,c
+  1678  0000C6  6EDA               	movwf	fsr2h,c
+  1679  0000C8  C037  FFDF         	movff	_tWORK,indf2
+  1680  0000CC  C5FC  F001         	movff	_F_APTOS+452,i2___wmul@multiplier
+  1681  0000D0  C5FD  F002         	movff	_F_APTOS+453,i2___wmul@multiplier+1
+  1682  0000D4  0E00               	movlw	0
+  1683  0000D6  6E04               	movwf	i2___wmul@multiplicand+1,c
+  1684  0000D8  0E70               	movlw	112
+  1685  0000DA  6E03               	movwf	i2___wmul@multiplicand,c
+  1686  0000DC  EC42  F005         	call	i2___wmul	;wreg free
+  1687  0000E0  0E0C               	movlw	12
+  1688  0000E2  2601               	addwf	?i2___wmul,f,c
+  1689  0000E4  0E00               	movlw	0
+  1690  0000E6  2202               	addwfc	?i2___wmul+1,f,c
+  1691  0000E8  0E38               	movlw	low _F_APTOS
+  1692  0000EA  2401               	addwf	?i2___wmul,w,c
+  1693  0000EC  6ED9               	movwf	fsr2l,c
+  1694  0000EE  0E04               	movlw	high _F_APTOS
+  1695  0000F0  2002               	addwfc	?i2___wmul+1,w,c
+  1696  0000F2  6EDA               	movwf	fsr2h,c
+  1697  0000F4  C036  FFDF         	movff	_tBSR,indf2
+  1698  0000F8  C5FC  F001         	movff	_F_APTOS+452,i2___wmul@multiplier
+  1699  0000FC  C5FD  F002         	movff	_F_APTOS+453,i2___wmul@multiplier+1
+  1700  000100  0E00               	movlw	0
+  1701  000102  6E04               	movwf	i2___wmul@multiplicand+1,c
+  1702  000104  0E70               	movlw	112
+  1703  000106  6E03               	movwf	i2___wmul@multiplicand,c
+  1704  000108  EC42  F005         	call	i2___wmul	;wreg free
+  1705  00010C  0E0D               	movlw	13
+  1706  00010E  2601               	addwf	?i2___wmul,f,c
+  1707  000110  0E00               	movlw	0
+  1708  000112  2202               	addwfc	?i2___wmul+1,f,c
+  1709  000114  0E38               	movlw	low _F_APTOS
+  1710  000116  2401               	addwf	?i2___wmul,w,c
+  1711  000118  6ED9               	movwf	fsr2l,c
+  1712  00011A  0E04               	movlw	high _F_APTOS
+  1713  00011C  2002               	addwfc	?i2___wmul+1,w,c
+  1714  00011E  6EDA               	movwf	fsr2h,c
+  1715  000120  C035  FFDF         	movff	_tSTATUS,indf2
+  1716  000124  D0D2               	goto	i2l1123
+  1717  000126                     i2l1121:
+  1718  000126  C5FC  F001         	movff	_F_APTOS+452,i2___wmul@multiplier
+  1719  00012A  C5FD  F002         	movff	_F_APTOS+453,i2___wmul@multiplier+1
+  1720  00012E  0E00               	movlw	0
+  1721  000130  6E04               	movwf	i2___wmul@multiplicand+1,c
+  1722  000132  0E70               	movlw	112
+  1723  000134  6E03               	movwf	i2___wmul@multiplicand,c
+  1724  000136  EC42  F005         	call	i2___wmul	;wreg free
+  1725  00013A  0E12               	movlw	18
+  1726  00013C  2601               	addwf	?i2___wmul,f,c
+  1727  00013E  0E00               	movlw	0
+  1728  000140  2202               	addwfc	?i2___wmul+1,f,c
+  1729  000142  0E38               	movlw	low _F_APTOS
+  1730  000144  6E1B               	movwf	??_nojoDispatcher& (0+255),c
+  1731  000146  0E04               	movlw	high _F_APTOS
+  1732  000148  6E1C               	movwf	(??_nojoDispatcher+1)& (0+255),c
+  1733  00014A  5001               	movf	?i2___wmul,w,c
+  1734  00014C  261B               	addwf	??_nojoDispatcher,f,c
+  1735  00014E  5002               	movf	?i2___wmul+1,w,c
+  1736  000150  221C               	addwfc	??_nojoDispatcher+1,f,c
+  1737  000152  EE25  F0FC         	lfsr	2,_F_APTOS+452
+  1738  000156  CFDE F01D          	movff	postinc2,??_nojoDispatcher+2
+  1739  00015A  CFDD F01E          	movff	postdec2,??_nojoDispatcher+3
+  1740  00015E  0E70               	movlw	112
+  1741  000160  021D               	mulwf	(??_nojoDispatcher+2)& (0+255),c
+  1742  000162  CFF3 F01F          	movff	prodl,??_nojoDispatcher+4
+  1743  000166  CFF4 F020          	movff	prodh,??_nojoDispatcher+5
+  1744  00016A  021E               	mulwf	(??_nojoDispatcher+3)& (0+255),c
+  1745  00016C  50F3               	movf	prodl,w,c
+  1746  00016E  2620               	addwf	(??_nojoDispatcher+5)& (0+255),f,c
+  1747  000170  0E6F               	movlw	111
+  1748  000172  261F               	addwf	??_nojoDispatcher+4,f,c
+  1749  000174  0E00               	movlw	0
+  1750  000176  2220               	addwfc	??_nojoDispatcher+5,f,c
+  1751  000178  0E38               	movlw	low _F_APTOS
+  1752  00017A  241F               	addwf	??_nojoDispatcher+4,w,c
+  1753  00017C  6ED9               	movwf	fsr2l,c
+  1754  00017E  0E04               	movlw	high _F_APTOS
+  1755  000180  2020               	addwfc	??_nojoDispatcher+5,w,c
+  1756  000182  6EDA               	movwf	fsr2h,c
+  1757  000184  50DF               	movf	indf2,w,c
+  1758  000186  6E21               	movwf	(??_nojoDispatcher+6)& (0+255),c
+  1759  000188  5021               	movf	??_nojoDispatcher+6,w,c
+  1760  00018A  0D03               	mullw	3
+  1761  00018C  50F3               	movf	prodl,w,c
+  1762  00018E  261B               	addwf	??_nojoDispatcher,f,c
+  1763  000190  50F4               	movf	prodh,w,c
+  1764  000192  221C               	addwfc	??_nojoDispatcher+1,f,c
+  1765  000194  0E02               	movlw	2
+  1766  000196  241B               	addwf	??_nojoDispatcher,w,c
+  1767  000198  6ED9               	movwf	fsr2l,c
+  1768  00019A  0E00               	movlw	0
+  1769  00019C  201C               	addwfc	??_nojoDispatcher+1,w,c
+  1770  00019E  6EDA               	movwf	fsr2h,c
+  1771  0001A0  50DF               	movf	223,w,c
+  1772  0001A2  18FF               	xorwf	tosu,w,c	;volatile
+  1773  0001A4  0BE0               	andlw	-32
+  1774  0001A6  18FF               	xorwf	tosu,w,c	;volatile
+  1775  0001A8  6EDF               	movwf	223,c
+  1776  0001AA  C5FC  F001         	movff	_F_APTOS+452,i2___wmul@multiplier
+  1777  0001AE  C5FD  F002         	movff	_F_APTOS+453,i2___wmul@multiplier+1
+  1778  0001B2  0E00               	movlw	0
+  1779  0001B4  6E04               	movwf	i2___wmul@multiplicand+1,c
+  1780  0001B6  0E70               	movlw	112
+  1781  0001B8  6E03               	movwf	i2___wmul@multiplicand,c
+  1782  0001BA  EC42  F005         	call	i2___wmul	;wreg free
+  1783  0001BE  0E12               	movlw	18
+  1784  0001C0  2601               	addwf	?i2___wmul,f,c
+  1785  0001C2  0E00               	movlw	0
+  1786  0001C4  2202               	addwfc	?i2___wmul+1,f,c
+  1787  0001C6  0E38               	movlw	low _F_APTOS
+  1788  0001C8  6E1B               	movwf	??_nojoDispatcher& (0+255),c
+  1789  0001CA  0E04               	movlw	high _F_APTOS
+  1790  0001CC  6E1C               	movwf	(??_nojoDispatcher+1)& (0+255),c
+  1791  0001CE  5001               	movf	?i2___wmul,w,c
+  1792  0001D0  261B               	addwf	??_nojoDispatcher,f,c
+  1793  0001D2  5002               	movf	?i2___wmul+1,w,c
+  1794  0001D4  221C               	addwfc	??_nojoDispatcher+1,f,c
+  1795  0001D6  EE25  F0FC         	lfsr	2,_F_APTOS+452
+  1796  0001DA  CFDE F01D          	movff	postinc2,??_nojoDispatcher+2
+  1797  0001DE  CFDD F01E          	movff	postdec2,??_nojoDispatcher+3
+  1798  0001E2  0E70               	movlw	112
+  1799  0001E4  021D               	mulwf	(??_nojoDispatcher+2)& (0+255),c
+  1800  0001E6  CFF3 F01F          	movff	prodl,??_nojoDispatcher+4
+  1801  0001EA  CFF4 F020          	movff	prodh,??_nojoDispatcher+5
+  1802  0001EE  021E               	mulwf	(??_nojoDispatcher+3)& (0+255),c
+  1803  0001F0  50F3               	movf	prodl,w,c
+  1804  0001F2  2620               	addwf	(??_nojoDispatcher+5)& (0+255),f,c
+  1805  0001F4  0E6F               	movlw	111
+  1806  0001F6  261F               	addwf	??_nojoDispatcher+4,f,c
+  1807  0001F8  0E00               	movlw	0
+  1808  0001FA  2220               	addwfc	??_nojoDispatcher+5,f,c
+  1809  0001FC  0E38               	movlw	low _F_APTOS
+  1810  0001FE  241F               	addwf	??_nojoDispatcher+4,w,c
+  1811  000200  6ED9               	movwf	fsr2l,c
+  1812  000202  0E04               	movlw	high _F_APTOS
+  1813  000204  2020               	addwfc	??_nojoDispatcher+5,w,c
+  1814  000206  6EDA               	movwf	fsr2h,c
+  1815  000208  50DF               	movf	indf2,w,c
+  1816  00020A  6E21               	movwf	(??_nojoDispatcher+6)& (0+255),c
+  1817  00020C  5021               	movf	??_nojoDispatcher+6,w,c
+  1818  00020E  0D03               	mullw	3
+  1819  000210  50F3               	movf	prodl,w,c
+  1820  000212  241B               	addwf	??_nojoDispatcher,w,c
+  1821  000214  6ED9               	movwf	fsr2l,c
+  1822  000216  50F4               	movf	prodh,w,c
+  1823  000218  201C               	addwfc	??_nojoDispatcher+1,w,c
+  1824  00021A  6EDA               	movwf	fsr2h,c
+  1825  00021C  CFFD FFDF          	movff	tosl,indf2	;volatile
+  1826  000220  C5FC  F001         	movff	_F_APTOS+452,i2___wmul@multiplier
+  1827  000224  C5FD  F002         	movff	_F_APTOS+453,i2___wmul@multiplier+1
+  1828  000228  0E00               	movlw	0
+  1829  00022A  6E04               	movwf	i2___wmul@multiplicand+1,c
+  1830  00022C  0E70               	movlw	112
+  1831  00022E  6E03               	movwf	i2___wmul@multiplicand,c
+  1832  000230  EC42  F005         	call	i2___wmul	;wreg free
+  1833  000234  0E12               	movlw	18
+  1834  000236  2601               	addwf	?i2___wmul,f,c
+  1835  000238  0E00               	movlw	0
+  1836  00023A  2202               	addwfc	?i2___wmul+1,f,c
+  1837  00023C  0E38               	movlw	low _F_APTOS
+  1838  00023E  6E1B               	movwf	??_nojoDispatcher& (0+255),c
+  1839  000240  0E04               	movlw	high _F_APTOS
+  1840  000242  6E1C               	movwf	(??_nojoDispatcher+1)& (0+255),c
+  1841  000244  5001               	movf	?i2___wmul,w,c
+  1842  000246  261B               	addwf	??_nojoDispatcher,f,c
+  1843  000248  5002               	movf	?i2___wmul+1,w,c
+  1844  00024A  221C               	addwfc	??_nojoDispatcher+1,f,c
+  1845  00024C  EE25  F0FC         	lfsr	2,_F_APTOS+452
+  1846  000250  CFDE F01D          	movff	postinc2,??_nojoDispatcher+2
+  1847  000254  CFDD F01E          	movff	postdec2,??_nojoDispatcher+3
+  1848  000258  0E70               	movlw	112
+  1849  00025A  021D               	mulwf	(??_nojoDispatcher+2)& (0+255),c
+  1850  00025C  CFF3 F01F          	movff	prodl,??_nojoDispatcher+4
+  1851  000260  CFF4 F020          	movff	prodh,??_nojoDispatcher+5
+  1852  000264  021E               	mulwf	(??_nojoDispatcher+3)& (0+255),c
+  1853  000266  50F3               	movf	prodl,w,c
+  1854  000268  2620               	addwf	(??_nojoDispatcher+5)& (0+255),f,c
+  1855  00026A  0E6F               	movlw	111
+  1856  00026C  261F               	addwf	??_nojoDispatcher+4,f,c
+  1857  00026E  0E00               	movlw	0
+  1858  000270  2220               	addwfc	??_nojoDispatcher+5,f,c
+  1859  000272  0E38               	movlw	low _F_APTOS
+  1860  000274  241F               	addwf	??_nojoDispatcher+4,w,c
+  1861  000276  6ED9               	movwf	fsr2l,c
+  1862  000278  0E04               	movlw	high _F_APTOS
+  1863  00027A  2020               	addwfc	??_nojoDispatcher+5,w,c
+  1864  00027C  6EDA               	movwf	fsr2h,c
+  1865  00027E  50DF               	movf	indf2,w,c
+  1866  000280  6E21               	movwf	(??_nojoDispatcher+6)& (0+255),c
+  1867  000282  5021               	movf	??_nojoDispatcher+6,w,c
+  1868  000284  0D03               	mullw	3
+  1869  000286  50F3               	movf	prodl,w,c
+  1870  000288  261B               	addwf	??_nojoDispatcher,f,c
+  1871  00028A  50F4               	movf	prodh,w,c
+  1872  00028C  221C               	addwfc	??_nojoDispatcher+1,f,c
+  1873  00028E  0E01               	movlw	1
+  1874  000290  241B               	addwf	??_nojoDispatcher,w,c
+  1875  000292  6ED9               	movwf	fsr2l,c
+  1876  000294  0E00               	movlw	0
+  1877  000296  201C               	addwfc	??_nojoDispatcher+1,w,c
+  1878  000298  6EDA               	movwf	fsr2h,c
+  1879  00029A  CFFE FFDF          	movff	tosh,indf2	;volatile
+  1880  00029E  C5FC  F001         	movff	_F_APTOS+452,i2___wmul@multiplier
+  1881  0002A2  C5FD  F002         	movff	_F_APTOS+453,i2___wmul@multiplier+1
+  1882  0002A6  0E00               	movlw	0
+  1883  0002A8  6E04               	movwf	i2___wmul@multiplicand+1,c
+  1884  0002AA  0E70               	movlw	112
+  1885  0002AC  6E03               	movwf	i2___wmul@multiplicand,c
+  1886  0002AE  EC42  F005         	call	i2___wmul	;wreg free
+  1887  0002B2  0E6F               	movlw	111
+  1888  0002B4  2601               	addwf	?i2___wmul,f,c
+  1889  0002B6  0E00               	movlw	0
+  1890  0002B8  2202               	addwfc	?i2___wmul+1,f,c
+  1891  0002BA  0E38               	movlw	low _F_APTOS
+  1892  0002BC  2401               	addwf	?i2___wmul,w,c
+  1893  0002BE  6ED9               	movwf	fsr2l,c
+  1894  0002C0  0E04               	movlw	high _F_APTOS
+  1895  0002C2  2002               	addwfc	?i2___wmul+1,w,c
+  1896  0002C4  6EDA               	movwf	fsr2h,c
+  1897  0002C6  2ADF               	incf	indf2,f,c
+  1898  0002C8  0006               	pop		;# 
+  1899  0002CA                     i2l1123:
+  1900  0002CA  50FC               	movf	stkptr,w,c	;volatile
+  1901  0002CC  A4D8               	btfss	status,2,c
+  1902  0002CE  D72B               	goto	i2l1121
+  1903                           
+  1904                           ;kernel.c: 46: F_APTOS.FILA_APTOS[F_APTOS.task_running].task_STATE = state;
+  1905  0002D0  C5FC  F001         	movff	_F_APTOS+452,i2___wmul@multiplier
+  1906  0002D4  C5FD  F002         	movff	_F_APTOS+453,i2___wmul@multiplier+1
+  1907  0002D8  0E00               	movlw	0
+  1908  0002DA  6E04               	movwf	i2___wmul@multiplicand+1,c
+  1909  0002DC  0E70               	movlw	112
+  1910  0002DE  6E03               	movwf	i2___wmul@multiplicand,c
+  1911  0002E0  EC42  F005         	call	i2___wmul	;wreg free
+  1912  0002E4  0E08               	movlw	8
+  1913  0002E6  2601               	addwf	?i2___wmul,f,c
+  1914  0002E8  0E00               	movlw	0
+  1915  0002EA  2202               	addwfc	?i2___wmul+1,f,c
+  1916  0002EC  0E38               	movlw	low _F_APTOS
+  1917  0002EE  2401               	addwf	?i2___wmul,w,c
+  1918  0002F0  6ED9               	movwf	fsr2l,c
+  1919  0002F2  0E04               	movlw	high _F_APTOS
+  1920  0002F4  2002               	addwfc	?i2___wmul+1,w,c
+  1921  0002F6  6EDA               	movwf	fsr2h,c
+  1922  0002F8  C022  FFDF         	movff	nojoDispatcher@state,indf2
+  1923                           
+  1924                           ;kernel.c: 52: task_pos = priority_scheduler();
+  1925  0002FC  ECBA  F003         	call	_priority_scheduler	;wreg free
+  1926  000300  C007  F023         	movff	?_priority_scheduler,nojoDispatcher@task_pos
+  1927  000304  C008  F024         	movff	?_priority_scheduler+1,nojoDispatcher@task_pos+1
+  1928  000308  C009  F025         	movff	?_priority_scheduler+2,nojoDispatcher@task_pos+2
+  1929  00030C  C00A  F026         	movff	?_priority_scheduler+3,nojoDispatcher@task_pos+3
+  1930                           
+  1931                           ;kernel.c: 56: F_APTOS.task_running = task_pos;
+  1932  000310  C023  F5FC         	movff	nojoDispatcher@task_pos,_F_APTOS+452
+  1933  000314  C024  F5FD         	movff	nojoDispatcher@task_pos+1,_F_APTOS+453
+  1934  000318  C025  F5FE         	movff	nojoDispatcher@task_pos+2,_F_APTOS+454
+  1935  00031C  C026  F5FF         	movff	nojoDispatcher@task_pos+3,_F_APTOS+455
+  1936                           
+  1937                           ;kernel.c: 57: F_APTOS.FILA_APTOS[task_pos].task_STATE = RUNNING;
+  1938  000320  C023  F001         	movff	nojoDispatcher@task_pos,i2___wmul@multiplier
+  1939  000324  C024  F002         	movff	nojoDispatcher@task_pos+1,i2___wmul@multiplier+1
+  1940  000328  0E00               	movlw	0
+  1941  00032A  6E04               	movwf	i2___wmul@multiplicand+1,c
+  1942  00032C  0E70               	movlw	112
+  1943  00032E  6E03               	movwf	i2___wmul@multiplicand,c
+  1944  000330  EC42  F005         	call	i2___wmul	;wreg free
+  1945  000334  0E08               	movlw	8
+  1946  000336  2601               	addwf	?i2___wmul,f,c
+  1947  000338  0E00               	movlw	0
+  1948  00033A  2202               	addwfc	?i2___wmul+1,f,c
+  1949  00033C  0E38               	movlw	low _F_APTOS
+  1950  00033E  2401               	addwf	?i2___wmul,w,c
+  1951  000340  6ED9               	movwf	fsr2l,c
+  1952  000342  0E04               	movlw	high _F_APTOS
+  1953  000344  2002               	addwfc	?i2___wmul+1,w,c
+  1954  000346  6EDA               	movwf	fsr2h,c
+  1955  000348  0E01               	movlw	1
+  1956  00034A  6EDF               	movwf	indf2,c
+  1957                           
+  1958                           ;kernel.c: 59: do{ STKPTR = 0; tWORK = F_APTOS.FILA_APTOS[F_APTOS.task_running].task_CTX
+      +                          .ctx_WORK; tBSR = F_APTOS.FILA_APTOS[F_APTOS.task_running].task_CTX.ctx_BSR; tSTATUS = F
+      +                          _APTOS.FILA_APTOS[F_APTOS.task_running].task_CTX.ctx_STATUS; while (F_APTOS.FILA_APTOS[F
+      +                          _
+  1959  00034C  0E00               	movlw	0
+  1960  00034E  6EFC               	movwf	stkptr,c	;volatile
+  1961  000350  C5FC  F001         	movff	_F_APTOS+452,i2___wmul@multiplier
+  1962  000354  C5FD  F002         	movff	_F_APTOS+453,i2___wmul@multiplier+1
+  1963  000358  0E00               	movlw	0
+  1964  00035A  6E04               	movwf	i2___wmul@multiplicand+1,c
+  1965  00035C  0E70               	movlw	112
+  1966  00035E  6E03               	movwf	i2___wmul@multiplicand,c
+  1967  000360  EC42  F005         	call	i2___wmul	;wreg free
+  1968  000364  0E0B               	movlw	11
+  1969  000366  2601               	addwf	?i2___wmul,f,c
+  1970  000368  0E00               	movlw	0
+  1971  00036A  2202               	addwfc	?i2___wmul+1,f,c
+  1972  00036C  0E38               	movlw	low _F_APTOS
+  1973  00036E  2401               	addwf	?i2___wmul,w,c
+  1974  000370  6ED9               	movwf	fsr2l,c
+  1975  000372  0E04               	movlw	high _F_APTOS
+  1976  000374  2002               	addwfc	?i2___wmul+1,w,c
+  1977  000376  6EDA               	movwf	fsr2h,c
+  1978  000378  50DF               	movf	indf2,w,c
+  1979  00037A  6E37               	movwf	_tWORK,c
+  1980  00037C  C5FC  F001         	movff	_F_APTOS+452,i2___wmul@multiplier
+  1981  000380  C5FD  F002         	movff	_F_APTOS+453,i2___wmul@multiplier+1
+  1982  000384  0E00               	movlw	0
+  1983  000386  6E04               	movwf	i2___wmul@multiplicand+1,c
+  1984  000388  0E70               	movlw	112
+  1985  00038A  6E03               	movwf	i2___wmul@multiplicand,c
+  1986  00038C  EC42  F005         	call	i2___wmul	;wreg free
+  1987  000390  0E0C               	movlw	12
+  1988  000392  2601               	addwf	?i2___wmul,f,c
+  1989  000394  0E00               	movlw	0
+  1990  000396  2202               	addwfc	?i2___wmul+1,f,c
+  1991  000398  0E38               	movlw	low _F_APTOS
+  1992  00039A  2401               	addwf	?i2___wmul,w,c
+  1993  00039C  6ED9               	movwf	fsr2l,c
+  1994  00039E  0E04               	movlw	high _F_APTOS
+  1995  0003A0  2002               	addwfc	?i2___wmul+1,w,c
+  1996  0003A2  6EDA               	movwf	fsr2h,c
+  1997  0003A4  50DF               	movf	indf2,w,c
+  1998  0003A6  6E36               	movwf	_tBSR,c
+  1999  0003A8  C5FC  F001         	movff	_F_APTOS+452,i2___wmul@multiplier
+  2000  0003AC  C5FD  F002         	movff	_F_APTOS+453,i2___wmul@multiplier+1
+  2001  0003B0  0E00               	movlw	0
+  2002  0003B2  6E04               	movwf	i2___wmul@multiplicand+1,c
+  2003  0003B4  0E70               	movlw	112
+  2004  0003B6  6E03               	movwf	i2___wmul@multiplicand,c
+  2005  0003B8  EC42  F005         	call	i2___wmul	;wreg free
+  2006  0003BC  0E0D               	movlw	13
+  2007  0003BE  2601               	addwf	?i2___wmul,f,c
+  2008  0003C0  0E00               	movlw	0
+  2009  0003C2  2202               	addwfc	?i2___wmul+1,f,c
+  2010  0003C4  0E38               	movlw	low _F_APTOS
+  2011  0003C6  2401               	addwf	?i2___wmul,w,c
+  2012  0003C8  6ED9               	movwf	fsr2l,c
+  2013  0003CA  0E04               	movlw	high _F_APTOS
+  2014  0003CC  2002               	addwfc	?i2___wmul+1,w,c
+  2015  0003CE  6EDA               	movwf	fsr2h,c
+  2016  0003D0  50DF               	movf	indf2,w,c
+  2017  0003D2  6E35               	movwf	_tSTATUS,c
+  2018  0003D4  D0D0               	goto	i2l73
+  2019  0003D6                     i2l74:
+  2020  0003D6  0005               	push		;# 
+  2021  0003D8  C5FC  F001         	movff	_F_APTOS+452,i2___wmul@multiplier
+  2022  0003DC  C5FD  F002         	movff	_F_APTOS+453,i2___wmul@multiplier+1
+  2023  0003E0  0E00               	movlw	0
+  2024  0003E2  6E04               	movwf	i2___wmul@multiplicand+1,c
+  2025  0003E4  0E70               	movlw	112
+  2026  0003E6  6E03               	movwf	i2___wmul@multiplicand,c
+  2027  0003E8  EC42  F005         	call	i2___wmul	;wreg free
+  2028  0003EC  0E6F               	movlw	111
+  2029  0003EE  2601               	addwf	?i2___wmul,f,c
+  2030  0003F0  0E00               	movlw	0
+  2031  0003F2  2202               	addwfc	?i2___wmul+1,f,c
+  2032  0003F4  0E38               	movlw	low _F_APTOS
+  2033  0003F6  2401               	addwf	?i2___wmul,w,c
+  2034  0003F8  6ED9               	movwf	fsr2l,c
+  2035  0003FA  0E04               	movlw	high _F_APTOS
+  2036  0003FC  2002               	addwfc	?i2___wmul+1,w,c
+  2037  0003FE  6EDA               	movwf	fsr2h,c
+  2038  000400  06DF               	decf	indf2,f,c
+  2039  000402  C5FC  F001         	movff	_F_APTOS+452,i2___wmul@multiplier
+  2040  000406  C5FD  F002         	movff	_F_APTOS+453,i2___wmul@multiplier+1
+  2041  00040A  0E00               	movlw	0
+  2042  00040C  6E04               	movwf	i2___wmul@multiplicand+1,c
+  2043  00040E  0E70               	movlw	112
+  2044  000410  6E03               	movwf	i2___wmul@multiplicand,c
+  2045  000412  EC42  F005         	call	i2___wmul	;wreg free
+  2046  000416  0E12               	movlw	18
+  2047  000418  2601               	addwf	?i2___wmul,f,c
+  2048  00041A  0E00               	movlw	0
+  2049  00041C  2202               	addwfc	?i2___wmul+1,f,c
+  2050  00041E  0E38               	movlw	low _F_APTOS
+  2051  000420  6E1B               	movwf	??_nojoDispatcher& (0+255),c
+  2052  000422  0E04               	movlw	high _F_APTOS
+  2053  000424  6E1C               	movwf	(??_nojoDispatcher+1)& (0+255),c
+  2054  000426  5001               	movf	?i2___wmul,w,c
+  2055  000428  261B               	addwf	??_nojoDispatcher,f,c
+  2056  00042A  5002               	movf	?i2___wmul+1,w,c
+  2057  00042C  221C               	addwfc	??_nojoDispatcher+1,f,c
+  2058  00042E  EE25  F0FC         	lfsr	2,_F_APTOS+452
+  2059  000432  CFDE F01D          	movff	postinc2,??_nojoDispatcher+2
+  2060  000436  CFDD F01E          	movff	postdec2,??_nojoDispatcher+3
+  2061  00043A  0E70               	movlw	112
+  2062  00043C  021D               	mulwf	(??_nojoDispatcher+2)& (0+255),c
+  2063  00043E  CFF3 F01F          	movff	prodl,??_nojoDispatcher+4
+  2064  000442  CFF4 F020          	movff	prodh,??_nojoDispatcher+5
+  2065  000446  021E               	mulwf	(??_nojoDispatcher+3)& (0+255),c
+  2066  000448  50F3               	movf	prodl,w,c
+  2067  00044A  2620               	addwf	(??_nojoDispatcher+5)& (0+255),f,c
+  2068  00044C  0E6F               	movlw	111
+  2069  00044E  261F               	addwf	??_nojoDispatcher+4,f,c
+  2070  000450  0E00               	movlw	0
+  2071  000452  2220               	addwfc	??_nojoDispatcher+5,f,c
+  2072  000454  0E38               	movlw	low _F_APTOS
+  2073  000456  241F               	addwf	??_nojoDispatcher+4,w,c
+  2074  000458  6ED9               	movwf	fsr2l,c
+  2075  00045A  0E04               	movlw	high _F_APTOS
+  2076  00045C  2020               	addwfc	??_nojoDispatcher+5,w,c
+  2077  00045E  6EDA               	movwf	fsr2h,c
+  2078  000460  50DF               	movf	indf2,w,c
+  2079  000462  6E21               	movwf	(??_nojoDispatcher+6)& (0+255),c
+  2080  000464  5021               	movf	??_nojoDispatcher+6,w,c
+  2081  000466  0D03               	mullw	3
+  2082  000468  50F3               	movf	prodl,w,c
+  2083  00046A  261B               	addwf	??_nojoDispatcher,f,c
+  2084  00046C  50F4               	movf	prodh,w,c
+  2085  00046E  221C               	addwfc	??_nojoDispatcher+1,f,c
+  2086  000470  0E02               	movlw	2
+  2087  000472  241B               	addwf	??_nojoDispatcher,w,c
+  2088  000474  6ED9               	movwf	fsr2l,c
+  2089  000476  0E00               	movlw	0
+  2090  000478  201C               	addwfc	??_nojoDispatcher+1,w,c
+  2091  00047A  6EDA               	movwf	fsr2h,c
+  2092  00047C  50DF               	movf	223,w,c
+  2093  00047E  0B1F               	andlw	31
+  2094  000480  6EFF               	movwf	tosu,c	;volatile
+  2095  000482  C5FC  F001         	movff	_F_APTOS+452,i2___wmul@multiplier
+  2096  000486  C5FD  F002         	movff	_F_APTOS+453,i2___wmul@multiplier+1
+  2097  00048A  0E00               	movlw	0
+  2098  00048C  6E04               	movwf	i2___wmul@multiplicand+1,c
+  2099  00048E  0E70               	movlw	112
+  2100  000490  6E03               	movwf	i2___wmul@multiplicand,c
+  2101  000492  EC42  F005         	call	i2___wmul	;wreg free
+  2102  000496  0E12               	movlw	18
+  2103  000498  2601               	addwf	?i2___wmul,f,c
+  2104  00049A  0E00               	movlw	0
+  2105  00049C  2202               	addwfc	?i2___wmul+1,f,c
+  2106  00049E  0E38               	movlw	low _F_APTOS
+  2107  0004A0  6E1B               	movwf	??_nojoDispatcher& (0+255),c
+  2108  0004A2  0E04               	movlw	high _F_APTOS
+  2109  0004A4  6E1C               	movwf	(??_nojoDispatcher+1)& (0+255),c
+  2110  0004A6  5001               	movf	?i2___wmul,w,c
+  2111  0004A8  261B               	addwf	??_nojoDispatcher,f,c
+  2112  0004AA  5002               	movf	?i2___wmul+1,w,c
+  2113  0004AC  221C               	addwfc	??_nojoDispatcher+1,f,c
+  2114  0004AE  EE25  F0FC         	lfsr	2,_F_APTOS+452
+  2115  0004B2  CFDE F01D          	movff	postinc2,??_nojoDispatcher+2
+  2116  0004B6  CFDD F01E          	movff	postdec2,??_nojoDispatcher+3
+  2117  0004BA  0E70               	movlw	112
+  2118  0004BC  021D               	mulwf	(??_nojoDispatcher+2)& (0+255),c
+  2119  0004BE  CFF3 F01F          	movff	prodl,??_nojoDispatcher+4
+  2120  0004C2  CFF4 F020          	movff	prodh,??_nojoDispatcher+5
+  2121  0004C6  021E               	mulwf	(??_nojoDispatcher+3)& (0+255),c
+  2122  0004C8  50F3               	movf	prodl,w,c
+  2123  0004CA  2620               	addwf	(??_nojoDispatcher+5)& (0+255),f,c
+  2124  0004CC  0E6F               	movlw	111
+  2125  0004CE  261F               	addwf	??_nojoDispatcher+4,f,c
+  2126  0004D0  0E00               	movlw	0
+  2127  0004D2  2220               	addwfc	??_nojoDispatcher+5,f,c
+  2128  0004D4  0E38               	movlw	low _F_APTOS
+  2129  0004D6  241F               	addwf	??_nojoDispatcher+4,w,c
+  2130  0004D8  6ED9               	movwf	fsr2l,c
+  2131  0004DA  0E04               	movlw	high _F_APTOS
+  2132  0004DC  2020               	addwfc	??_nojoDispatcher+5,w,c
+  2133  0004DE  6EDA               	movwf	fsr2h,c
+  2134  0004E0  50DF               	movf	indf2,w,c
+  2135  0004E2  6E21               	movwf	(??_nojoDispatcher+6)& (0+255),c
+  2136  0004E4  5021               	movf	??_nojoDispatcher+6,w,c
+  2137  0004E6  0D03               	mullw	3
+  2138  0004E8  50F3               	movf	prodl,w,c
+  2139  0004EA  261B               	addwf	??_nojoDispatcher,f,c
+  2140  0004EC  50F4               	movf	prodh,w,c
+  2141  0004EE  221C               	addwfc	??_nojoDispatcher+1,f,c
+  2142  0004F0  0E01               	movlw	1
+  2143  0004F2  241B               	addwf	??_nojoDispatcher,w,c
+  2144  0004F4  6ED9               	movwf	fsr2l,c
+  2145  0004F6  0E00               	movlw	0
+  2146  0004F8  201C               	addwfc	??_nojoDispatcher+1,w,c
+  2147  0004FA  6EDA               	movwf	fsr2h,c
+  2148  0004FC  50DF               	movf	indf2,w,c
+  2149  0004FE  6EFE               	movwf	tosh,c	;volatile
+  2150  000500  C5FC  F001         	movff	_F_APTOS+452,i2___wmul@multiplier
+  2151  000504  C5FD  F002         	movff	_F_APTOS+453,i2___wmul@multiplier+1
+  2152  000508  0E00               	movlw	0
+  2153  00050A  6E04               	movwf	i2___wmul@multiplicand+1,c
+  2154  00050C  0E70               	movlw	112
+  2155  00050E  6E03               	movwf	i2___wmul@multiplicand,c
+  2156  000510  EC42  F005         	call	i2___wmul	;wreg free
+  2157  000514  0E12               	movlw	18
+  2158  000516  2601               	addwf	?i2___wmul,f,c
+  2159  000518  0E00               	movlw	0
+  2160  00051A  2202               	addwfc	?i2___wmul+1,f,c
+  2161  00051C  0E38               	movlw	low _F_APTOS
+  2162  00051E  6E1B               	movwf	??_nojoDispatcher& (0+255),c
+  2163  000520  0E04               	movlw	high _F_APTOS
+  2164  000522  6E1C               	movwf	(??_nojoDispatcher+1)& (0+255),c
+  2165  000524  5001               	movf	?i2___wmul,w,c
+  2166  000526  261B               	addwf	??_nojoDispatcher,f,c
+  2167  000528  5002               	movf	?i2___wmul+1,w,c
+  2168  00052A  221C               	addwfc	??_nojoDispatcher+1,f,c
+  2169  00052C  EE25  F0FC         	lfsr	2,_F_APTOS+452
+  2170  000530  CFDE F01D          	movff	postinc2,??_nojoDispatcher+2
+  2171  000534  CFDD F01E          	movff	postdec2,??_nojoDispatcher+3
+  2172  000538  0E70               	movlw	112
+  2173  00053A  021D               	mulwf	(??_nojoDispatcher+2)& (0+255),c
+  2174  00053C  CFF3 F01F          	movff	prodl,??_nojoDispatcher+4
+  2175  000540  CFF4 F020          	movff	prodh,??_nojoDispatcher+5
+  2176  000544  021E               	mulwf	(??_nojoDispatcher+3)& (0+255),c
+  2177  000546  50F3               	movf	prodl,w,c
+  2178  000548  2620               	addwf	(??_nojoDispatcher+5)& (0+255),f,c
+  2179  00054A  0E6F               	movlw	111
+  2180  00054C  261F               	addwf	??_nojoDispatcher+4,f,c
+  2181  00054E  0E00               	movlw	0
+  2182  000550  2220               	addwfc	??_nojoDispatcher+5,f,c
+  2183  000552  0E38               	movlw	low _F_APTOS
+  2184  000554  241F               	addwf	??_nojoDispatcher+4,w,c
+  2185  000556  6ED9               	movwf	fsr2l,c
+  2186  000558  0E04               	movlw	high _F_APTOS
+  2187  00055A  2020               	addwfc	??_nojoDispatcher+5,w,c
+  2188  00055C  6EDA               	movwf	fsr2h,c
+  2189  00055E  50DF               	movf	indf2,w,c
+  2190  000560  6E21               	movwf	(??_nojoDispatcher+6)& (0+255),c
+  2191  000562  5021               	movf	??_nojoDispatcher+6,w,c
+  2192  000564  0D03               	mullw	3
+  2193  000566  50F3               	movf	prodl,w,c
+  2194  000568  241B               	addwf	??_nojoDispatcher,w,c
+  2195  00056A  6ED9               	movwf	fsr2l,c
+  2196  00056C  50F4               	movf	prodh,w,c
+  2197  00056E  201C               	addwfc	??_nojoDispatcher+1,w,c
+  2198  000570  6EDA               	movwf	fsr2h,c
+  2199  000572  50DF               	movf	indf2,w,c
+  2200  000574  6EFD               	movwf	tosl,c	;volatile
+  2201  000576                     i2l73:
+  2202  000576  C5FC  F001         	movff	_F_APTOS+452,i2___wmul@multiplier
+  2203  00057A  C5FD  F002         	movff	_F_APTOS+453,i2___wmul@multiplier+1
+  2204  00057E  0E00               	movlw	0
+  2205  000580  6E04               	movwf	i2___wmul@multiplicand+1,c
+  2206  000582  0E70               	movlw	112
+  2207  000584  6E03               	movwf	i2___wmul@multiplicand,c
+  2208  000586  EC42  F005         	call	i2___wmul	;wreg free
+  2209  00058A  0E6F               	movlw	111
+  2210  00058C  2601               	addwf	?i2___wmul,f,c
+  2211  00058E  0E00               	movlw	0
+  2212  000590  2202               	addwfc	?i2___wmul+1,f,c
+  2213  000592  0E38               	movlw	low _F_APTOS
+  2214  000594  2401               	addwf	?i2___wmul,w,c
+  2215  000596  6ED9               	movwf	fsr2l,c
+  2216  000598  0E04               	movlw	high _F_APTOS
+  2217  00059A  2002               	addwfc	?i2___wmul+1,w,c
+  2218  00059C  6EDA               	movwf	fsr2h,c
+  2219  00059E  50DF               	movf	indf2,w,c
+  2220  0005A0  A4D8               	btfss	status,2,c
+  2221  0005A2  D719               	goto	i2l74
+  2222  0005A4  C036  FFE0         	movff	_tBSR,bsr	;# 
+  2223  0005A8  C035  FFD8         	movff	_tSTATUS,status	;# 
+  2224  0005AC  5337               	movf	_tWORK,f,b	;# 
+  2225                           
+  2226                           ;kernel.c: 60: INTCONbits.GIE = 1;
+  2227  0005AE  8EF2               	bsf	intcon,7,c	;volatile
+  2228  0005B0  0012               	return		;funcret
+  2229  0005B2                     __end_of_nojoDispatcher:
+  2230                           	opt stack 0
+  2231                           tosu	equ	0xFFF
+  2232                           tosh	equ	0xFFE
+  2233                           tosl	equ	0xFFD
+  2234                           stkptr	equ	0xFFC
+  2235                           pclatu	equ	0xFFB
+  2236                           pclath	equ	0xFFA
+  2237                           tblptru	equ	0xFF8
+  2238                           tblptrh	equ	0xFF7
+  2239                           tblptrl	equ	0xFF6
+  2240                           tablat	equ	0xFF5
+  2241                           prodh	equ	0xFF4
+  2242                           prodl	equ	0xFF3
+  2243                           intcon	equ	0xFF2
+  2244                           postinc0	equ	0xFEE
+  2245                           fsr0h	equ	0xFEA
+  2246                           fsr0l	equ	0xFE9
+  2247                           wreg	equ	0xFE8
+  2248                           postdec1	equ	0xFE5
+  2249                           fsr1h	equ	0xFE2
+  2250                           fsr1l	equ	0xFE1
+  2251                           bsr	equ	0xFE0
+  2252                           indf2	equ	0xFDF
+  2253                           postinc2	equ	0xFDE
+  2254                           postdec2	equ	0xFDD
+  2255                           fsr2h	equ	0xFDA
+  2256                           fsr2l	equ	0xFD9
+  2257                           status	equ	0xFD8
+  2258                           
+  2259 ;; *************** function _priority_scheduler *****************
+  2260 ;; Defined at:
+  2261 ;;		line 5 in file "../scheduler.c"
+  2262 ;; Parameters:    Size  Location     Type
+  2263 ;;		None
+  2264 ;; Auto vars:     Size  Location     Type
+  2265 ;;  i               4   22[COMRAM] unsigned long 
+  2266 ;;  pos_next_tas    4   18[COMRAM] unsigned long 
+  2267 ;; Return value:  Size  Location     Type
+  2268 ;;                  4    6[COMRAM] unsigned long 
+  2269 ;; Registers used:
+  2270 ;;		wreg, fsr1l, fsr1h, fsr2l, fsr2h, status,2, status,0, prodl, prodh, cstack
+  2271 ;; Tracked objects:
+  2272 ;;		On entry : 0/0
+  2273 ;;		On exit  : 0/0
+  2274 ;;		Unchanged: 0/0
+  2275 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+  2276 ;;      Params:         4       0       0       0       0       0       0
+  2277 ;;      Locals:         8       0       0       0       0       0       0
+  2278 ;;      Temps:          8       0       0       0       0       0       0
+  2279 ;;      Totals:        20       0       0       0       0       0       0
+  2280 ;;Total ram usage:       20 bytes
+  2281 ;; Hardware stack levels used:    1
+  2282 ;; Hardware stack levels required when called:    1
+  2283 ;; This function calls:
+  2284 ;;		i2___wmul
+  2285 ;; This function is called by:
+  2286 ;;		_nojoDispatcher
+  2287 ;; This function uses a non-reentrant model
+  2288 ;;
+  2289                           
+  2290                           	psect	text14
+  2291  000774                     __ptext14:
+  2292                           	opt stack 0
+  2293  000774                     _priority_scheduler:
+  2294                           	opt stack 24
+  2295                           
+  2296                           ;scheduler.c: 7: u_int i, pos_next_task = 0;
+  2297                           
+  2298                           ;incstack = 0
+  2299  000774  0E00               	movlw	0
+  2300  000776  6E13               	movwf	priority_scheduler@pos_next_task,c
+  2301  000778  0E00               	movlw	0
+  2302  00077A  6E14               	movwf	priority_scheduler@pos_next_task+1,c
+  2303  00077C  0E00               	movlw	0
+  2304  00077E  6E15               	movwf	priority_scheduler@pos_next_task+2,c
+  2305  000780  0E00               	movlw	0
+  2306  000782  6E16               	movwf	priority_scheduler@pos_next_task+3,c
+  2307                           
+  2308                           ;scheduler.c: 8: for(i = 1; i <= F_APTOS.tasks_installed; i++) {
+  2309  000784  0E01               	movlw	1
+  2310  000786  6E17               	movwf	priority_scheduler@i,c
+  2311  000788  0E00               	movlw	0
+  2312  00078A  6E18               	movwf	priority_scheduler@i+1,c
+  2313  00078C  0E00               	movlw	0
+  2314  00078E  6E19               	movwf	priority_scheduler@i+2,c
+  2315  000790  0E00               	movlw	0
+  2316  000792  6E1A               	movwf	priority_scheduler@i+3,c
+  2317  000794  D057               	goto	i2l1099
+  2318  000796                     i2l1091:
+  2319                           
+  2320                           ;scheduler.c: 9: if(F_APTOS.FILA_APTOS[pos_next_task].task_PRIOR < F_APTOS.FILA_APTOS[i]
+      +                          .task_PRIOR) {
+  2321  000796  C017  F001         	movff	priority_scheduler@i,i2___wmul@multiplier
+  2322  00079A  C018  F002         	movff	priority_scheduler@i+1,i2___wmul@multiplier+1
+  2323  00079E  0E00               	movlw	0
+  2324  0007A0  6E04               	movwf	i2___wmul@multiplicand+1,c
+  2325  0007A2  0E70               	movlw	112
+  2326  0007A4  6E03               	movwf	i2___wmul@multiplicand,c
+  2327  0007A6  EC42  F005         	call	i2___wmul	;wreg free
+  2328  0007AA  0E04               	movlw	4
+  2329  0007AC  2601               	addwf	?i2___wmul,f,c
+  2330  0007AE  0E00               	movlw	0
+  2331  0007B0  2202               	addwfc	?i2___wmul+1,f,c
+  2332  0007B2  0E38               	movlw	low _F_APTOS
+  2333  0007B4  2401               	addwf	?i2___wmul,w,c
+  2334  0007B6  6ED9               	movwf	fsr2l,c
+  2335  0007B8  0E04               	movlw	high _F_APTOS
+  2336  0007BA  2002               	addwfc	?i2___wmul+1,w,c
+  2337  0007BC  6EDA               	movwf	fsr2h,c
+  2338  0007BE  C013  F001         	movff	priority_scheduler@pos_next_task,i2___wmul@multiplier
+  2339  0007C2  C014  F002         	movff	priority_scheduler@pos_next_task+1,i2___wmul@multiplier+1
+  2340  0007C6  0E00               	movlw	0
+  2341  0007C8  6E04               	movwf	i2___wmul@multiplicand+1,c
+  2342  0007CA  0E70               	movlw	112
+  2343  0007CC  6E03               	movwf	i2___wmul@multiplicand,c
+  2344  0007CE  EC42  F005         	call	i2___wmul	;wreg free
+  2345  0007D2  0E04               	movlw	4
+  2346  0007D4  2601               	addwf	?i2___wmul,f,c
+  2347  0007D6  0E00               	movlw	0
+  2348  0007D8  2202               	addwfc	?i2___wmul+1,f,c
+  2349  0007DA  0E38               	movlw	low _F_APTOS
+  2350  0007DC  2401               	addwf	?i2___wmul,w,c
+  2351  0007DE  6EE1               	movwf	fsr1l,c
+  2352  0007E0  0E04               	movlw	high _F_APTOS
+  2353  0007E2  2002               	addwfc	?i2___wmul+1,w,c
+  2354  0007E4  6EE2               	movwf	fsr1h,c
+  2355  0007E6  50DE               	movf	postinc2,w,c
+  2356  0007E8  5CE6               	subwf	postinc1,w,c
+  2357  0007EA  50DE               	movf	postinc2,w,c
+  2358  0007EC  58E6               	subwfb	postinc1,w,c
+  2359  0007EE  50DE               	movf	postinc2,w,c
+  2360  0007F0  58E6               	subwfb	postinc1,w,c
+  2361  0007F2  50DE               	movf	postinc2,w,c
+  2362  0007F4  58E6               	subwfb	postinc1,w,c
+  2363  0007F6  B0D8               	btfsc	status,0,c
+  2364  0007F8  D01F               	goto	i2l1097
+  2365                           
+  2366                           ;scheduler.c: 10: if(F_APTOS.FILA_APTOS[i].task_STATE == READY){
+  2367  0007FA  C017  F001         	movff	priority_scheduler@i,i2___wmul@multiplier
+  2368  0007FE  C018  F002         	movff	priority_scheduler@i+1,i2___wmul@multiplier+1
+  2369  000802  0E00               	movlw	0
+  2370  000804  6E04               	movwf	i2___wmul@multiplicand+1,c
+  2371  000806  0E70               	movlw	112
+  2372  000808  6E03               	movwf	i2___wmul@multiplicand,c
+  2373  00080A  EC42  F005         	call	i2___wmul	;wreg free
+  2374  00080E  0E08               	movlw	8
+  2375  000810  2601               	addwf	?i2___wmul,f,c
+  2376  000812  0E00               	movlw	0
+  2377  000814  2202               	addwfc	?i2___wmul+1,f,c
+  2378  000816  0E38               	movlw	low _F_APTOS
+  2379  000818  2401               	addwf	?i2___wmul,w,c
+  2380  00081A  6ED9               	movwf	fsr2l,c
+  2381  00081C  0E04               	movlw	high _F_APTOS
+  2382  00081E  2002               	addwfc	?i2___wmul+1,w,c
+  2383  000820  6EDA               	movwf	fsr2h,c
+  2384  000822  50DF               	movf	indf2,w,c
+  2385  000824  A4D8               	btfss	status,2,c
+  2386  000826  D008               	goto	i2l1097
+  2387                           
+  2388                           ;scheduler.c: 11: pos_next_task = i;
+  2389  000828  C017  F013         	movff	priority_scheduler@i,priority_scheduler@pos_next_task
+  2390  00082C  C018  F014         	movff	priority_scheduler@i+1,priority_scheduler@pos_next_task+1
+  2391  000830  C019  F015         	movff	priority_scheduler@i+2,priority_scheduler@pos_next_task+2
+  2392  000834  C01A  F016         	movff	priority_scheduler@i+3,priority_scheduler@pos_next_task+3
+  2393  000838                     i2l1097:
+  2394  000838  0E01               	movlw	1
+  2395  00083A  2617               	addwf	priority_scheduler@i,f,c
+  2396  00083C  0E00               	movlw	0
+  2397  00083E  2218               	addwfc	priority_scheduler@i+1,f,c
+  2398  000840  2219               	addwfc	priority_scheduler@i+2,f,c
+  2399  000842  221A               	addwfc	priority_scheduler@i+3,f,c
+  2400  000844                     i2l1099:
+  2401  000844  EE25  F0F8         	lfsr	2,_F_APTOS+448
+  2402  000848  5017               	movf	priority_scheduler@i,w,c
+  2403  00084A  5CDE               	subwf	postinc2,w,c
+  2404  00084C  5018               	movf	priority_scheduler@i+1,w,c
+  2405  00084E  58DE               	subwfb	postinc2,w,c
+  2406  000850  5019               	movf	priority_scheduler@i+2,w,c
+  2407  000852  58DE               	subwfb	postinc2,w,c
+  2408  000854  501A               	movf	priority_scheduler@i+3,w,c
+  2409  000856  58DE               	subwfb	postinc2,w,c
+  2410  000858  B0D8               	btfsc	status,0,c
+  2411  00085A  D79D               	goto	i2l1091
+  2412                           
+  2413                           ;scheduler.c: 12: }
+  2414                           ;scheduler.c: 13: }
+  2415                           ;scheduler.c: 14: }
+  2416                           ;scheduler.c: 15: return pos_next_task;
+  2417  00085C  C013  F007         	movff	priority_scheduler@pos_next_task,?_priority_scheduler
+  2418  000860  C014  F008         	movff	priority_scheduler@pos_next_task+1,?_priority_scheduler+1
+  2419  000864  C015  F009         	movff	priority_scheduler@pos_next_task+2,?_priority_scheduler+2
+  2420  000868  C016  F00A         	movff	priority_scheduler@pos_next_task+3,?_priority_scheduler+3
+  2421  00086C  0012               	return		;funcret
+  2422  00086E                     __end_of_priority_scheduler:
+  2423                           	opt stack 0
+  2424                           tosu	equ	0xFFF
+  2425                           tosh	equ	0xFFE
+  2426                           tosl	equ	0xFFD
+  2427                           stkptr	equ	0xFFC
+  2428                           pclatu	equ	0xFFB
+  2429                           pclath	equ	0xFFA
+  2430                           tblptru	equ	0xFF8
+  2431                           tblptrh	equ	0xFF7
+  2432                           tblptrl	equ	0xFF6
+  2433                           tablat	equ	0xFF5
+  2434                           prodh	equ	0xFF4
+  2435                           prodl	equ	0xFF3
+  2436                           intcon	equ	0xFF2
+  2437                           postinc0	equ	0xFEE
+  2438                           fsr0h	equ	0xFEA
+  2439                           fsr0l	equ	0xFE9
+  2440                           wreg	equ	0xFE8
+  2441                           postinc1	equ	0xFE6
+  2442                           postdec1	equ	0xFE5
+  2443                           fsr1h	equ	0xFE2
+  2444                           fsr1l	equ	0xFE1
+  2445                           bsr	equ	0xFE0
+  2446                           indf2	equ	0xFDF
+  2447                           postinc2	equ	0xFDE
+  2448                           postdec2	equ	0xFDD
+  2449                           fsr2h	equ	0xFDA
+  2450                           fsr2l	equ	0xFD9
+  2451                           status	equ	0xFD8
+  2452                           
+  2453 ;; *************** function i2___wmul *****************
+  2454 ;; Defined at:
+  2455 ;;		line 15 in file "C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\Umul16.c"
+  2456 ;; Parameters:    Size  Location     Type
+  2457 ;;  multiplier      2    0[COMRAM] unsigned int 
+  2458 ;;  multiplicand    2    2[COMRAM] unsigned int 
+  2459 ;; Auto vars:     Size  Location     Type
+  2460 ;;  __wmul          2    4[COMRAM] unsigned int 
+  2461 ;; Return value:  Size  Location     Type
+  2462 ;;                  2    0[COMRAM] unsigned int 
+  2463 ;; Registers used:
+  2464 ;;		wreg, status,2, status,0, prodl, prodh
+  2465 ;; Tracked objects:
+  2466 ;;		On entry : 0/0
+  2467 ;;		On exit  : 0/0
+  2468 ;;		Unchanged: 0/0
+  2469 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+  2470 ;;      Params:         4       0       0       0       0       0       0
+  2471 ;;      Locals:         2       0       0       0       0       0       0
+  2472 ;;      Temps:          0       0       0       0       0       0       0
+  2473 ;;      Totals:         6       0       0       0       0       0       0
+  2474 ;;Total ram usage:        6 bytes
+  2475 ;; Hardware stack levels used:    1
+  2476 ;; This function calls:
+  2477 ;;		Nothing
+  2478 ;; This function is called by:
+  2479 ;;		_nojoDispatcher
+  2480 ;;		_priority_scheduler
+  2481 ;; This function uses a non-reentrant model
+  2482 ;;
+  2483                           
+  2484                           	psect	text15
+  2485  000A84                     __ptext15:
+  2486                           	opt stack 0
+  2487  000A84                     i2___wmul:
+  2488                           	opt stack 25
+  2489                           
+  2490                           ;incstack = 0
+  2491  000A84  5001               	movf	i2___wmul@multiplier,w,c
+  2492  000A86  0203               	mulwf	i2___wmul@multiplicand,c
+  2493  000A88  CFF3 F005          	movff	prodl,i2___wmul@product
+  2494  000A8C  CFF4 F006          	movff	prodh,i2___wmul@product+1
+  2495  000A90  5001               	movf	i2___wmul@multiplier,w,c
+  2496  000A92  0204               	mulwf	i2___wmul@multiplicand+1,c
+  2497  000A94  50F3               	movf	prodl,w,c
+  2498  000A96  2606               	addwf	i2___wmul@product+1,f,c
+  2499  000A98  5002               	movf	i2___wmul@multiplier+1,w,c
+  2500  000A9A  0203               	mulwf	i2___wmul@multiplicand,c
+  2501  000A9C  50F3               	movf	prodl,w,c
+  2502  000A9E  2606               	addwf	i2___wmul@product+1,f,c
+  2503  000AA0  C005  F001         	movff	i2___wmul@product,?i2___wmul
+  2504  000AA4  C006  F002         	movff	i2___wmul@product+1,?i2___wmul+1
+  2505  000AA8  0012               	return	
+  2506  000AAA                     __end_ofi2___wmul:
+  2507                           	opt stack 0
+  2508  0000                     tosu	equ	0xFFF
+  2509                           tosh	equ	0xFFE
+  2510                           tosl	equ	0xFFD
+  2511                           stkptr	equ	0xFFC
+  2512                           pclatu	equ	0xFFB
+  2513                           pclath	equ	0xFFA
+  2514                           tblptru	equ	0xFF8
+  2515                           tblptrh	equ	0xFF7
+  2516                           tblptrl	equ	0xFF6
+  2517                           tablat	equ	0xFF5
+  2518                           prodh	equ	0xFF4
+  2519                           prodl	equ	0xFF3
+  2520                           intcon	equ	0xFF2
+  2521                           postinc0	equ	0xFEE
+  2522                           fsr0h	equ	0xFEA
+  2523                           fsr0l	equ	0xFE9
+  2524                           wreg	equ	0xFE8
+  2525                           postinc1	equ	0xFE6
+  2526                           postdec1	equ	0xFE5
+  2527                           fsr1h	equ	0xFE2
+  2528                           fsr1l	equ	0xFE1
+  2529                           bsr	equ	0xFE0
+  2530                           indf2	equ	0xFDF
+  2531                           postinc2	equ	0xFDE
+  2532                           postdec2	equ	0xFDD
+  2533                           fsr2h	equ	0xFDA
+  2534                           fsr2l	equ	0xFD9
+  2535                           status	equ	0xFD8
+  2536                           tosu	equ	0xFFF
+  2537                           tosh	equ	0xFFE
+  2538                           tosl	equ	0xFFD
+  2539                           stkptr	equ	0xFFC
+  2540                           pclatu	equ	0xFFB
+  2541                           pclath	equ	0xFFA
+  2542                           tblptru	equ	0xFF8
+  2543                           tblptrh	equ	0xFF7
+  2544                           tblptrl	equ	0xFF6
+  2545                           tablat	equ	0xFF5
+  2546                           prodh	equ	0xFF4
+  2547                           prodl	equ	0xFF3
+  2548                           intcon	equ	0xFF2
+  2549                           postinc0	equ	0xFEE
+  2550                           fsr0h	equ	0xFEA
+  2551                           fsr0l	equ	0xFE9
+  2552                           wreg	equ	0xFE8
+  2553                           postinc1	equ	0xFE6
+  2554                           postdec1	equ	0xFE5
+  2555                           fsr1h	equ	0xFE2
+  2556                           fsr1l	equ	0xFE1
+  2557                           bsr	equ	0xFE0
+  2558                           indf2	equ	0xFDF
+  2559                           postinc2	equ	0xFDE
+  2560                           postdec2	equ	0xFDD
+  2561                           fsr2h	equ	0xFDA
+  2562                           fsr2l	equ	0xFD9
+  2563                           status	equ	0xFD8
+  2564                           
+  2565                           	psect	text16
+  2566  000000                     __ptext16:
+  2567                           	opt stack 0
+  2568                           tosu	equ	0xFFF
+  2569                           tosh	equ	0xFFE
+  2570                           tosl	equ	0xFFD
+  2571                           stkptr	equ	0xFFC
+  2572                           pclatu	equ	0xFFB
+  2573                           pclath	equ	0xFFA
+  2574                           tblptru	equ	0xFF8
+  2575                           tblptrh	equ	0xFF7
+  2576                           tblptrl	equ	0xFF6
+  2577                           tablat	equ	0xFF5
+  2578                           prodh	equ	0xFF4
+  2579                           prodl	equ	0xFF3
+  2580                           intcon	equ	0xFF2
+  2581                           postinc0	equ	0xFEE
+  2582                           fsr0h	equ	0xFEA
+  2583                           fsr0l	equ	0xFE9
+  2584                           wreg	equ	0xFE8
+  2585                           postinc1	equ	0xFE6
+  2586                           postdec1	equ	0xFE5
+  2587                           fsr1h	equ	0xFE2
+  2588                           fsr1l	equ	0xFE1
+  2589                           bsr	equ	0xFE0
+  2590                           indf2	equ	0xFDF
+  2591                           postinc2	equ	0xFDE
+  2592                           postdec2	equ	0xFDD
+  2593                           fsr2h	equ	0xFDA
+  2594                           fsr2l	equ	0xFD9
+  2595                           status	equ	0xFD8
+  2596                           
+  2597                           	psect	rparam
+  2598  0000                     tosu	equ	0xFFF
+  2599                           tosh	equ	0xFFE
+  2600                           tosl	equ	0xFFD
+  2601                           stkptr	equ	0xFFC
+  2602                           pclatu	equ	0xFFB
+  2603                           pclath	equ	0xFFA
+  2604                           tblptru	equ	0xFF8
+  2605                           tblptrh	equ	0xFF7
+  2606                           tblptrl	equ	0xFF6
+  2607                           tablat	equ	0xFF5
+  2608                           prodh	equ	0xFF4
+  2609                           prodl	equ	0xFF3
+  2610                           intcon	equ	0xFF2
+  2611                           postinc0	equ	0xFEE
+  2612                           fsr0h	equ	0xFEA
+  2613                           fsr0l	equ	0xFE9
+  2614                           wreg	equ	0xFE8
+  2615                           postinc1	equ	0xFE6
+  2616                           postdec1	equ	0xFE5
+  2617                           fsr1h	equ	0xFE2
+  2618                           fsr1l	equ	0xFE1
+  2619                           bsr	equ	0xFE0
+  2620                           indf2	equ	0xFDF
+  2621                           postinc2	equ	0xFDE
+  2622                           postdec2	equ	0xFDD
+  2623                           fsr2h	equ	0xFDA
+  2624                           fsr2l	equ	0xFD9
+  2625                           status	equ	0xFD8
+  2626                           
+  2627                           	psect	temp
+  2628  000054                     btemp:
+  2629                           	opt stack 0
+  2630  000054                     	ds	1
+  2631  0000                     int$flags	set	btemp
+  2632                           tosu	equ	0xFFF
+  2633                           tosh	equ	0xFFE
+  2634                           tosl	equ	0xFFD
+  2635                           stkptr	equ	0xFFC
+  2636                           pclatu	equ	0xFFB
+  2637                           pclath	equ	0xFFA
+  2638                           tblptru	equ	0xFF8
+  2639                           tblptrh	equ	0xFF7
+  2640                           tblptrl	equ	0xFF6
+  2641                           tablat	equ	0xFF5
+  2642                           prodh	equ	0xFF4
+  2643                           prodl	equ	0xFF3
+  2644                           intcon	equ	0xFF2
+  2645                           postinc0	equ	0xFEE
+  2646                           fsr0h	equ	0xFEA
+  2647                           fsr0l	equ	0xFE9
+  2648                           wreg	equ	0xFE8
+  2649                           postinc1	equ	0xFE6
+  2650                           postdec1	equ	0xFE5
+  2651                           fsr1h	equ	0xFE2
+  2652                           fsr1l	equ	0xFE1
+  2653                           bsr	equ	0xFE0
+  2654                           indf2	equ	0xFDF
+  2655                           postinc2	equ	0xFDE
+  2656                           postdec2	equ	0xFDD
+  2657                           fsr2h	equ	0xFDA
+  2658                           fsr2l	equ	0xFD9
+  2659                           status	equ	0xFD8
+
+
+Data Sizes:
+    Strings     0
+    Constant    0
+    Data        0
+    BSS         487
+    Persistent  0
+    Stack       0
+
+Auto Spaces:
+    Space          Size  Autos    Used
+    COMRAM          126     52      83
+    BANK0           128      0       0
+    BANK1           256      0       0
+    BANK2           256      0       0
+    BANK3           256      0       0
+    BANK4           256      0       0
+    BANK5           256      0       0
+
+Pointer List with Targets:
+
+    sp_S54tcb$task_PTR	PTR void  size(2) Largest target is 0
+		 -> NULL(NULL[0]), 
+
+    sp__F_APTOS.FILA_APTOS.task_PTR	PTR void  size(2) Largest target is 0
+		 -> NULL(NULL[0]), 
+
+    sp_nojoTaskCreate@task_PTR	PTR void  size(2) Largest target is 0
+		 -> NULL(NULL[0]), 
+
+    sp__pisca_led_green	PTR void  size(2) Largest target is 0
+		 -> NULL(NULL[0]), 
+
+    sp__pisca_led_yellow	PTR void  size(2) Largest target is 0
+		 -> NULL(NULL[0]), 
+
+    sp__pisca_led_red	PTR void  size(2) Largest target is 0
+		 -> NULL(NULL[0]), 
+
+    sp__nojoTaskIdle	PTR void  size(2) Largest target is 0
+		 -> NULL(NULL[0]), 
+
+    nojoTaskCreate@task_PTR	PTR FTN()PTR void  size(2) Largest target is 3
+		 -> pisca_led_green(), pisca_led_yellow(), pisca_led_red(), 
+
+    S54tcb$task_PTR	PTR FTN()PTR void  size(2) Largest target is 3
+		 -> pisca_led_green(), pisca_led_yellow(), pisca_led_red(), nojoTaskIdle(), 
+
+    F_APTOS.FILA_APTOS.task_PTR	PTR FTN()PTR void  size(2) Largest target is 3
+		 -> pisca_led_green(), pisca_led_yellow(), pisca_led_red(), nojoTaskIdle(), 
+
+    delay_queue_create@delay_queue_handler	PTR struct queue_delay size(2) Largest target is 28
+		 -> Q_DELAY(COMRAM[28]), 
+
+
+Critical Paths under _main in COMRAM
+
+    _main->_nojoTaskCreate
+    _nojoTaskCreate->___wmul
+    _nojoStart->_delay_queue_create
+
+Critical Paths under _nojoTaskIdle in COMRAM
+
+    None.
+
+Critical Paths under _nojoTaskIdle in COMRAM
+
+    None.
+
+Critical Paths under _pisca_led_red in COMRAM
+
+    None.
+
+Critical Paths under _pisca_led_yellow in COMRAM
+
+    None.
+
+Critical Paths under _pisca_led_green in COMRAM
+
+    None.
+
+Critical Paths under _timer_ISR in COMRAM
+
+    _timer_ISR->_nojoDispatcher
+    _nojoDispatcher->_priority_scheduler
+    _priority_scheduler->i2___wmul
+
+Critical Paths under _main in BANK0
+
+    None.
+
+Critical Paths under _nojoTaskIdle in BANK0
+
+    None.
+
+Critical Paths under _nojoTaskIdle in BANK0
+
+    None.
+
+Critical Paths under _pisca_led_red in BANK0
+
+    None.
+
+Critical Paths under _pisca_led_yellow in BANK0
+
+    None.
+
+Critical Paths under _pisca_led_green in BANK0
+
+    None.
+
+Critical Paths under _timer_ISR in BANK0
+
+    None.
+
+Critical Paths under _main in BANK1
+
+    None.
+
+Critical Paths under _nojoTaskIdle in BANK1
+
+    None.
+
+Critical Paths under _nojoTaskIdle in BANK1
+
+    None.
+
+Critical Paths under _pisca_led_red in BANK1
+
+    None.
+
+Critical Paths under _pisca_led_yellow in BANK1
+
+    None.
+
+Critical Paths under _pisca_led_green in BANK1
+
+    None.
+
+Critical Paths under _timer_ISR in BANK1
+
+    None.
+
+Critical Paths under _main in BANK2
+
+    None.
+
+Critical Paths under _nojoTaskIdle in BANK2
+
+    None.
+
+Critical Paths under _nojoTaskIdle in BANK2
+
+    None.
+
+Critical Paths under _pisca_led_red in BANK2
+
+    None.
+
+Critical Paths under _pisca_led_yellow in BANK2
+
+    None.
+
+Critical Paths under _pisca_led_green in BANK2
+
+    None.
+
+Critical Paths under _timer_ISR in BANK2
+
+    None.
+
+Critical Paths under _main in BANK3
+
+    None.
+
+Critical Paths under _nojoTaskIdle in BANK3
+
+    None.
+
+Critical Paths under _nojoTaskIdle in BANK3
+
+    None.
+
+Critical Paths under _pisca_led_red in BANK3
+
+    None.
+
+Critical Paths under _pisca_led_yellow in BANK3
+
+    None.
+
+Critical Paths under _pisca_led_green in BANK3
+
+    None.
+
+Critical Paths under _timer_ISR in BANK3
+
+    None.
+
+Critical Paths under _main in BANK4
+
+    None.
+
+Critical Paths under _nojoTaskIdle in BANK4
+
+    None.
+
+Critical Paths under _nojoTaskIdle in BANK4
+
+    None.
+
+Critical Paths under _pisca_led_red in BANK4
+
+    None.
+
+Critical Paths under _pisca_led_yellow in BANK4
+
+    None.
+
+Critical Paths under _pisca_led_green in BANK4
+
+    None.
+
+Critical Paths under _timer_ISR in BANK4
+
+    None.
+
+Critical Paths under _main in BANK5
+
+    None.
+
+Critical Paths under _nojoTaskIdle in BANK5
+
+    None.
+
+Critical Paths under _nojoTaskIdle in BANK5
+
+    None.
+
+Critical Paths under _pisca_led_red in BANK5
+
+    None.
+
+Critical Paths under _pisca_led_yellow in BANK5
+
+    None.
+
+Critical Paths under _pisca_led_green in BANK5
+
+    None.
+
+Critical Paths under _timer_ISR in BANK5
+
+    None.
+
+Call Graph Tables:
+
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (0) _main                                                 0     0      0    4997
+                      _nojoScheduler
+                          _nojoStart
+                     _nojoTaskCreate
+                         _setupTimer
+ ---------------------------------------------------------------------------------
+ (1) _setupTimer                                           0     0      0       0
+ ---------------------------------------------------------------------------------
+ (1) _nojoTaskCreate                                      14     4     10    4821
+                                              9 COMRAM    14     4     10
+                             ___wmul
+ ---------------------------------------------------------------------------------
+ (2) ___wmul                                               6     2      4    4113
+                                              3 COMRAM     6     2      4
+ ---------------------------------------------------------------------------------
+ (1) _nojoStart                                            0     0      0     176
+                 _delay_queue_create
+ ---------------------------------------------------------------------------------
+ (2) _delay_queue_create                                   6     4      2     176
+                                              3 COMRAM     6     4      2
+ ---------------------------------------------------------------------------------
+ (1) _nojoScheduler                                        0     0      0       0
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 2
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (3) _nojoTaskIdle                                         0     0      0       0
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 3
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (3) _nojoTaskIdle                                         0     0      0       0
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 3
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (3) _pisca_led_red                                        1     1      0       0
+                                              0 COMRAM     1     1      0
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 3
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (3) _pisca_led_yellow                                     1     1      0       0
+                                              1 COMRAM     1     1      0
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 3
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (3) _pisca_led_green                                      1     1      0       0
+                                              2 COMRAM     1     1      0
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 3
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (4) _timer_ISR                                           14    14      0    2597
+                                             38 COMRAM    14    14      0
+                     _nojoDispatcher
+                         _resetTimer
+ ---------------------------------------------------------------------------------
+ (5) _resetTimer                                           0     0      0       0
+ ---------------------------------------------------------------------------------
+ (5) _nojoDispatcher                                      12    12      0    2597
+                                             26 COMRAM    12    12      0
+                 _priority_scheduler
+                           i2___wmul
+ ---------------------------------------------------------------------------------
+ (6) _priority_scheduler                                  20    16      4    1333
+                                              6 COMRAM    20    16      4
+                           i2___wmul
+ ---------------------------------------------------------------------------------
+ (6) i2___wmul                                             6     2      4    1197
+                                              0 COMRAM     6     2      4
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 6
+ ---------------------------------------------------------------------------------
+
+ Call Graph Graphs:
+
+ _main (ROOT)
+   _nojoScheduler
+   _nojoStart
+     _delay_queue_create
+   _nojoTaskCreate
+     ___wmul
+   _setupTimer
+
+ _nojoTaskIdle (ROOT)
+
+ _nojoTaskIdle (ROOT)
+
+ _pisca_led_red (ROOT)
+
+ _pisca_led_yellow (ROOT)
+
+ _pisca_led_green (ROOT)
+
+ _timer_ISR (ROOT)
+   _nojoDispatcher
+     _priority_scheduler
+       i2___wmul
+     i2___wmul
+   _resetTimer
+
+ Address spaces:
+Name               Size   Autos  Total    Cost      Usage
+BIGRAM             5FF      0     1C8      17       29.7%
+EEDATA             100      0       0       0        0.0%
+BITBANK5           100      0       0      16        0.0%
+BANK5              100      0       0      14        0.0%
+BITBANK4           100      0       0      12        0.0%
+BANK4              100      0       0      13        0.0%
+BITBANK3           100      0       0      10        0.0%
+BANK3              100      0       0      11        0.0%
+BITBANK2           100      0       0       8        0.0%
+BANK2              100      0       0       9        0.0%
+BITBANK1           100      0       0       6        0.0%
+BANK1              100      0       0       7        0.0%
+BITBANK0            80      0       0       4        0.0%
+BANK0               80      0       0       5        0.0%
+BITCOMRAM           7E      0       0       0        0.0%
+COMRAM              7E     34      53       1       65.9%
+BITSFR               0      0       0     200        0.0%
+SFR                  0      0       0     200        0.0%
+STACK                0      0       0       2        0.0%
+NULL                 0      0       0       0        0.0%
+ABS                  0      0      53      15        0.0%
+DATA                 0      0     21B       3        0.0%
+CODE                 0      0       0       0        0.0%
+
+
+Microchip Technology PIC18 Macro Assembler V1.41 build -162212810 
+Symbol Table                                                                                   Mon Oct 30 15:20:37 2017
+
+                                   BSR 000FE0                                     l17 09E4  
+                  ___wmul@multiplicand 0006                            __CFG_OSC$HS 000000  
+                                  u280 0702                                    u285 06F8  
+                                  wreg 000FE8                     _priority_scheduler 0774  
+                         __CFG_WDT$OFF 000000                                   l1055 0A14  
+                                 l1047 0A62                                   l1039 0AAE  
+                                 l1083 09B0                                   l1079 09A0  
+                                 l1345 08FE                                   i2l73 0576  
+                                 i2l74 03D6                                   _TMR0 000FD6  
+                                 _TOSH 000FFE                                   _TOSL 000FFD  
+                                 _TOSU 000FFF                                   _tBSR 0036  
+                                 _main 086E                    ?_priority_scheduler 0007  
+                                 fsr0h 000FEA                                   fsr1h 000FE2  
+                                 fsr2h 000FDA                                   fsr0l 000FE9  
+                                 indf2 000FDF                                   fsr1l 000FE1  
+                                 fsr2l 000FD9                                   btemp 0054  
+                  delay_queue_create@i 0008                                   prodh 000FF4  
+                                 prodl 000FF3                                   start 008E  
+                         ___param_bank 000000               __size_of_pisca_led_green 0028  
+                                STATUS 000FD8                                  ?_main 0001  
+                 ??_priority_scheduler 000B                                  i2l229 0052  
+                                u20_20 0A1C                                  u20_26 0A1E  
+                                u18_20 0AB6                                  u18_26 0AB8  
+                                u19_20 0A6A                                  u19_26 0A6C  
+                       _nojoDispatcher 0092                                  _tWORK 0037  
+                                pclath 000FFA                                  tablat 000FF5  
+                __end_of_nojoScheduler 0B00                       __end_ofi2___wmul 0AAA  
+                                status 000FD8                        __initialization 09E6  
+                         __end_of_main 0902                  __end_of_pisca_led_red 0ACE  
+                               ??_main 0018                          __activetblptr 000000  
+               __end_of_nojoDispatcher 05B2                                 i2l1121 0126  
+                               i2l1123 02CA                                 i2l1091 0796  
+                       _nojoTaskCreate 05B2                                 i2l1097 0838  
+                               i2l1099 0844                                 _TMR0ON 007EAF  
+                               _STKPTR 000FFC               __end_of_pisca_led_yellow 0A84  
+                               ___wmul 0A38                                 clear_0 09EE  
+                               clear_1 0A00        priority_scheduler@pos_next_task 0013  
+                      ?_nojoDispatcher 0001                                 tblptrh 000FF7  
+                               tblptrl 000FF6                                 tblptru 000FF8  
+                    ??_pisca_led_green 0003                 __end_of_nojoTaskCreate 0774  
+                           __accesstop 0080                __end_of__initialization 0A06  
+                        ___rparam_used 000001                         __pcstackCOMRAM 0001  
+                            ?i2___wmul 0001                        ?_nojoTaskCreate 000A  
+          __size_of_delay_queue_create 0062                          ?_nojoTaskIdle 0001  
+                              ?___wmul 0004                     __size_of_nojoStart 0082  
+                           ??i2___wmul 0005                     __size_of_timer_ISR 0086  
+                              _F_APTOS 0438                                _Q_DELAY 0038  
+                       ??_nojoTaskIdle 0000                                __Hparam 0000  
+                              __Lparam 0000                 nojoTaskCreate@task_PTR 0012  
+                      __size_of___wmul 0026                                _tSTATUS 0035  
+                              __pcinit 09E6                                __ramtop 0600  
+                              __ptext0 086E                                __ptext1 0ACE  
+                              __ptext2 05B2                                __ptext3 0A38  
+                              __ptext4 0902                                __ptext5 0984  
+                              __ptext6 0AF4                                __ptext7 0AE4  
+                              __ptext8 0AAA                                __ptext9 0A5E  
+                            _T0CONbits 000FD5            __size_of_priority_scheduler 00FA  
+                  priority_scheduler@i 0017                   end_of_initialization 0A06  
+                    __end_of_nojoStart 0984                    i2___wmul@multiplier 0001  
+delay_queue_create@delay_queue_handler 0004                      __end_of_timer_ISR 008E  
+                           _resetTimer 0B00                 nojoDispatcher@task_pos 0023  
+                              postdec1 000FE5                                postdec2 000FDD  
+                    ?_pisca_led_yellow 0001                                postinc0 000FEE  
+                              postinc1 000FE6                                postinc2 000FDE  
+                     ??_nojoDispatcher 001B                        _pisca_led_green 0A10  
+                   ??_pisca_led_yellow 0002                              _PORTDbits 000F83  
+               __size_of_nojoScheduler 000C                             _setupTimer 0ACE  
+                            _TRISDbits 000F95                 __size_of_pisca_led_red 0024  
+                       __end_of___wmul 0A5E                       i2___wmul@product 0005  
+                     ??_nojoTaskCreate 0014                   __end_of_nojoTaskIdle 0AF4  
+                  start_initialization 09E6                      __size_ofi2___wmul 0026  
+                        _nojoScheduler 0AF4                            ?_resetTimer 0001  
+              __end_of_pisca_led_green 0A38                       nojoTaskCreate@id 000A  
+                             ??___wmul 0008                          _pisca_led_red 0AAA  
+                          ?_setupTimer 0001                            __pbssBIGRAM 0438  
+                          __pbssCOMRAM 0035                          __pcstackBANK0 0000  
+                       ?_nojoScheduler 0001             __end_of_delay_queue_create 09E6  
+                            __pintcode 0008                         ?_pisca_led_red 0001  
+                  nojoDispatcher@state 0022                    __size_of_resetTimer 000C  
+                       ___wmul@product 0008                               _LATDbits 000F8C  
+                  __size_of_setupTimer 0016                              _nojoStart 0902  
+                     ?_pisca_led_green 0001                              _timer_ISR 0008  
+                __size_of_nojoTaskIdle 0010             __end_of_priority_scheduler 086E  
+                    ___wmul@multiplier 0004                               i2___wmul 0A84  
+            __size_of_pisca_led_yellow 0026                        ??_nojoScheduler 0004  
+                           ?_nojoStart 0001                           _nojoTaskIdle 0AE4  
+                             __Hrparam 0000                               __Lrparam 0000  
+                  nojoTaskCreate@prior 000E                             ?_timer_ISR 0001  
+                      ??_pisca_led_red 0001                  i2___wmul@multiplicand 0003  
+                             __ptext10 0A10                               __ptext12 0B00  
+                             __ptext13 0092                               __ptext14 0774  
+                             __ptext15 0A84                               __ptext16 0000  
+                        __size_of_main 0094                           ??_resetTimer 0001  
+                             int$flags 0054                           ??_setupTimer 0004  
+                           _INTCONbits 000FF2                __size_of_nojoDispatcher 0520  
+                   __end_of_resetTimer 0B0C                               intlevel1 0000  
+                             intlevel2 0000                            ??_nojoStart 000A  
+                   __end_of_setupTimer 0AE4                            ??_timer_ISR 0027  
+                   _delay_queue_create 0984                    ?_delay_queue_create 0004  
+                     _pisca_led_yellow 0A5E                __size_of_nojoTaskCreate 01C2  
+                 ??_delay_queue_create 0006  

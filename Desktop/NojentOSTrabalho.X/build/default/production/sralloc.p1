@@ -1,0 +1,354 @@
+Version 3.2 HI-TECH Software Intermediate Code
+"130 sralloc.c
+[s S2 :7 `uc 1 :1 `uc 1 ]
+[n S2 _BITS count alloc ]
+"127
+[u S1 `uc 1 `S2 1 ]
+[n S1 _SALLOC byte bits ]
+"162
+[v __SRAMmerge `(uc ~T0 @X0 0 ef1`*S1 ]
+[; ;sralloc.c: 127: typedef union _SALLOC
+[; ;sralloc.c: 128: {
+[; ;sralloc.c: 129: unsigned char byte;
+[; ;sralloc.c: 130: struct _BITS
+[; ;sralloc.c: 131: {
+[; ;sralloc.c: 132: unsigned count:7;
+[; ;sralloc.c: 133: unsigned alloc:1;
+[; ;sralloc.c: 134: }bits;
+[; ;sralloc.c: 135: }SALLOC;
+"145 sralloc.c
+[v __uDynamicHeap `uc ~T0 @X0 -> 512 `i e ]
+[; ;sralloc.c: 145: unsigned char _uDynamicHeap[0x200];
+[; ;sralloc.c: 162: unsigned char _SRAMmerge(SALLOC *  pSegA);
+"192
+[v _SRAMalloc `(*uc ~T0 @X0 1 ef1`uc ]
+"193
+{
+[; ;sralloc.c: 192: unsigned char *  SRAMalloc( unsigned char nBytes)
+[; ;sralloc.c: 193: {
+[e :U _SRAMalloc ]
+"192
+[v _nBytes `uc ~T0 @X0 1 r1 ]
+"193
+[f ]
+"194
+[v _pHeap `*S1 ~T0 @X0 1 a ]
+"195
+[v _temp `*S1 ~T0 @X0 1 a ]
+"196
+[v _segHeader `S1 ~T0 @X0 1 a ]
+"197
+[v _segLen `uc ~T0 @X0 1 a ]
+[; ;sralloc.c: 194: SALLOC *  pHeap;
+[; ;sralloc.c: 195: SALLOC *  temp;
+[; ;sralloc.c: 196: SALLOC segHeader;
+[; ;sralloc.c: 197: unsigned char segLen;
+[; ;sralloc.c: 200: if (nBytes > (0x7F - 1)) return (0);
+"200
+[e $ ! > -> _nBytes `i - -> 127 `i -> 1 `i 4  ]
+[e ) -> -> 0 `i `*uc ]
+[e $UE 3  ]
+[e :U 4 ]
+[; ;sralloc.c: 203: pHeap = (SALLOC *)_uDynamicHeap;
+"203
+[e = _pHeap -> &U __uDynamicHeap `*S1 ]
+[; ;sralloc.c: 205: while (1)
+"205
+[e :U 6 ]
+[; ;sralloc.c: 206: {
+"206
+{
+[; ;sralloc.c: 208: segHeader = *pHeap;
+"208
+[e = _segHeader *U _pHeap ]
+[; ;sralloc.c: 211: segLen = segHeader.bits.count - 1;
+"211
+[e = _segLen -> - -> . . _segHeader 1 0 `i -> 1 `i `uc ]
+[; ;sralloc.c: 214: if (segHeader.byte == 0) return (0);
+"214
+[e $ ! == -> . _segHeader 0 `i -> 0 `i 8  ]
+[e ) -> -> 0 `i `*uc ]
+[e $UE 3  ]
+[e :U 8 ]
+[; ;sralloc.c: 217: if (!(segHeader.bits.alloc))
+"217
+[e $ ! ! != -> . . _segHeader 1 1 `i -> -> -> 0 `i `uc `i 9  ]
+[; ;sralloc.c: 218: {
+"218
+{
+[; ;sralloc.c: 220: if (nBytes > segLen)
+"220
+[e $ ! > -> _nBytes `i -> _segLen `i 10  ]
+[; ;sralloc.c: 221: {
+"221
+{
+[; ;sralloc.c: 223: if (!(_SRAMmerge(pHeap))) pHeap += segHeader.bits.count;
+"223
+[e $ ! ! != -> ( __SRAMmerge (1 _pHeap `i -> -> -> 0 `i `uc `i 11  ]
+[e =+ _pHeap * -> . . _segHeader 1 0 `ux -> -> # *U _pHeap `ui `ux ]
+[e :U 11 ]
+"224
+}
+[; ;sralloc.c: 224: }
+[e $U 12  ]
+"225
+[e :U 10 ]
+[; ;sralloc.c: 225: else
+[; ;sralloc.c: 229: if (nBytes == segLen)
+"229
+[e $ ! == -> _nBytes `i -> _segLen `i 13  ]
+[; ;sralloc.c: 230: {
+"230
+{
+[; ;sralloc.c: 232: (*pHeap).bits.alloc = 1;
+"232
+[e = . . *U _pHeap 1 1 -> -> 1 `i `uc ]
+[; ;sralloc.c: 235: return ((unsigned char *)(pHeap + 1));
+"235
+[e ) -> + _pHeap * -> -> 1 `i `x -> -> # *U _pHeap `i `x `*uc ]
+[e $UE 3  ]
+"236
+}
+[; ;sralloc.c: 236: }
+[e $U 14  ]
+"239
+[e :U 13 ]
+[; ;sralloc.c: 239: else
+[; ;sralloc.c: 240: {
+"240
+{
+[; ;sralloc.c: 242: (*pHeap).byte = nBytes + 0x81;
+"242
+[e = . *U _pHeap 0 -> + -> _nBytes `i -> 129 `i `uc ]
+[; ;sralloc.c: 245: temp = pHeap + 1;
+"245
+[e = _temp + _pHeap * -> -> 1 `i `x -> -> # *U _pHeap `i `x ]
+[; ;sralloc.c: 248: pHeap += (nBytes + 1);
+"248
+[e =+ _pHeap * -> + -> _nBytes `i -> 1 `i `x -> -> # *U _pHeap `i `x ]
+[; ;sralloc.c: 251: (*pHeap).byte = segLen - nBytes;
+"251
+[e = . *U _pHeap 0 -> - -> _segLen `i -> _nBytes `i `uc ]
+[; ;sralloc.c: 254: return ((unsigned char *) temp);
+"254
+[e ) -> _temp `*uc ]
+[e $UE 3  ]
+"255
+}
+[e :U 14 ]
+[e :U 12 ]
+"256
+}
+[; ;sralloc.c: 255: }
+[; ;sralloc.c: 256: }
+[e $U 15  ]
+"259
+[e :U 9 ]
+[; ;sralloc.c: 259: else
+[; ;sralloc.c: 260: {
+"260
+{
+[; ;sralloc.c: 261: pHeap += segHeader.bits.count;
+"261
+[e =+ _pHeap * -> . . _segHeader 1 0 `ux -> -> # *U _pHeap `ui `ux ]
+"262
+}
+[e :U 15 ]
+"263
+}
+[e :U 5 ]
+"205
+[e $U 6  ]
+[e :U 7 ]
+[; ;sralloc.c: 262: }
+[; ;sralloc.c: 263: }
+[; ;sralloc.c: 264: }
+"264
+[e :UE 3 ]
+}
+"288
+[v _SRAMfree `(v ~T0 @X0 1 ef1`*uc ]
+"289
+{
+[; ;sralloc.c: 288: void SRAMfree(unsigned char *  pSRAM)
+[; ;sralloc.c: 289: {
+[e :U _SRAMfree ]
+"288
+[v _pSRAM `*uc ~T0 @X0 1 r1 ]
+"289
+[f ]
+[; ;sralloc.c: 291: (*(SALLOC *)(pSRAM - 1)).bits.alloc = 0;
+"291
+[e = . . *U -> - _pSRAM * -> -> 1 `i `x -> -> # *U _pSRAM `i `x `*S1 1 1 -> -> 0 `i `uc ]
+[; ;sralloc.c: 292: }
+"292
+[e :UE 16 ]
+}
+"314
+[v _SRAMInitHeap `(v ~T0 @X0 1 ef ]
+"315
+{
+[; ;sralloc.c: 314: void SRAMInitHeap(void)
+[; ;sralloc.c: 315: {
+[e :U _SRAMInitHeap ]
+[f ]
+"316
+[v _pHeap `*uc ~T0 @X0 1 a ]
+"317
+[v _count `ui ~T0 @X0 1 a ]
+[; ;sralloc.c: 316: unsigned char *  pHeap;
+[; ;sralloc.c: 317: unsigned int count;
+[; ;sralloc.c: 319: pHeap = _uDynamicHeap;
+"319
+[e = _pHeap &U __uDynamicHeap ]
+[; ;sralloc.c: 320: count = 0x200-1;
+"320
+[e = _count -> - -> 512 `i -> 1 `i `ui ]
+[; ;sralloc.c: 322: while (1)
+"322
+[e :U 19 ]
+[; ;sralloc.c: 323: {
+"323
+{
+[; ;sralloc.c: 324: if (count > 0x7F)
+"324
+[e $ ! > _count -> -> 127 `i `ui 21  ]
+[; ;sralloc.c: 325: {
+"325
+{
+[; ;sralloc.c: 326: *pHeap = 0x7F;
+"326
+[e = *U _pHeap -> -> 127 `i `uc ]
+[; ;sralloc.c: 327: pHeap += 0x7F;
+"327
+[e =+ _pHeap * -> -> 127 `i `x -> -> # *U _pHeap `i `x ]
+[; ;sralloc.c: 328: count = count - 0x7F;
+"328
+[e = _count - _count -> -> 127 `i `ui ]
+"329
+}
+[; ;sralloc.c: 329: }
+[e $U 22  ]
+"330
+[e :U 21 ]
+[; ;sralloc.c: 330: else
+[; ;sralloc.c: 331: {
+"331
+{
+[; ;sralloc.c: 332: *pHeap = count;
+"332
+[e = *U _pHeap -> _count `uc ]
+[; ;sralloc.c: 333: *(pHeap + count) = 0;
+"333
+[e = *U + _pHeap * -> _count `ux -> -> # *U _pHeap `ui `ux -> -> 0 `i `uc ]
+[; ;sralloc.c: 334: return;
+"334
+[e $UE 17  ]
+"335
+}
+[e :U 22 ]
+"336
+}
+[e :U 18 ]
+"322
+[e $U 19  ]
+[e :U 20 ]
+[; ;sralloc.c: 335: }
+[; ;sralloc.c: 336: }
+[; ;sralloc.c: 337: }
+"337
+[e :UE 17 ]
+}
+"360
+[v __SRAMmerge `(uc ~T0 @X0 1 ef1`*S1 ]
+"361
+{
+[; ;sralloc.c: 360: unsigned char _SRAMmerge(SALLOC *  pSegA)
+[; ;sralloc.c: 361: {
+[e :U __SRAMmerge ]
+"360
+[v _pSegA `*S1 ~T0 @X0 1 r1 ]
+"361
+[f ]
+"362
+[v _pSegB `*S1 ~T0 @X0 1 a ]
+"363
+[v _uSegA `S1 ~T0 @X0 1 a ]
+[v _uSegB `S1 ~T0 @X0 1 a ]
+[v _uSum `S1 ~T0 @X0 1 a ]
+[; ;sralloc.c: 362: SALLOC *  pSegB;
+[; ;sralloc.c: 363: SALLOC uSegA, uSegB, uSum;
+[; ;sralloc.c: 367: pSegB = pSegA + (*pSegA).byte;
+"367
+[e = _pSegB + _pSegA * -> . *U _pSegA 0 `ux -> -> # *U _pSegA `ui `ux ]
+[; ;sralloc.c: 370: uSegA = *pSegA;
+"370
+[e = _uSegA *U _pSegA ]
+[; ;sralloc.c: 371: uSegB = *pSegB;
+"371
+[e = _uSegB *U _pSegB ]
+[; ;sralloc.c: 374: if (uSegB.byte == 0) return (0);
+"374
+[e $ ! == -> . _uSegB 0 `i -> 0 `i 24  ]
+[e ) -> -> 0 `i `uc ]
+[e $UE 23  ]
+[e :U 24 ]
+[; ;sralloc.c: 377: if (uSegA.bits.alloc || uSegB.bits.alloc) return (0);
+"377
+[e $ ! || != -> . . _uSegA 1 1 `i -> -> -> 0 `i `uc `i != -> . . _uSegB 1 1 `i -> -> -> 0 `i `uc `i 25  ]
+[e ) -> -> 0 `i `uc ]
+[e $UE 23  ]
+[e :U 25 ]
+[; ;sralloc.c: 380: if (uSegA.bits.count == 0x7F) return (0);
+"380
+[e $ ! == -> . . _uSegA 1 0 `i -> 127 `i 26  ]
+[e ) -> -> 0 `i `uc ]
+[e $UE 23  ]
+[e :U 26 ]
+[; ;sralloc.c: 383: uSum.byte = uSegA.byte + uSegB.byte;
+"383
+[e = . _uSum 0 -> + -> . _uSegA 0 `i -> . _uSegB 0 `i `uc ]
+[; ;sralloc.c: 389: if ((uSum.byte) > 0x7F)
+"389
+[e $ ! > -> . _uSum 0 `i -> 127 `i 27  ]
+[; ;sralloc.c: 390: {
+"390
+{
+[; ;sralloc.c: 391: (*pSegA).byte = 0x7F;
+"391
+[e = . *U _pSegA 0 -> -> 127 `i `uc ]
+[; ;sralloc.c: 392: pSegA += 0x7F;
+"392
+[e =+ _pSegA * -> -> 127 `i `x -> -> # *U _pSegA `i `x ]
+[; ;sralloc.c: 393: pSegB += uSegB.byte;
+"393
+[e =+ _pSegB * -> . _uSegB 0 `ux -> -> # *U _pSegB `ui `ux ]
+[; ;sralloc.c: 394: (*pSegA).byte = pSegB - pSegA;
+"394
+[e = . *U _pSegA 0 -> / - -> _pSegB `x -> _pSegA `x -> -> # *U _pSegB `i `x `uc ]
+[; ;sralloc.c: 396: return (0x7F);
+"396
+[e ) -> -> 127 `i `uc ]
+[e $UE 23  ]
+"397
+}
+[; ;sralloc.c: 397: }
+[e $U 28  ]
+"400
+[e :U 27 ]
+[; ;sralloc.c: 400: else
+[; ;sralloc.c: 401: {
+"401
+{
+[; ;sralloc.c: 402: return ((*pSegA).byte = uSum.byte);
+"402
+[e ) = . *U _pSegA 0 . _uSum 0 ]
+[e $UE 23  ]
+"403
+}
+[e :U 28 ]
+[; ;sralloc.c: 403: }
+[; ;sralloc.c: 404: }
+"404
+[e :UE 23 ]
+}

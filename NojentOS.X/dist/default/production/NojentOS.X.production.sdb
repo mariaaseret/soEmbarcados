@@ -1,0 +1,340 @@
+[p LITE_MODE AUTOSTATIC LFSROK EMI_WORD ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 18F4520 ]
+[d frameptr 4065 ]
+"5 /Users/maria/Documents/ufsc/10/soEmbarcados/NojentOS.X/kernel.c
+[e E3215 . `uc
+READY 0
+RUNNING 1
+WAITING 2
+FINISHED 3
+]
+"37 /Users/maria/Documents/ufsc/10/soEmbarcados/NojentOS.X/timer.c
+[e E3215 . `uc
+READY 0
+RUNNING 1
+WAITING 2
+FINISHED 3
+]
+"9 /Users/maria/Documents/ufsc/10/soEmbarcados/NojentOS.X/scheduler.c
+[e E3215 . `uc
+READY 0
+RUNNING 1
+WAITING 2
+FINISHED 3
+]
+"14 /Users/maria/Documents/ufsc/10/soEmbarcados/NojentOS.X/semaphore.c
+[e E3215 . `uc
+READY 0
+RUNNING 1
+WAITING 2
+FINISHED 3
+]
+"31 /Users/maria/Documents/ufsc/10/soEmbarcados/NojentOS.X/delay.c
+[e E3215 . `uc
+READY 0
+RUNNING 1
+WAITING 2
+FINISHED 3
+]
+"62 /Applications/microchip/xc8/v1.44/sources/common/float.c
+[v ___ftpack __ftpack `(f  1 e 3 0 ]
+"86 /Applications/microchip/xc8/v1.44/sources/common/ftadd.c
+[v ___ftadd __ftadd `(f  1 e 3 0 ]
+"54 /Applications/microchip/xc8/v1.44/sources/common/ftdiv.c
+[v ___ftdiv __ftdiv `(f  1 e 3 0 ]
+"62 /Applications/microchip/xc8/v1.44/sources/common/ftmul.c
+[v ___ftmul __ftmul `(f  1 e 3 0 ]
+"20 /Applications/microchip/xc8/v1.44/sources/common/ftsub.c
+[v ___ftsub __ftsub `(f  1 e 3 0 ]
+"8 /Applications/microchip/xc8/v1.44/sources/common/llmod.c
+[v ___llmod __llmod `(ul  1 e 4 0 ]
+"10 /Applications/microchip/xc8/v1.44/sources/common/sprcadd.c
+[v ___fladd __fladd `(d  1 e 3 0 ]
+"245
+[v ___flsub __flsub `(d  1 e 3 0 ]
+"11 /Applications/microchip/xc8/v1.44/sources/common/sprcdiv.c
+[v ___fldiv __fldiv `(d  1 e 3 0 ]
+"8 /Applications/microchip/xc8/v1.44/sources/common/sprcmul.c
+[v ___flmul __flmul `(d  1 e 3 0 ]
+"15 /Applications/microchip/xc8/v1.44/sources/common/Umul16.c
+[v ___wmul __wmul `(ui  1 e 2 0 ]
+[v i2___wmul __wmul `(ui  1 e 2 0 ]
+"15 /Applications/microchip/xc8/v1.44/sources/common/Umul32.c
+[v ___lmul __lmul `(ul  1 e 4 0 ]
+"8 /Users/maria/Documents/ufsc/10/soEmbarcados/NojentOS.X/delay.c
+[v _delay_queue_create delay_queue_create `(v  1 e 1 0 ]
+"15
+[v _delay_queue_insert delay_queue_insert `(v  1 e 1 0 ]
+"8 /Users/maria/Documents/ufsc/10/soEmbarcados/NojentOS.X/kernel.c
+[v _nojoStart nojoStart `(v  1 e 1 0 ]
+"25
+[v _nojoTaskCreate nojoTaskCreate `(v  1 e 1 0 ]
+"38
+[v _nojoDispatcher nojoDispatcher `(v  1 e 1 0 ]
+"63
+[v _nojoTaskIdle nojoTaskIdle `(*.2v  1 e 2 0 ]
+"6 /Users/maria/Documents/ufsc/10/soEmbarcados/NojentOS.X/main.c
+[v _main main `(i  1 e 2 0 ]
+"4 /Users/maria/Documents/ufsc/10/soEmbarcados/NojentOS.X/queue.c
+[v _queue_create queue_create `(v  1 e 1 0 ]
+"9
+[v _queue_insert queue_insert `(v  1 e 1 0 ]
+"16
+[v _queue_remove queue_remove `(ul  1 e 4 0 ]
+"5 /Users/maria/Documents/ufsc/10/soEmbarcados/NojentOS.X/scheduler.c
+[v _priority_scheduler priority_scheduler `(ul  1 e 4 0 ]
+"3 /Users/maria/Documents/ufsc/10/soEmbarcados/NojentOS.X/tasks.c
+[v _pisca_led_red pisca_led_red `(*.2v  1 e 2 0 ]
+"19
+[v _pisca_led_yellow pisca_led_yellow `(*.2v  1 e 2 0 ]
+"35
+[v _pisca_led_green pisca_led_green `(*.2v  1 e 2 0 ]
+"4 /Users/maria/Documents/ufsc/10/soEmbarcados/NojentOS.X/timer.c
+[v _setupTimer setupTimer `(v  1 e 1 0 ]
+"17
+[v _nojoScheduler nojoScheduler `(v  1 e 1 0 ]
+"25
+[v _resetTimer resetTimer `(v  1 e 1 0 ]
+"33
+[v _timer_ISR timer_ISR `II(v  1 e 1 0 ]
+[s S74 . 1 `uc 1 RD0 1 0 :1:0 
+`uc 1 RD1 1 0 :1:1 
+`uc 1 RD2 1 0 :1:2 
+`uc 1 RD3 1 0 :1:3 
+`uc 1 RD4 1 0 :1:4 
+`uc 1 RD5 1 0 :1:5 
+`uc 1 RD6 1 0 :1:6 
+`uc 1 RD7 1 0 :1:7 
+]
+"667 /Applications/microchip/xc8/v1.44/include/pic18f4520.h
+[s S114 . 1 `uc 1 PSP0 1 0 :1:0 
+`uc 1 PSP1 1 0 :1:1 
+`uc 1 PSP2 1 0 :1:2 
+`uc 1 PSP3 1 0 :1:3 
+`uc 1 PSP4 1 0 :1:4 
+`uc 1 PSP5 1 0 :1:5 
+`uc 1 PSP6 1 0 :1:6 
+`uc 1 PSP7 1 0 :1:7 
+]
+[s S123 . 1 `uc 1 . 1 0 :5:0 
+`uc 1 P1B 1 0 :1:5 
+`uc 1 P1C 1 0 :1:6 
+`uc 1 P1D 1 0 :1:7 
+]
+[s S128 . 1 `uc 1 . 1 0 :7:0 
+`uc 1 SS2 1 0 :1:7 
+]
+[u S131 . 1 `S74 1 . 1 0 `S114 1 . 1 0 `S123 1 . 1 0 `S128 1 . 1 0 ]
+[v _PORTDbits PORTDbits `VES131  1 e 1 @3971 ]
+[s S163 . 1 `uc 1 LATD0 1 0 :1:0 
+`uc 1 LATD1 1 0 :1:1 
+`uc 1 LATD2 1 0 :1:2 
+`uc 1 LATD3 1 0 :1:3 
+`uc 1 LATD4 1 0 :1:4 
+`uc 1 LATD5 1 0 :1:5 
+`uc 1 LATD6 1 0 :1:6 
+`uc 1 LATD7 1 0 :1:7 
+]
+"1338
+[s S172 . 1 `uc 1 LD0 1 0 :1:0 
+`uc 1 LD1 1 0 :1:1 
+`uc 1 LD2 1 0 :1:2 
+`uc 1 LD3 1 0 :1:3 
+`uc 1 LD4 1 0 :1:4 
+`uc 1 LD5 1 0 :1:5 
+`uc 1 LD6 1 0 :1:6 
+`uc 1 LD7 1 0 :1:7 
+]
+[u S181 . 1 `S163 1 . 1 0 `S172 1 . 1 0 ]
+[v _LATDbits LATDbits `VES181  1 e 1 @3980 ]
+[s S65 . 1 `uc 1 TRISD0 1 0 :1:0 
+`uc 1 TRISD1 1 0 :1:1 
+`uc 1 TRISD2 1 0 :1:2 
+`uc 1 TRISD3 1 0 :1:3 
+`uc 1 TRISD4 1 0 :1:4 
+`uc 1 TRISD5 1 0 :1:5 
+`uc 1 TRISD6 1 0 :1:6 
+`uc 1 TRISD7 1 0 :1:7 
+]
+"2173
+[u S83 . 1 `S65 1 . 1 0 `S74 1 . 1 0 ]
+[v _TRISDbits TRISDbits `VES83  1 e 1 @3989 ]
+[s S392 . 1 `uc 1 T0PS 1 0 :3:0 
+`uc 1 PSA 1 0 :1:3 
+`uc 1 T0SE 1 0 :1:4 
+`uc 1 T0CS 1 0 :1:5 
+`uc 1 T08BIT 1 0 :1:6 
+`uc 1 TMR0ON 1 0 :1:7 
+]
+"6189
+[s S399 . 1 `uc 1 T0PS0 1 0 :1:0 
+`uc 1 T0PS1 1 0 :1:1 
+`uc 1 T0PS2 1 0 :1:2 
+`uc 1 T0PS3 1 0 :1:3 
+`uc 1 . 1 0 :2:4 
+`uc 1 T016BIT 1 0 :1:6 
+]
+[u S406 . 1 `S392 1 . 1 0 `S399 1 . 1 0 ]
+[v _T0CONbits T0CONbits `VES406  1 e 1 @4053 ]
+"6249
+[v _TMR0 TMR0 `VEus  1 e 2 @4054 ]
+[s S278 . 1 `uc 1 RBIF 1 0 :1:0 
+`uc 1 INT0IF 1 0 :1:1 
+`uc 1 TMR0IF 1 0 :1:2 
+`uc 1 RBIE 1 0 :1:3 
+`uc 1 INT0IE 1 0 :1:4 
+`uc 1 TMR0IE 1 0 :1:5 
+`uc 1 PEIE_GIEL 1 0 :1:6 
+`uc 1 GIE_GIEH 1 0 :1:7 
+]
+"6722
+[s S287 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 INT0F 1 0 :1:1 
+`uc 1 T0IF 1 0 :1:2 
+`uc 1 . 1 0 :1:3 
+`uc 1 INT0E 1 0 :1:4 
+`uc 1 T0IE 1 0 :1:5 
+`uc 1 PEIE 1 0 :1:6 
+`uc 1 GIE 1 0 :1:7 
+]
+[s S296 . 1 `uc 1 . 1 0 :6:0 
+`uc 1 GIEL 1 0 :1:6 
+`uc 1 GIEH 1 0 :1:7 
+]
+[u S300 . 1 `S278 1 . 1 0 `S287 1 . 1 0 `S296 1 . 1 0 ]
+[v _INTCONbits INTCONbits `VES300  1 e 1 @4082 ]
+"6902
+[v _STKPTR STKPTR `VEuc  1 e 1 @4092 ]
+"6983
+[v _TOSL TOSL `VEuc  1 e 1 @4093 ]
+"6990
+[v _TOSH TOSH `VEuc  1 e 1 @4094 ]
+"6997
+[v _TOSU TOSU `VEuc  1 e 1 @4095 ]
+"8003
+[v _TMR0ON TMR0ON `VEb  1 e 0 @32431 ]
+[s S237 stack_context 3 `uc 1 TOSL 1 0 `uc 1 TOSH 1 1 `uc 1 TOSU 1 2 :5:0 
+]
+"5 /Users/maria/Documents/ufsc/10/soEmbarcados/NojentOS.X/kernel.c
+[s S241 stack 94 `[31]S237 1 task_stack 93 0 `uc 1 stack_size 1 93 ]
+[s S244 ctx 101 `uc 1 ctx_WORK 1 0 `uc 1 ctx_BSR 1 1 `uc 1 ctx_STATUS 1 2 `uc 1 ctx_STKPTR 1 3 `uc 1 ctx_PCL 1 4 `uc 1 ctx_PCLATU 1 5 `uc 1 ctx_PCLATH 1 6 `S241 1 ctx_STACK 94 7 ]
+[s S253 tcb 112 `ul 1 task_ID 4 0 `ul 1 task_PRIOR 4 4 `E3215 1 task_STATE 1 8 `*.37(*.2v 1 task_PTR 2 9 `S244 1 task_CTX 101 11 ]
+[s S259 fila 456 `[4]S253 1 FILA_APTOS 448 0 `ul 1 tasks_installed 4 448 `ul 1 task_running 4 452 ]
+[v _F_APTOS F_APTOS `S259  1 e 456 0 ]
+[s S263 delay_data 8 `ul 1 task_pos_ready_queue 4 0 `ul 1 task_delay_remaning 4 4 ]
+"6
+[s S266 queue_delay 28 `[3]S263 1 delay_QUEUE 24 0 `ul 1 delay_queue_size 4 24 ]
+[v _Q_DELAY Q_DELAY `S266  1 e 28 0 ]
+"8 /Users/maria/Documents/ufsc/10/soEmbarcados/NojentOS.X/kernel.h
+[v _tWORK tWORK `uc  1 e 1 0 ]
+[v _tBSR tBSR `uc  1 e 1 0 ]
+[v _tSTATUS tSTATUS `uc  1 e 1 0 ]
+"6 /Users/maria/Documents/ufsc/10/soEmbarcados/NojentOS.X/main.c
+[v _main main `(i  1 e 2 0 ]
+{
+"24
+} 0
+"4 /Users/maria/Documents/ufsc/10/soEmbarcados/NojentOS.X/timer.c
+[v _setupTimer setupTimer `(v  1 e 1 0 ]
+{
+"15
+} 0
+"25 /Users/maria/Documents/ufsc/10/soEmbarcados/NojentOS.X/kernel.c
+[v _nojoTaskCreate nojoTaskCreate `(v  1 e 1 0 ]
+{
+[v nojoTaskCreate@id id `ul  1 p 4 6 ]
+[v nojoTaskCreate@prior prior `ul  1 p 4 10 ]
+[v nojoTaskCreate@task_PTR task_PTR `*.37(*.2v  1 p 2 14 ]
+"36
+} 0
+"15 /Applications/microchip/xc8/v1.44/sources/common/Umul16.c
+[v ___wmul __wmul `(ui  1 e 2 0 ]
+{
+"17
+[v ___wmul@product product `ui  1 a 2 4 ]
+"15
+[v ___wmul@multiplier multiplier `ui  1 p 2 0 ]
+[v ___wmul@multiplicand multiplicand `ui  1 p 2 2 ]
+"53
+} 0
+"8 /Users/maria/Documents/ufsc/10/soEmbarcados/NojentOS.X/kernel.c
+[v _nojoStart nojoStart `(v  1 e 1 0 ]
+{
+"23
+} 0
+"8 /Users/maria/Documents/ufsc/10/soEmbarcados/NojentOS.X/delay.c
+[v _delay_queue_create delay_queue_create `(v  1 e 1 0 ]
+{
+"9
+[v delay_queue_create@i i `i  1 a 2 4 ]
+[s S263 delay_data 8 `ul 1 task_pos_ready_queue 4 0 `ul 1 task_delay_remaning 4 4 ]
+"8
+[s S266 queue_delay 28 `[3]S263 1 delay_QUEUE 24 0 `ul 1 delay_queue_size 4 24 ]
+[v delay_queue_create@delay_queue_handler delay_queue_handler `*.39S266  1 p 2 0 ]
+"13
+} 0
+"17 /Users/maria/Documents/ufsc/10/soEmbarcados/NojentOS.X/timer.c
+[v _nojoScheduler nojoScheduler `(v  1 e 1 0 ]
+{
+"23
+} 0
+"3 /Users/maria/Documents/ufsc/10/soEmbarcados/NojentOS.X/tasks.c
+[v _pisca_led_red pisca_led_red `(*.2v  1 e 2 0 ]
+{
+"17
+} 0
+"19
+[v _pisca_led_yellow pisca_led_yellow `(*.2v  1 e 2 0 ]
+{
+"33
+} 0
+"35
+[v _pisca_led_green pisca_led_green `(*.2v  1 e 2 0 ]
+{
+"49
+} 0
+"63 /Users/maria/Documents/ufsc/10/soEmbarcados/NojentOS.X/kernel.c
+[v _nojoTaskIdle nojoTaskIdle `(*.2v  1 e 2 0 ]
+{
+"69
+} 0
+"33 /Users/maria/Documents/ufsc/10/soEmbarcados/NojentOS.X/timer.c
+[v _timer_ISR timer_ISR `II(v  1 e 1 0 ]
+{
+"40
+} 0
+"25
+[v _resetTimer resetTimer `(v  1 e 1 0 ]
+{
+"31
+} 0
+"38 /Users/maria/Documents/ufsc/10/soEmbarcados/NojentOS.X/kernel.c
+[v _nojoDispatcher nojoDispatcher `(v  1 e 1 0 ]
+{
+[v nojoDispatcher@state state `E3215  1 a 1 wreg ]
+"41
+[v nojoDispatcher@task_pos task_pos `ul  1 a 4 34 ]
+"38
+[v nojoDispatcher@state state `E3215  1 a 1 wreg ]
+"40
+[v nojoDispatcher@state state `E3215  1 a 1 33 ]
+"61
+} 0
+"5 /Users/maria/Documents/ufsc/10/soEmbarcados/NojentOS.X/scheduler.c
+[v _priority_scheduler priority_scheduler `(ul  1 e 4 0 ]
+{
+"7
+[v priority_scheduler@i i `ul  1 a 4 22 ]
+[v priority_scheduler@pos_next_task pos_next_task `ul  1 a 4 18 ]
+"16
+} 0
+"15 /Applications/microchip/xc8/v1.44/sources/common/Umul16.c
+[v i2___wmul __wmul `(ui  1 e 2 0 ]
+{
+[v i2___wmul@product __wmul `ui  1 a 2 4 ]
+[v i2___wmul@multiplier multiplier `ui  1 p 2 0 ]
+[v i2___wmul@multiplicand multiplicand `ui  1 p 2 2 ]
+"53
+} 0
